@@ -1,0 +1,1189 @@
+{
+  "seed": 42,
+  "selected_model": "Random Forest leaf=12",
+  "selection_metric": "minimum uncalibrated validation Brier score",
+  "calibration": {
+    "method": "single positive logit slope fitted only on 2024; no intercept preserves swap symmetry",
+    "slope": 1.5173210843250098,
+    "before": {
+      "accuracy": 0.6120857699805068,
+      "roc_auc": 0.6751514409839074,
+      "f1": 0.6388384754990926,
+      "brier": 0.22780183111543473,
+      "log_loss": 0.6469690742240795
+    },
+    "after": {
+      "accuracy": 0.6120857699805068,
+      "roc_auc": 0.6751514409839074,
+      "f1": 0.6388384754990926,
+      "brier": 0.22583619493992046,
+      "log_loss": 0.641378509231131
+    }
+  },
+  "splits": {
+    "train": {
+      "bouts": 5506,
+      "start": "2010-03-21",
+      "end": "2022-12-17",
+      "red_win_rate": 0.5849981837994914
+    },
+    "validation": {
+      "bouts": 504,
+      "start": "2023-01-14",
+      "end": "2023-12-16",
+      "red_win_rate": 0.5734126984126984
+    },
+    "calibration": {
+      "bouts": 513,
+      "start": "2024-01-13",
+      "end": "2024-12-14",
+      "red_win_rate": 0.5399610136452242
+    },
+    "test": {
+      "bouts": 627,
+      "start": "2025-01-11",
+      "end": "2026-03-28",
+      "red_win_rate": 0.5582137161084529
+    }
+  },
+  "experiments": [
+    {
+      "model": "Logistic Regression C=0.1",
+      "validation": {
+        "accuracy": 0.6309523809523809,
+        "roc_auc": 0.6628148386577614,
+        "f1": 0.6847457627118644,
+        "brier": 0.22879598125194123,
+        "log_loss": 0.6494567057952952
+      },
+      "fit_seconds": 0.024,
+      "parameters": {
+        "C": 0.1,
+        "class_weight": null,
+        "dual": false,
+        "fit_intercept": true,
+        "intercept_scaling": 1,
+        "l1_ratio": 0.0,
+        "max_iter": 1200,
+        "n_jobs": null,
+        "penalty": "deprecated",
+        "random_state": 42,
+        "solver": "lbfgs",
+        "tol": 0.0001,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "convergence_warnings": []
+    },
+    {
+      "model": "Logistic Regression C=1",
+      "validation": {
+        "accuracy": 0.6309523809523809,
+        "roc_auc": 0.6626217107910195,
+        "f1": 0.6847457627118644,
+        "brier": 0.22880768218864397,
+        "log_loss": 0.6494832124891575
+      },
+      "fit_seconds": 0.023,
+      "parameters": {
+        "C": 1,
+        "class_weight": null,
+        "dual": false,
+        "fit_intercept": true,
+        "intercept_scaling": 1,
+        "l1_ratio": 0.0,
+        "max_iter": 1200,
+        "n_jobs": null,
+        "penalty": "deprecated",
+        "random_state": 42,
+        "solver": "lbfgs",
+        "tol": 0.0001,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "convergence_warnings": []
+    },
+    {
+      "model": "Random Forest leaf=12",
+      "validation": {
+        "accuracy": 0.626984126984127,
+        "roc_auc": 0.664295485636115,
+        "f1": 0.6802721088435374,
+        "brier": 0.2285828550138574,
+        "log_loss": 0.6489401566660714
+      },
+      "fit_seconds": 1.677,
+      "parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": null,
+        "criterion": "gini",
+        "max_depth": 10,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 12,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 350,
+        "n_jobs": 2,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "convergence_warnings": []
+    },
+    {
+      "model": "Random Forest leaf=25",
+      "validation": {
+        "accuracy": 0.6150793650793651,
+        "roc_auc": 0.6656795686810977,
+        "f1": 0.6722972972972973,
+        "brier": 0.2291892890652834,
+        "log_loss": 0.6503580722463173
+      },
+      "fit_seconds": 1.478,
+      "parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": null,
+        "criterion": "gini",
+        "max_depth": 8,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 25,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 350,
+        "n_jobs": 2,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "convergence_warnings": []
+    },
+    {
+      "model": "Neural Network (32,16)",
+      "validation": {
+        "accuracy": 0.6349206349206349,
+        "roc_auc": 0.6668705238593384,
+        "f1": 0.6870748299319728,
+        "brier": 0.22866487660553914,
+        "log_loss": 0.6493159945041412
+      },
+      "fit_seconds": 0.816,
+      "parameters": {
+        "activation": "relu",
+        "alpha": 1,
+        "batch_size": "auto",
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "early_stopping": false,
+        "epsilon": 1e-08,
+        "hidden_layer_sizes": [
+          32,
+          16
+        ],
+        "learning_rate": "constant",
+        "learning_rate_init": 0.001,
+        "max_fun": 15000,
+        "max_iter": 350,
+        "momentum": 0.9,
+        "n_iter_no_change": 10,
+        "nesterovs_momentum": true,
+        "power_t": 0.5,
+        "random_state": 42,
+        "shuffle": true,
+        "solver": "adam",
+        "tol": 0.0001,
+        "validation_fraction": 0.1,
+        "verbose": false,
+        "warm_start": false
+      },
+      "convergence_warnings": []
+    },
+    {
+      "model": "Neural Network (16,)",
+      "validation": {
+        "accuracy": 0.6369047619047619,
+        "roc_auc": 0.6656634746922026,
+        "f1": 0.692436974789916,
+        "brier": 0.22954063057948373,
+        "log_loss": 0.6511984989525722
+      },
+      "fit_seconds": 0.408,
+      "parameters": {
+        "activation": "relu",
+        "alpha": 3,
+        "batch_size": "auto",
+        "beta_1": 0.9,
+        "beta_2": 0.999,
+        "early_stopping": false,
+        "epsilon": 1e-08,
+        "hidden_layer_sizes": [
+          16
+        ],
+        "learning_rate": "constant",
+        "learning_rate_init": 0.001,
+        "max_fun": 15000,
+        "max_iter": 350,
+        "momentum": 0.9,
+        "n_iter_no_change": 10,
+        "nesterovs_momentum": true,
+        "power_t": 0.5,
+        "random_state": 42,
+        "shuffle": true,
+        "solver": "adam",
+        "tol": 0.0001,
+        "validation_fraction": 0.1,
+        "verbose": false,
+        "warm_start": false
+      },
+      "convergence_warnings": []
+    }
+  ],
+  "test_comparison": [
+    {
+      "model": "Logistic Regression C=0.1",
+      "calibrated": false,
+      "accuracy": 0.6810207336523126,
+      "roc_auc": 0.7125941206807632,
+      "f1": 0.7109826589595376,
+      "brier": 0.2196402927125743,
+      "log_loss": 0.6300414382310838
+    },
+    {
+      "model": "Logistic Regression C=1",
+      "calibrated": false,
+      "accuracy": 0.6794258373205742,
+      "roc_auc": 0.7125838060856111,
+      "f1": 0.7091172214182344,
+      "brier": 0.21960686926652825,
+      "log_loss": 0.6299607167668662
+    },
+    {
+      "model": "Random Forest leaf=12",
+      "calibrated": false,
+      "accuracy": 0.6730462519936204,
+      "roc_auc": 0.7233212996389892,
+      "f1": 0.7007299270072993,
+      "brier": 0.21968013055053393,
+      "log_loss": 0.6306483783193602
+    },
+    {
+      "model": "Random Forest leaf=25",
+      "calibrated": false,
+      "accuracy": 0.6730462519936204,
+      "roc_auc": 0.7268076328004126,
+      "f1": 0.7016011644832606,
+      "brier": 0.22020946746755019,
+      "log_loss": 0.6320214666023397
+    },
+    {
+      "model": "Neural Network (32,16)",
+      "calibrated": false,
+      "accuracy": 0.6842105263157895,
+      "roc_auc": 0.7156162970603404,
+      "f1": 0.7122093023255814,
+      "brier": 0.22062408324932342,
+      "log_loss": 0.6327493928201647
+    },
+    {
+      "model": "Neural Network (16,)",
+      "calibrated": false,
+      "accuracy": 0.6842105263157895,
+      "roc_auc": 0.7151418256833418,
+      "f1": 0.7122093023255814,
+      "brier": 0.22211990764823306,
+      "log_loss": 0.6359466078605456
+    },
+    {
+      "model": "Random Forest leaf=12 + calibration",
+      "calibrated": true,
+      "accuracy": 0.6730462519936204,
+      "roc_auc": 0.7233212996389892,
+      "f1": 0.7007299270072993,
+      "brier": 0.21370911267658854,
+      "log_loss": 0.6167820450846861
+    }
+  ],
+  "test": {
+    "accuracy": 0.6730462519936204,
+    "roc_auc": 0.7233212996389892,
+    "f1": 0.7007299270072993,
+    "brier": 0.21370911267658854,
+    "log_loss": 0.6167820450846861
+  },
+  "test_ci95_event_bootstrap": {
+    "accuracy": [
+      0.6402442734430923,
+      0.7035507744570711
+    ],
+    "roc_auc": [
+      0.6898500509273335,
+      0.7549566906505126
+    ],
+    "f1": [
+      0.6624370219926315,
+      0.7301223685909854
+    ],
+    "brier": [
+      0.20452093798800172,
+      0.22225797124674784
+    ],
+    "log_loss": [
+      0.5964905357162185,
+      0.634606950532197
+    ]
+  },
+  "bootstrap_repetitions": 300,
+  "baselines": {
+    "neutral_50_percent": {
+      "accuracy": 0.5582137161084529,
+      "roc_auc": 0.5,
+      "f1": 0.7164790174002047,
+      "brier": 0.25,
+      "log_loss": 0.6931471805599454
+    },
+    "train_red_corner_prior": {
+      "accuracy": 0.5582137161084529,
+      "roc_auc": 0.5,
+      "f1": 0.7164790174002047,
+      "brier": 0.24732857096633673,
+      "log_loss": 0.6878231860408939
+    }
+  },
+  "ablation_without_source_accuracy": {
+    "validation": {
+      "accuracy": 0.6071428571428571,
+      "roc_auc": 0.6261044499879296,
+      "f1": 0.6644067796610169,
+      "brier": 0.23538646500970892,
+      "log_loss": 0.6631919996179704
+    },
+    "test": {
+      "accuracy": 0.6539074960127592,
+      "roc_auc": 0.6802062919030427,
+      "f1": 0.6859623733719248,
+      "brier": 0.2274892309546025,
+      "log_loss": 0.6468308218197614
+    }
+  },
+  "subgroups": [
+    {
+      "category": "gender",
+      "value": "FEMALE",
+      "bouts": 91,
+      "accuracy": 0.6373626373626373,
+      "roc_auc": 0.7217217217217218,
+      "f1": 0.6796116504854369,
+      "brier": 0.2143272713094849,
+      "log_loss": 0.618151363942177
+    },
+    {
+      "category": "gender",
+      "value": "MALE",
+      "bouts": 536,
+      "accuracy": 0.6791044776119403,
+      "roc_auc": 0.7234938063063063,
+      "f1": 0.7044673539518901,
+      "brier": 0.21360416410271998,
+      "log_loss": 0.6165495674428361
+    },
+    {
+      "category": "weight_class",
+      "value": "Bantamweight",
+      "bouts": 71,
+      "accuracy": 0.6338028169014085,
+      "roc_auc": 0.6642628205128205,
+      "f1": 0.6486486486486487,
+      "brier": 0.225424621959419,
+      "log_loss": 0.640183969663209
+    },
+    {
+      "category": "weight_class",
+      "value": "Featherweight",
+      "bouts": 76,
+      "accuracy": 0.6842105263157895,
+      "roc_auc": 0.7451523545706372,
+      "f1": 0.6666666666666666,
+      "brier": 0.2095363305168738,
+      "log_loss": 0.6071271424424686
+    },
+    {
+      "category": "weight_class",
+      "value": "Flyweight",
+      "bouts": 49,
+      "accuracy": 0.7142857142857143,
+      "roc_auc": 0.7724137931034483,
+      "f1": 0.75,
+      "brier": 0.20019612866712297,
+      "log_loss": 0.5882845853147344
+    },
+    {
+      "category": "weight_class",
+      "value": "Heavyweight",
+      "bouts": 43,
+      "accuracy": 0.6976744186046512,
+      "roc_auc": 0.730952380952381,
+      "f1": 0.7450980392156863,
+      "brier": 0.2143023551381896,
+      "log_loss": 0.6244311717676835
+    },
+    {
+      "category": "weight_class",
+      "value": "Light Heavyweight",
+      "bouts": 45,
+      "accuracy": 0.5777777777777777,
+      "roc_auc": 0.5387931034482758,
+      "f1": 0.6666666666666666,
+      "brier": 0.2504384352146546,
+      "log_loss": 0.6929543758152557
+    },
+    {
+      "category": "weight_class",
+      "value": "Lightweight",
+      "bouts": 84,
+      "accuracy": 0.7023809523809523,
+      "roc_auc": 0.7665324899367453,
+      "f1": 0.7422680412371134,
+      "brier": 0.19665248465420587,
+      "log_loss": 0.5780670081062701
+    },
+    {
+      "category": "weight_class",
+      "value": "Middleweight",
+      "bouts": 88,
+      "accuracy": 0.6931818181818182,
+      "roc_auc": 0.7337830825116761,
+      "f1": 0.7326732673267327,
+      "brier": 0.21316180713756616,
+      "log_loss": 0.6168288796278407
+    },
+    {
+      "category": "weight_class",
+      "value": "Welterweight",
+      "bouts": 70,
+      "accuracy": 0.7,
+      "roc_auc": 0.7425986842105263,
+      "f1": 0.6666666666666666,
+      "brier": 0.21024974757114487,
+      "log_loss": 0.6099883363101579
+    },
+    {
+      "category": "weight_class",
+      "value": "Women's Bantamweight",
+      "bouts": 24,
+      "accuracy": 0.7083333333333334,
+      "roc_auc": 0.8391608391608392,
+      "f1": 0.72,
+      "brier": 0.19772498317824708,
+      "log_loss": 0.5833218341637486
+    },
+    {
+      "category": "weight_class",
+      "value": "Women's Flyweight",
+      "bouts": 28,
+      "accuracy": 0.7142857142857143,
+      "roc_auc": 0.8304093567251463,
+      "f1": 0.75,
+      "brier": 0.1927178624941268,
+      "log_loss": 0.5743136916521435
+    },
+    {
+      "category": "weight_class",
+      "value": "Women's Strawweight",
+      "bouts": 38,
+      "accuracy": 0.5526315789473685,
+      "roc_auc": 0.6162464985994398,
+      "f1": 0.6222222222222222,
+      "brier": 0.23867826868089823,
+      "log_loss": 0.6682344877349576
+    }
+  ],
+  "reliability_bins": [
+    {
+      "low": 0.1,
+      "high": 0.2,
+      "bouts": 12,
+      "mean_prediction": 0.1626524598048207,
+      "observed_a_win_rate": 0.16666666666666666
+    },
+    {
+      "low": 0.2,
+      "high": 0.30000000000000004,
+      "bouts": 54,
+      "mean_prediction": 0.2594743897596065,
+      "observed_a_win_rate": 0.2777777777777778
+    },
+    {
+      "low": 0.30000000000000004,
+      "high": 0.4,
+      "bouts": 99,
+      "mean_prediction": 0.35416657867291373,
+      "observed_a_win_rate": 0.37373737373737376
+    },
+    {
+      "low": 0.4,
+      "high": 0.5,
+      "bouts": 127,
+      "mean_prediction": 0.4526730736378043,
+      "observed_a_win_rate": 0.4409448818897638
+    },
+    {
+      "low": 0.5,
+      "high": 0.6,
+      "bouts": 138,
+      "mean_prediction": 0.5501468739650757,
+      "observed_a_win_rate": 0.5869565217391305
+    },
+    {
+      "low": 0.6000000000000001,
+      "high": 0.7000000000000001,
+      "bouts": 117,
+      "mean_prediction": 0.6469028236933282,
+      "observed_a_win_rate": 0.7948717948717948
+    },
+    {
+      "low": 0.7000000000000001,
+      "high": 0.8,
+      "bouts": 68,
+      "mean_prediction": 0.7463358795412743,
+      "observed_a_win_rate": 0.7941176470588235
+    },
+    {
+      "low": 0.8,
+      "high": 0.9,
+      "bouts": 12,
+      "mean_prediction": 0.8234607046778959,
+      "observed_a_win_rate": 1.0
+    }
+  ],
+  "validation_importance": [
+    {
+      "feature": "age_diff",
+      "label": "Age",
+      "auc_drop": 0.0847412891285105,
+      "std": 0.01011188588206479
+    },
+    {
+      "feature": "striking_accuracy_diff",
+      "label": "Significant strike accuracy",
+      "auc_drop": 0.026155950752393985,
+      "std": 0.008803275993648049
+    },
+    {
+      "feature": "smoothed_win_rate_diff",
+      "label": "Smoothed UFC win rate",
+      "auc_drop": 0.01472921863683918,
+      "std": 0.007406665615182289
+    },
+    {
+      "feature": "takedown_accuracy_diff",
+      "label": "Takedown accuracy",
+      "auc_drop": 0.011999678120222113,
+      "std": 0.0025189349791692227
+    },
+    {
+      "feature": "lose_streak_diff",
+      "label": "Current UFC losing streak",
+      "auc_drop": -0.0004055685201576731,
+      "std": 0.0010931314017611747
+    },
+    {
+      "feature": "win_streak_diff",
+      "label": "Current UFC win streak",
+      "auc_drop": -0.0007306670958396655,
+      "std": 0.0038656756276304917
+    },
+    {
+      "feature": "wins_diff",
+      "label": "Prior UFC wins",
+      "auc_drop": -0.0012585499316005277,
+      "std": 0.005888415555527208
+    },
+    {
+      "feature": "weight_kg_diff",
+      "label": "Weight",
+      "auc_drop": -0.001532147742818002,
+      "std": 0.001269014851419014
+    },
+    {
+      "feature": "reach_cm_diff",
+      "label": "Reach",
+      "auc_drop": -0.0017059628228855983,
+      "std": 0.0021149240565342623
+    },
+    {
+      "feature": "losses_diff",
+      "label": "Prior UFC losses",
+      "auc_drop": -0.0038625573348353816,
+      "std": 0.003879379157843366
+    },
+    {
+      "feature": "experience_diff",
+      "label": "Prior UFC experience",
+      "auc_drop": -0.004976261366379608,
+      "std": 0.0032283017331799562
+    },
+    {
+      "feature": "height_cm_diff",
+      "label": "Height",
+      "auc_drop": -0.005832461575601511,
+      "std": 0.0008950110179460981
+    }
+  ],
+  "audit": {
+    "raw_bouts": 7177,
+    "usable_bouts": 7150,
+    "excluded_nonbinary_or_invalid_date": 8,
+    "duplicate_unordered_bouts_removed": 0,
+    "conflicting_outcomes_removed": 14,
+    "unmatched_bouts_removed": 5,
+    "resolved_name_aliases": 86,
+    "name_aliases": [
+      {
+        "source_name": "Alekander Volkov",
+        "history_name": "Alexander Volkov",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Alessandro Ricci",
+        "history_name": "Alex Ricci",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Alexandra Albu",
+        "history_name": "Aleksandra Albu",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Alex Munoz",
+        "history_name": "Alexander Munoz",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Ali Qaisi",
+        "history_name": "Ali AlQaisi",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Alvaro Herrera",
+        "history_name": "Alvaro Herrera Mendoza",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Ariane Lipski",
+        "history_name": "Ariane da Silva",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Benny Alloway",
+        "history_name": "Ben Alloway",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Bobby Green",
+        "history_name": "King Green",
+        "event_opponent_matches": 19
+      },
+      {
+        "source_name": "Bradley Scott",
+        "history_name": "Brad Scott",
+        "event_opponent_matches": 7
+      },
+      {
+        "source_name": "Brianna Van Buren",
+        "history_name": "Brianna Fortino",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Bubba McDaniel",
+        "history_name": "Robert McDaniel",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Caludia Gadelha",
+        "history_name": "Claudia Gadelha",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Caludio Puelles",
+        "history_name": "Claudio Puelles",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Carlo Pedersoli",
+        "history_name": "Carlo Pedersoli Jr.",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Cheyanne Buys",
+        "history_name": "Cheyanne Vlismas",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Costas Philippou",
+        "history_name": "Constantinos Philippou",
+        "event_opponent_matches": 10
+      },
+      {
+        "source_name": "Cris Cyborg",
+        "history_name": "Cristiane Justino",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Danaa Batgerel",
+        "history_name": "Batgerel Danaa",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Da Un Jung",
+        "history_name": "Da Woon Jung",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Derrick",
+        "history_name": "Derrick Krantz",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Elizeu Dos Santos",
+        "history_name": "Elizeu Zaleski dos Santos",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Emily Peters Kagan",
+        "history_name": "Emily Kagan",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Glaico Franca",
+        "history_name": "Glaico Franca Moreira",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Grigorii Popov",
+        "history_name": "Grigory Popov",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Heather Jo Clark",
+        "history_name": "Heather Clark",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Heili Alateng",
+        "history_name": "Alatengheili",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Humberto Brown",
+        "history_name": "Humberto Brown Morrison",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Ian Garry",
+        "history_name": "Ian Machado Garry",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Jim Crute",
+        "history_name": "Jimmy Crute",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Jimmy Wallhead",
+        "history_name": "Jim Wallhead",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Joanne Calderwood",
+        "history_name": "Joanne Wood",
+        "event_opponent_matches": 11
+      },
+      {
+        "source_name": "Joe Gigliotti",
+        "history_name": "Joseph Gigliotti",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Joshua Culibao",
+        "history_name": "Josh Culibao",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Joshua Sampo",
+        "history_name": "Josh Sampo",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Juan Puig",
+        "history_name": "Juan Manuel Puig",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Junior Hernandez",
+        "history_name": "Ramiro Hernandez",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Kai Kamaka",
+        "history_name": "Kai Kamaka III",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Kalinn Williams",
+        "history_name": "Khaos Williams",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Katlyn Chookagian",
+        "history_name": "Katlyn Cerminara",
+        "event_opponent_matches": 15
+      },
+      {
+        "source_name": "Kevin Souza",
+        "history_name": "Edimilson Souza",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Krzystof Jotko",
+        "history_name": "Krzysztof Jotko",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Leonardo Augusto Leleco",
+        "history_name": "Leonardo Guimaraes",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Liu Pingyuan",
+        "history_name": "Pingyuan Liu",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Luci Pudilova",
+        "history_name": "Lucie Pudilova",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Luiz Garagorri",
+        "history_name": "Eduardo Garagorri",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Michelle Waterson",
+        "history_name": "Michelle Waterson-Gomez",
+        "event_opponent_matches": 10
+      },
+      {
+        "source_name": "Minotauro Nogueira",
+        "history_name": "Antonio Rodrigo Nogueira",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Mirko Cro Cop",
+        "history_name": "Mirko Filipovic",
+        "event_opponent_matches": 5
+      },
+      {
+        "source_name": "Mizuki Inoue",
+        "history_name": "Mizuki",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Montserrat Conejo",
+        "history_name": "Montserrat Conejo Ruiz",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Montserrat Rendon",
+        "history_name": "Montse Rendon",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Na Liang",
+        "history_name": "Liang Na",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Nico Musoke",
+        "history_name": "Nicholas Musoke",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Nina Ansaroff",
+        "history_name": "Nina Nunes",
+        "event_opponent_matches": 7
+      },
+      {
+        "source_name": "Ning Guangyou",
+        "history_name": "Guangyou Ning",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Ode Obsourne",
+        "history_name": "Ode Osbourne",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Omar Antonio Morales Ferrer",
+        "history_name": "Omar Morales",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Patricio Freire",
+        "history_name": "Patricio Pitbull",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Peter Yan",
+        "history_name": "Petr Yan",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Philip Rowe",
+        "history_name": "Phil Rowe",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Phillip Hawes",
+        "history_name": "Phil Hawes",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Polo Reyes",
+        "history_name": "Marco Polo Reyes",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Rafael Feijao",
+        "history_name": "Rafael Cavalcante",
+        "event_opponent_matches": 5
+      },
+      {
+        "source_name": "Rampage Jackson",
+        "history_name": "Quinton Jackson",
+        "event_opponent_matches": 7
+      },
+      {
+        "source_name": "Raphael Pessoa Nunes",
+        "history_name": "Raphael Pessoa",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Rick Glenn",
+        "history_name": "Ricky Glenn",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Roberto Sanchez",
+        "history_name": "Robert Sanchez",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Rob Whiteford",
+        "history_name": "Robert Whiteford",
+        "event_opponent_matches": 5
+      },
+      {
+        "source_name": "Rocco Martin",
+        "history_name": "Anthony Rocco Martin",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "Rodolfo Rubio",
+        "history_name": "Rodolfo Rubio Perez",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Tecia Torres",
+        "history_name": "Tecia Pennington",
+        "event_opponent_matches": 12
+      },
+      {
+        "source_name": "Tiago Trator",
+        "history_name": "Tiago dos Santos e Silva",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Tiequan Zhang",
+        "history_name": "Zhang Tiequan",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Tim Johnson",
+        "history_name": "Timothy Johnson",
+        "event_opponent_matches": 7
+      },
+      {
+        "source_name": "Ulka Sasaki",
+        "history_name": "Yuta Sasaki",
+        "event_opponent_matches": 9
+      },
+      {
+        "source_name": "Veronica Macedo",
+        "history_name": "Veronica Hardy",
+        "event_opponent_matches": 5
+      },
+      {
+        "source_name": "Vincente Luque",
+        "history_name": "Vicente Luque",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Weili Zhang",
+        "history_name": "Zhang Weili",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Wendell Oliveira",
+        "history_name": "Wendell Oliveira Marques",
+        "event_opponent_matches": 2
+      },
+      {
+        "source_name": "William Patolino",
+        "history_name": "William Macario",
+        "event_opponent_matches": 4
+      },
+      {
+        "source_name": "Yana Kunitskaya",
+        "history_name": "Yana Santos",
+        "event_opponent_matches": 6
+      },
+      {
+        "source_name": "Youssef Zalel",
+        "history_name": "Youssef Zalal",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Zachary Reese",
+        "history_name": "Zach Reese",
+        "event_opponent_matches": 3
+      },
+      {
+        "source_name": "Zhalgas Zhamagulov",
+        "history_name": "Zhalgas Zhumagulov",
+        "event_opponent_matches": 1
+      },
+      {
+        "source_name": "Zu Anyanwu",
+        "history_name": "Azunna Anyanwu",
+        "event_opponent_matches": 1
+      }
+    ],
+    "history_rows": 8735,
+    "athletes": 2182,
+    "date_min": "2010-03-21",
+    "date_max": "2026-03-28",
+    "original_red_win_rate": 0.5786013986013986,
+    "invalid_values_set_missing": {
+      "reach_cm": 1
+    },
+    "feature_missing_fraction": {
+      "age_diff": 0.0,
+      "height_cm_diff": 0.0,
+      "reach_cm_diff": 0.00013986013986013986,
+      "weight_kg_diff": 0.0,
+      "wins_diff": 0.0,
+      "losses_diff": 0.0,
+      "win_streak_diff": 0.0,
+      "lose_streak_diff": 0.0,
+      "striking_accuracy_diff": 0.12377622377622377,
+      "takedown_accuracy_diff": 0.13286713286713286,
+      "experience_diff": 0.0,
+      "smoothed_win_rate_diff": 0.0
+    },
+    "excluded_fields": [
+      "fighter names/IDs",
+      "odds and EV",
+      "rankings",
+      "finish/finish_details/finish_round",
+      "finish_round_time/total_fight_time_secs",
+      "snapshot career records",
+      "avg_sig_str_landed/avg_td_landed/avg_sub_att (mixed units)",
+      "current athlete career statistics"
+    ],
+    "records_policy": "UFC wins/losses and streaks reconstructed from ufc_fights dated strictly before the bout day; D/NC reset streaks.",
+    "accuracy_provenance": "Provided historical pre-bout accuracy columns; source timing cannot be independently certified."
+  },
+  "feature_names": [
+    "age_diff",
+    "height_cm_diff",
+    "reach_cm_diff",
+    "weight_kg_diff",
+    "wins_diff",
+    "losses_diff",
+    "win_streak_diff",
+    "lose_streak_diff",
+    "striking_accuracy_diff",
+    "takedown_accuracy_diff",
+    "experience_diff",
+    "smoothed_win_rate_diff"
+  ],
+  "training_feature_ranges": {
+    "age_diff": {
+      "p01": -12.0,
+      "p99": 13.0
+    },
+    "height_cm_diff": {
+      "p01": -15.240000000000009,
+      "p99": 15.240000000000009
+    },
+    "reach_cm_diff": {
+      "p01": -17.78,
+      "p99": 20.319999999999993
+    },
+    "weight_kg_diff": {
+      "p01": -10.886216880000006,
+      "p99": 13.607771099999994
+    },
+    "wins_diff": {
+      "p01": -9.0,
+      "p99": 13.0
+    },
+    "losses_diff": {
+      "p01": -6.0,
+      "p99": 9.0
+    },
+    "win_streak_diff": {
+      "p01": -5.0,
+      "p99": 6.0
+    },
+    "lose_streak_diff": {
+      "p01": -2.0,
+      "p99": 3.0
+    },
+    "striking_accuracy_diff": {
+      "p01": -33.0,
+      "p99": 46.0
+    },
+    "takedown_accuracy_diff": {
+      "p01": -80.44999999999999,
+      "p99": 79.44999999999982
+    },
+    "experience_diff": {
+      "p01": -14.0,
+      "p99": 21.0
+    },
+    "smoothed_win_rate_diff": {
+      "p01": -0.3055555555555556,
+      "p99": 0.3724929971988794
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "sklearn": "1.8.0",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3"
+  },
+  "test_use": "Evaluation only. No tuning, no post-test refit. The shipped model is exactly the tested train-only pipeline plus 2024 calibration."
+}

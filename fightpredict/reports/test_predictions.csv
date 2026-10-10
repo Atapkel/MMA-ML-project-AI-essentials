@@ -1,0 +1,628 @@
+date,fighter_a,fighter_b,weight_class,gender,winner_a,probability_a,predicted_a,correct,confidence
+2025-01-11,Cesar Almeida,Abdul Razak Alhassan,Middleweight,MALE,1,0.6306196741535923,True,True,0.6306196741535923
+2025-01-11,Mackenzie Dern,Amanda Ribas,Women's Strawweight,FEMALE,1,0.5597165135254952,True,True,0.5597165135254952
+2025-01-11,Christian Rodriguez,Austin Bashi,Featherweight,MALE,1,0.5566373658235473,True,True,0.5566373658235473
+2025-01-11,Magomed Gadzhiyasulov,Bruno Lopes,Light Heavyweight,MALE,0,0.6936894120231566,True,False,0.6936894120231566
+2025-01-11,Santiago Ponzinibbio,Carlston Harris,Welterweight,MALE,1,0.49084758143707025,False,False,0.5091524185629297
+2025-01-11,Chris Curtis,Roman Kopylov,Middleweight,MALE,0,0.3346961751537969,False,True,0.6653038248462031
+2025-01-11,Ernesta Kareckaite,Nicolle Caliari,Women's Flyweight,FEMALE,1,0.5418097054097071,True,True,0.5418097054097071
+2025-01-11,Fatima Kline,Viktoriia Dudakova,Women's Strawweight,FEMALE,1,0.43428678281525546,False,False,0.5657132171847445
+2025-01-11,Jose Johnson,Felipe Bunes,Flyweight,MALE,0,0.7147651541657948,True,False,0.7147651541657948
+2025-01-11,Marco Tulio,Ihor Potieria,Middleweight,MALE,1,0.5726474376272186,True,True,0.5726474376272186
+2025-01-11,Preston Parsons,Jacobe Smith,Welterweight,MALE,0,0.37417077975827406,False,True,0.6258292202417259
+2025-01-11,Nurullo Aliev,Joe Solecki,Lightweight,MALE,1,0.6650938451428527,True,True,0.6650938451428527
+2025-01-11,Punahele Soriano,Uros Medic,Welterweight,MALE,1,0.39362068242413334,False,False,0.6063793175758667
+2025-01-11,Thiago Moises,Trey Ogden,Lightweight,MALE,1,0.5060053505921793,True,True,0.5060053505921793
+2025-01-18,Karol Rosa,Ailin Perez,Women's Bantamweight,FEMALE,0,0.5099170617292174,True,False,0.5099170617292174
+2025-01-18,Zach Reese,Azamat Bekoev,Middleweight,MALE,0,0.6805221562245961,True,False,0.6805221562245961
+2025-01-18,Ricky Turcios,Benardo Sopaj,Bantamweight,MALE,0,0.3623592335322675,False,True,0.6376407664677325
+2025-01-18,Bogdan Guskov,Billy Elekana,Light Heavyweight,MALE,1,0.5412214841970368,True,True,0.5412214841970368
+2025-01-18,Tagir Ulanbekov,Clayton Carpenter,Flyweight,MALE,1,0.43718184167928925,False,False,0.5628181583207108
+2025-01-18,Grant Dawson,Diego Ferreira,Lightweight,MALE,1,0.8064510204536467,True,True,0.8064510204536467
+2025-01-18,Islam Makhachev,Renato Moicano,Lightweight,MALE,1,0.8425507907920314,True,True,0.8425507907920314
+2025-01-18,Jailton Almeida,Serghei Spivac,Heavyweight,MALE,1,0.3460476745572475,False,False,0.6539523254427525
+2025-01-18,Jiri Prochazka,Jamahal Hill,Light Heavyweight,MALE,1,0.5713148618154521,True,True,0.5713148618154521
+2025-01-18,Kevin Holland,Reinier de Ridder,Middleweight,MALE,0,0.4459653989862452,False,True,0.5540346010137548
+2025-01-18,Merab Dvalishvili,Umar Nurmagomedov,Bantamweight,MALE,1,0.37319596084490714,False,False,0.6268040391550929
+2025-01-18,Rinya Nakamura,Muin Gafurov,Bantamweight,MALE,0,0.6050841289432849,True,False,0.6050841289432849
+2025-01-18,Payton Talbott,Raoni Barcelos,Bantamweight,MALE,0,0.7587084400064595,True,False,0.7587084400064595
+2025-02-01,Bogdan Grad,Lucas Alexander,Featherweight,MALE,1,0.4972790624175866,False,False,0.5027209375824133
+2025-02-01,Terrance McKinney,Damir Hadzovic,Lightweight,MALE,1,0.6665081221134208,True,True,0.6665081221134208
+2025-02-01,Fares Ziam,Mike Davis,Lightweight,MALE,1,0.6192250274520604,True,True,0.6192250274520604
+2025-02-01,Hamdy Abdelwahab,Jamal Pogues,Heavyweight,MALE,1,0.444178632715446,False,False,0.555821367284554
+2025-02-01,Israel Adesanya,Nassourdine Imavov,Middleweight,MALE,0,0.46766362363793385,False,True,0.5323363763620661
+2025-02-01,Sergei Pavlovich,Jairzinho Rozenstruik,Heavyweight,MALE,1,0.5632747453641429,True,True,0.5632747453641429
+2025-02-01,Jasmine Jasudavicius,Mayra Bueno Silva,Women's Flyweight,FEMALE,1,0.5081766822506997,True,True,0.5081766822506997
+2025-02-01,Muhammad Naimov,Kaan Ofli,Featherweight,MALE,1,0.6654479694446788,True,True,0.6654479694446788
+2025-02-01,Shara Magomedov,Michael Page,Middleweight,MALE,0,0.7403092876263659,True,False,0.7403092876263659
+2025-02-01,Said Nurmagomedov,Vinicius Oliveira,Bantamweight,MALE,0,0.48701417677393466,False,True,0.5129858232260653
+2025-02-01,Shamil Gaziev,Thomas Petersen,Heavyweight,MALE,1,0.32611721831231283,False,False,0.6738827816876871
+2025-02-08,Colby Thicknesse,Aleksandre Topuria,Bantamweight,MALE,0,0.5934637928442384,True,False,0.5934637928442384
+2025-02-08,Quillan Salkilld,Anshul Jubli,Lightweight,MALE,1,0.6630816984110295,True,True,0.6630816984110295
+2025-02-08,Wang Cong,Bruna Brasil,Women's Flyweight,FEMALE,1,0.4637372474481061,False,False,0.5362627525518939
+2025-02-08,Dricus Du Plessis,Sean Strickland,Middleweight,MALE,1,0.8141585968987071,True,True,0.8141585968987071
+2025-02-08,Jake Matthews,Francisco Prado,Welterweight,MALE,1,0.6770332001977589,True,True,0.6770332001977589
+2025-02-08,Jack Jenkins,Gabriel Santos,Featherweight,MALE,0,0.5399816952219944,True,False,0.5399816952219944
+2025-02-08,Jonathan Micallef,Kevin Jousset,Welterweight,MALE,1,0.45449660135929115,False,False,0.5455033986407088
+2025-02-08,Justin Tafa,Tallison Teixeira,Heavyweight,MALE,0,0.31641298339345847,False,True,0.6835870166065415
+2025-02-08,Rongzhu,Kody Steele,Lightweight,MALE,1,0.6874484529093601,True,True,0.6874484529093601
+2025-02-08,Zhang Weili,Tatiana Suarez,Women's Strawweight,FEMALE,1,0.34986069820623156,False,False,0.6501393017937684
+2025-02-08,Tom Nolan,Viacheslav Borshchev,Lightweight,MALE,1,0.6747087424098044,True,True,0.6747087424098044
+2025-02-15,Rodolfo Vieira,Andre Petroski,Middleweight,MALE,0,0.41200812934588343,False,True,0.5879918706541165
+2025-02-15,Angela Hill,Ketlen Souza,Women's Strawweight,FEMALE,1,0.213282091026158,False,False,0.786717908973842
+2025-02-15,Calvin Kattar,Youssef Zalal,Featherweight,MALE,0,0.31521948951028594,False,True,0.684780510489714
+2025-02-15,Connor Matthews,Jose Delgado,Featherweight,MALE,0,0.33786881261930696,False,True,0.662131187380693
+2025-02-15,Don'Tale Mayes,Valter Walker,Heavyweight,MALE,0,0.41384219100188624,False,True,0.5861578089981138
+2025-02-15,Edmen Shahbazyan,Dylan Budka,Middleweight,MALE,1,0.6049236139940374,True,True,0.6049236139940374
+2025-02-15,Vince Morales,Elijah Smith,Bantamweight,MALE,0,0.21307744395754583,False,True,0.7869225560424542
+2025-02-15,Gabriel Bonfim,Khaos Williams,Welterweight,MALE,1,0.5256327460195367,True,True,0.5256327460195367
+2025-02-15,Jared Cannonier,Gregory Rodrigues,Middleweight,MALE,1,0.22597749327736616,False,False,0.7740225067226338
+2025-02-15,Ismael Bonfim,Nazim Sadykhov,Lightweight,MALE,0,0.5307801377248884,True,False,0.5307801377248884
+2025-02-15,Julia Avila,Jacqueline Cavalcanti,Women's Bantamweight,FEMALE,0,0.2440532857218392,False,True,0.7559467142781608
+2025-02-15,Rafael Estevam,Jesus Aguilar,Flyweight,MALE,1,0.5757519940469399,True,True,0.5757519940469399
+2025-02-22,Alonzo Menifield,Julius Walker,Light Heavyweight,MALE,1,0.5514641910930866,True,True,0.5514641910930866
+2025-02-22,Andre Fili,Melquizael Costa,Featherweight,MALE,0,0.32922490916364877,False,True,0.6707750908363512
+2025-02-22,Brendan Allen,Anthony Hernandez,Middleweight,MALE,0,0.5900383151729878,True,False,0.5900383151729878
+2025-02-22,Nikolay Veretennikov,Austin Vanderford,Catch Weight,MALE,0,0.40487922995458875,False,True,0.5951207700454113
+2025-02-22,Nursulton Ruziboev,Eric McConico,Middleweight,MALE,1,0.7163178494740741,True,True,0.7163178494740741
+2025-02-22,Henry Cejudo,Song Yadong,Bantamweight,MALE,0,0.25844666012187506,False,True,0.7415533398781249
+2025-02-22,Ion Cutelaba,Ibo Aslan,Light Heavyweight,MALE,1,0.3672661201316731,False,False,0.6327338798683269
+2025-02-22,Ricky Simon,Javid Basharat,Bantamweight,MALE,1,0.33496714869711075,False,False,0.6650328513028892
+2025-02-22,Rob Font,Jean Matsumoto,Catch Weight,MALE,1,0.26343282591655504,False,False,0.736567174083445
+2025-02-22,Jean Silva,Melsik Baghdasaryan,Featherweight,MALE,1,0.6669009721667837,True,True,0.6669009721667837
+2025-02-22,Mansur Abdul-Malik,Nick Klein,Middleweight,MALE,1,0.6977800376630431,True,True,0.6977800376630431
+2025-02-22,Modestas Bukauskas,Rafael Cerqueira,Light Heavyweight,MALE,1,0.7605008329715317,True,True,0.7605008329715317
+2025-03-01,Andrea Lee,JJ Aldrich,Women's Flyweight,FEMALE,0,0.287861107764667,False,True,0.712138892235333
+2025-03-01,Manel Kape,Asu Almabayev,Flyweight,MALE,1,0.4086260035587825,False,False,0.5913739964412175
+2025-03-01,Austen Lane,Mario Pinto,Heavyweight,MALE,0,0.3210183311128674,False,True,0.6789816688871326
+2025-03-01,Charles Johnson,Ramazan Temirov,Flyweight,MALE,0,0.42157917814086093,False,True,0.5784208218591391
+2025-03-01,Ricardo Ramos,Chepe Mariscal,Featherweight,MALE,0,0.48712640878538277,False,True,0.5128735912146172
+2025-03-01,Cody Brundage,Julian Marquez,Middleweight,MALE,1,0.6230309249905467,True,True,0.6230309249905467
+2025-03-01,Danny Barlow,Sam Patterson,Welterweight,MALE,0,0.49923197765994387,False,True,0.5007680223400561
+2025-03-01,Danny Silva,Lucas Almeida,Featherweight,MALE,1,0.6551366367897556,True,True,0.6551366367897556
+2025-03-01,Nasrat Haqparast,Esteban Ribovics,Lightweight,MALE,1,0.5661633141646927,True,True,0.5661633141646927
+2025-03-01,Hyder Amil,William Gomis,Featherweight,MALE,1,0.3354400467604215,False,False,0.6645599532395785
+2025-03-08,Alex Morono,Carlos Leal,Welterweight,MALE,0,0.3752644819698982,False,True,0.6247355180301017
+2025-03-08,Alex Pereira,Magomed Ankalaev,Light Heavyweight,MALE,0,0.45191042967252965,False,True,0.5480895703274704
+2025-03-08,Amanda Lemos,Iasmin Lucindo,Women's Strawweight,FEMALE,1,0.2565841210649562,False,False,0.7434158789350438
+2025-03-08,Brunno Ferreira,Armen Petrosyan,Middleweight,MALE,1,0.5240715003910655,True,True,0.5240715003910655
+2025-03-08,Djorden Santos,Ozzy Diaz,Middleweight,MALE,0,0.6136831012343599,True,False,0.6136831012343599
+2025-03-08,Mairon Santos,Francis Marshall,Featherweight,MALE,1,0.5709947261348213,True,True,0.5709947261348213
+2025-03-08,Jalin Turner,Ignacio Bahamondes,Lightweight,MALE,0,0.5804723714607882,True,False,0.5804723714607882
+2025-03-08,Joshua Van,Rei Tsuruya,Flyweight,MALE,1,0.7150563750005482,True,True,0.7150563750005482
+2025-03-08,Justin Gaethje,Rafael Fiziev,Lightweight,MALE,1,0.4380530100434598,False,False,0.5619469899565401
+2025-03-08,King Green,Mauricio Ruffy,Lightweight,MALE,0,0.17940139370663366,False,True,0.8205986062933663
+2025-03-15,SuYoung You,AJ Cunningham,Bantamweight,MALE,1,0.6363064841913959,True,True,0.6363064841913959
+2025-03-15,Alexander Hernandez,Kurt Holobaugh,Lightweight,MALE,1,0.7815729293026215,True,True,0.7815729293026215
+2025-03-15,Daniel Barez,Andre Lima,Flyweight,MALE,0,0.1923897043695061,False,True,0.8076102956304939
+2025-03-15,Diyar Nurgozhay,Brendson Ribeiro,Light Heavyweight,MALE,0,0.5412640309058135,True,False,0.5412640309058135
+2025-03-15,Yuneisy Duben,Carli Judice,Women's Flyweight,FEMALE,0,0.4987915431912477,False,True,0.5012084568087523
+2025-03-15,Carlos Vera,Josias Musasa,Bantamweight,MALE,1,0.3081385391433893,False,False,0.6918614608566107
+2025-03-15,Chidi Njokuani,Elizeu Zaleski dos Santos,Welterweight,MALE,1,0.4495500297873754,False,False,0.5504499702126247
+2025-03-15,Da'Mon Blackshear,Cody Gibson,Bantamweight,MALE,1,0.6267582038788153,True,True,0.6267582038788153
+2025-03-15,Josiane Nunes,Priscila Cachoeira,Women's Bantamweight,FEMALE,0,0.5424851232812129,True,False,0.5424851232812129
+2025-03-15,SeungWoo Choi,Kevin Vallejos,Featherweight,MALE,0,0.4407546567953582,False,True,0.5592453432046418
+2025-03-15,Marvin Vettori,Roman Dolidze,Middleweight,MALE,0,0.5526461206091798,True,False,0.5526461206091798
+2025-03-15,Waldo Cortes Acosta,Ryan Spann,Heavyweight,MALE,1,0.665074720227876,True,True,0.665074720227876
+2025-03-15,Stephanie Luciano,Sam Hughes,Women's Strawweight,FEMALE,0,0.6868575155243055,True,False,0.6868575155243055
+2025-03-22,Molly McCann,Alexia Thainara,Women's Strawweight,FEMALE,0,0.4132947123390312,False,True,0.5867052876609689
+2025-03-22,Christian Leroy Duncan,Andrey Pulyaev,Middleweight,MALE,1,0.6227967039015277,True,True,0.6227967039015277
+2025-03-22,Nathan Fletcher,Caolan Loughran,Bantamweight,MALE,0,0.6460370721450559,True,False,0.6460370721450559
+2025-03-22,Jan Blachowicz,Carlos Ulberg,Light Heavyweight,MALE,0,0.1570728098502539,False,True,0.8429271901497462
+2025-03-22,Jordan Vucenic,Chris Duncan,Lightweight,MALE,0,0.2895754987738977,False,True,0.7104245012261023
+2025-03-22,Jai Herbert,Chris Padilla,Lightweight,MALE,0,0.2758799690928578,False,True,0.7241200309071423
+2025-03-22,Lone'er Kavanagh,Felipe dos Santos,Flyweight,MALE,1,0.4640771378668533,False,False,0.5359228621331467
+2025-03-22,Gunnar Nelson,Kevin Holland,Welterweight,MALE,0,0.5273027310091312,True,False,0.5273027310091312
+2025-03-22,Guram Kutateladze,Kaue Fernandes,Lightweight,MALE,0,0.3032782917434532,False,True,0.6967217082565468
+2025-03-22,Leon Edwards,Sean Brady,Welterweight,MALE,0,0.5904091800604157,True,False,0.5904091800604157
+2025-03-22,Marcin Tybura,Mick Parkin,Heavyweight,MALE,1,0.13483813019404833,False,False,0.8651618698059517
+2025-03-22,Nathaniel Wood,Morgan Charriere,Featherweight,MALE,1,0.6063363870174462,True,True,0.6063363870174462
+2025-03-22,Shauna Bannon,Puja Tomar,Women's Strawweight,FEMALE,1,0.4857685335917941,False,False,0.5142314664082059
+2025-03-29,Jose Daniel Medina,Ateba Gautier,Middleweight,MALE,0,0.2148263748153545,False,True,0.7851736251846455
+2025-03-29,MarQuel Mederos,Austin Hubbard,Lightweight,MALE,1,0.6994324015292023,True,True,0.6994324015292023
+2025-03-29,Brandon Moreno,Steve Erceg,Flyweight,MALE,1,0.5639091445325585,True,True,0.5639091445325585
+2025-03-29,Christian Rodriguez,Melquizael Costa,Featherweight,MALE,0,0.6136959510356617,True,False,0.6136959510356617
+2025-03-29,Edgar Chairez,CJ Vergara,Flyweight,MALE,1,0.4795899625052111,False,False,0.5204100374947889
+2025-03-29,David Martinez,Saimon Oliveira,Bantamweight,MALE,1,0.6764109575551595,True,True,0.6764109575551595
+2025-03-29,Manuel Torres,Drew Dober,Lightweight,MALE,1,0.7845137456988279,True,True,0.7845137456988279
+2025-03-29,Jamall Emmers,Gabriel Miranda,Featherweight,MALE,1,0.622162539747953,True,True,0.622162539747953
+2025-03-29,Loopy Godinez,Julia Polastri,Women's Strawweight,FEMALE,1,0.4731331462454017,False,False,0.5268668537545983
+2025-03-29,Ronaldo Rodriguez,Kevin Borjas,Flyweight,MALE,0,0.700471719104445,True,False,0.700471719104445
+2025-03-29,Rafa Garcia,Vinc Pichel,Lightweight,MALE,1,0.527399111457604,True,True,0.527399111457604
+2025-03-29,Raul Rosas Jr.,Vince Morales,Bantamweight,MALE,1,0.8309513023285238,True,True,0.8309513023285238
+2025-04-05,Brad Tavares,Gerald Meerschaert,Middleweight,MALE,1,0.5889994761550862,True,True,0.5889994761550862
+2025-04-05,Cortavious Romious,ChangHo Lee,Bantamweight,MALE,0,0.3487086577669788,False,True,0.6512913422330212
+2025-04-05,Rhys McKee,Daniel Frunza,Welterweight,MALE,1,0.4209920283032235,False,False,0.5790079716967764
+2025-04-05,Diana Belbita,Dione Barbosa,Women's Flyweight,FEMALE,0,0.5649138846563091,True,False,0.5649138846563091
+2025-04-05,Loma Lookboonmee,Istela Nunes,Women's Strawweight,FEMALE,1,0.825663212636586,True,True,0.825663212636586
+2025-04-05,Pat Sabatini,Joanderson Brito,Featherweight,MALE,1,0.48302837262721554,False,False,0.5169716273727845
+2025-04-05,Josh Emmett,Lerone Murphy,Featherweight,MALE,0,0.15031098371596158,False,True,0.8496890162840385
+2025-04-05,Ode Osbourne,Luis Gurule,Flyweight,MALE,1,0.5232630374944809,True,True,0.5232630374944809
+2025-04-05,Martin Buday,Uran Satybaldiev,Heavyweight,MALE,1,0.7266516045447684,True,True,0.7266516045447684
+2025-04-05,Victor Henry,Pedro Falcao,Bantamweight,MALE,1,0.5671098027542399,True,True,0.5671098027542399
+2025-04-05,Torrez Finney,Robert Valentin,Middleweight,MALE,1,0.6012299287310952,True,True,0.6012299287310952
+2025-04-05,Vanessa Demopoulos,Talita Alencar,Women's Strawweight,FEMALE,0,0.6128552144972025,True,False,0.6128552144972025
+2025-04-12,Alexander Volkanovski,Diego Lopes,Featherweight,MALE,1,0.4119010151590929,False,False,0.5880989848409071
+2025-04-12,Bryce Mitchell,Jean Silva,Featherweight,MALE,0,0.4510430894162074,False,True,0.5489569105837926
+2025-04-12,Jim Miller,Chase Hooper,Lightweight,MALE,0,0.1976264087074166,False,True,0.8023735912925833
+2025-04-12,Dan Ige,Sean Woodson,Featherweight,MALE,1,0.24617694530337372,False,False,0.7538230546966262
+2025-04-12,Darren Elkins,Julian Erosa,Featherweight,MALE,0,0.360775395761337,False,True,0.639224604238663
+2025-04-12,Nikita Krylov,Dominick Reyes,Light Heavyweight,MALE,0,0.5847193965037362,True,False,0.5847193965037362
+2025-04-12,Nora Cornolle,Hailey Cowan,Women's Bantamweight,FEMALE,1,0.5725901523518523,True,True,0.5725901523518523
+2025-04-12,Tresean Gore,Marco Tulio,Middleweight,MALE,0,0.5531408423954113,True,False,0.5531408423954113
+2025-04-12,Michael Chandler,Paddy Pimblett,Lightweight,MALE,0,0.13848371126578288,False,True,0.8615162887342172
+2025-04-12,Sedriques Dumas,Michal Oleksiejczuk,Middleweight,MALE,0,0.5492843842996457,True,False,0.5492843842996457
+2025-04-12,Sumudaerji,Mitch Raposo,Flyweight,MALE,1,0.6126493162298754,True,True,0.6126493162298754
+2025-04-12,Yair Rodriguez,Patricio Freire,Featherweight,MALE,1,0.702337340979461,True,True,0.702337340979461
+2025-04-12,Yan Xiaonan,Virna Jandiroba,Women's Strawweight,FEMALE,0,0.5948013170238153,True,False,0.5948013170238153
+2025-04-26,Michel Pereira,Abus Magomedov,Middleweight,MALE,0,0.7865384580810952,True,False,0.7865384580810952
+2025-04-26,Da'Mon Blackshear,Alatengheili,Bantamweight,MALE,1,0.6333769800976721,True,True,0.6333769800976721
+2025-04-26,Ikram Aliskerov,Andre Muniz,Middleweight,MALE,1,0.5286393131134898,True,True,0.5286393131134898
+2025-04-26,Anthony Smith,Zhang Mingyang,Light Heavyweight,MALE,0,0.23001424054750497,False,True,0.769985759452495
+2025-04-26,Malcolm Wellmaker,Cameron Saaiman,Bantamweight,MALE,1,0.34844000068236397,False,False,0.651559999317636
+2025-04-26,Ian Machado Garry,Carlos Prates,Welterweight,MALE,1,0.5531576643341388,True,True,0.5531576643341388
+2025-04-26,Chelsea Chandler,Joselyne Edwards,Women's Bantamweight,FEMALE,0,0.28699970151772164,False,True,0.7130002984822783
+2025-04-26,Chris Gutierrez,John Castaneda,Featherweight,MALE,1,0.677087581303748,True,True,0.677087581303748
+2025-04-26,Giga Chikadze,David Onama,Featherweight,MALE,0,0.448003542632608,False,True,0.551996457367392
+2025-04-26,Evan Elder,Gauge Young,Lightweight,MALE,1,0.5091626124663619,True,True,0.5091626124663619
+2025-04-26,Jaqueline Amorim,Polyana Viana,Women's Strawweight,FEMALE,1,0.7663187023875839,True,True,0.7663187023875839
+2025-04-26,Matt Schnell,Jimmy Flick,Flyweight,MALE,1,0.5020945473351472,True,True,0.5020945473351472
+2025-04-26,Randy Brown,Nicolas Dalby,Welterweight,MALE,1,0.7074031709598747,True,True,0.7074031709598747
+2025-04-26,Timmy Cuamba,Roberto Romero,Featherweight,MALE,1,0.4758082548306708,False,False,0.5241917451693292
+2025-05-03,Ryan Loder,Azamat Bekoev,Middleweight,MALE,0,0.38142489938846386,False,True,0.6185751006115361
+2025-05-03,Reinier de Ridder,Bo Nickal,Middleweight,MALE,1,0.2560336701003242,False,False,0.7439663298996758
+2025-05-03,Cameron Smotherman,Serhiy Sidey,Bantamweight,MALE,0,0.5835342042257522,True,False,0.5835342042257522
+2025-05-03,Cory Sandhagen,Deiveson Figueiredo,Bantamweight,MALE,1,0.4643732505880562,False,False,0.5356267494119438
+2025-05-03,Montel Jackson,Daniel Marcos,Bantamweight,MALE,1,0.5576386999246407,True,True,0.5576386999246407
+2025-05-03,Santiago Ponzinibbio,Daniel Rodriguez,Welterweight,MALE,0,0.4804391302965777,False,True,0.5195608697034223
+2025-05-03,Thomas Petersen,Don'Tale Mayes,Heavyweight,MALE,1,0.5289200230573405,True,True,0.5289200230573405
+2025-05-03,Gaston Bolanos,Quang Le,Bantamweight,MALE,0,0.6831778035384044,True,False,0.6831778035384044
+2025-05-03,Marina Rodriguez,Gillian Robertson,Women's Strawweight,FEMALE,0,0.23774014958119025,False,True,0.7622598504188097
+2025-05-03,Juliana Miller,Ivana Petrovic,Women's Flyweight,FEMALE,1,0.4978630377756993,False,False,0.5021369622243007
+2025-05-03,Jeremy Stephens,Mason Jones,Lightweight,MALE,0,0.46083173805246924,False,True,0.5391682619475308
+2025-05-03,Yana Santos,Miesha Tate,Women's Bantamweight,FEMALE,1,0.65578068922154,True,True,0.65578068922154
+2025-05-10,Jose Aldo,Aiemann Zahabi,Featherweight,MALE,0,0.37886894817175226,False,True,0.6211310518282478
+2025-05-10,Alexa Grasso,Natalia Silva,Women's Flyweight,FEMALE,0,0.24891076205352947,False,True,0.7510892379464705
+2025-05-10,Brad Katona,Bekzat Almakhan,Bantamweight,MALE,0,0.6142513366060369,True,False,0.6142513366060369
+2025-05-10,Belal Muhammad,Jack Della Maddalena,Welterweight,MALE,0,0.34158423187654896,False,True,0.658415768123451
+2025-05-10,Benoit Saint Denis,Kyle Prepolec,Lightweight,MALE,1,0.8751654433378645,True,True,0.8751654433378645
+2025-05-10,Marc-Andre Barriault,Bruno Silva,Middleweight,MALE,1,0.37477889055818586,False,False,0.6252211094418141
+2025-05-10,Mike Malott,Charles Radtke,Welterweight,MALE,1,0.5523332420387276,True,True,0.5523332420387276
+2025-05-10,Daniel Santos,JeongYeong Lee,Featherweight,MALE,1,0.3864628552296874,False,False,0.6135371447703126
+2025-05-10,Modestas Bukauskas,Ion Cutelaba,Light Heavyweight,MALE,1,0.4994764625683375,False,False,0.5005235374316626
+2025-05-10,Navajo Stirling,Ivan Erslan,Light Heavyweight,MALE,1,0.7454995611575096,True,True,0.7454995611575096
+2025-05-10,Jessica Andrade,Jasmine Jasudavicius,Women's Flyweight,FEMALE,0,0.32652715860841497,False,True,0.673472841391585
+2025-05-10,Valentina Shevchenko,Manon Fiorot,Women's Flyweight,FEMALE,1,0.40325297087356904,False,False,0.596747029126431
+2025-05-17,HyunSung Park,Carlos Hernandez,Flyweight,MALE,1,0.6132086873319476,True,True,0.6132086873319476
+2025-05-17,Yadier del Valle,Connor Matthews,Featherweight,MALE,1,0.6769621263640427,True,True,0.6769621263640427
+2025-05-17,Elise Reed,Denise Gomes,Women's Strawweight,FEMALE,0,0.3790544025639044,False,True,0.6209455974360956
+2025-05-17,Dustin Stoltzfus,Nursulton Ruziboev,Middleweight,MALE,0,0.3284140904493045,False,True,0.6715859095506955
+2025-05-17,Gabe Green,Matheus Camilo,Lightweight,MALE,1,0.38535585318784005,False,False,0.61464414681216
+2025-05-17,Gilbert Burns,Michael Morales,Welterweight,MALE,0,0.11919020640744014,False,True,0.8808097935925598
+2025-05-17,Jared Gordon,Thiago Moises,Lightweight,MALE,1,0.3736853601246253,False,False,0.6263146398753747
+2025-05-17,Julian Erosa,Melquizael Costa,Featherweight,MALE,0,0.38800856143875184,False,True,0.6119914385612482
+2025-05-17,Tecia Pennington,Luana Pinheiro,Women's Strawweight,FEMALE,1,0.5297435757431147,True,True,0.5297435757431147
+2025-05-17,Luana Santos,Tainara Lisboa,Women's Bantamweight,FEMALE,1,0.5878946427084453,True,True,0.5878946427084453
+2025-05-17,Sodiq Yusuff,Mairon Santos,Lightweight,MALE,0,0.41090873611601353,False,True,0.5890912638839865
+2025-05-31,Rayanne dos Santos,Alice Ardelean,Women's Strawweight,FEMALE,0,0.581606541024191,True,False,0.581606541024191
+2025-05-31,Jafel Filho,Allan Nascimento,Flyweight,MALE,0,0.4760923142921699,False,True,0.5239076857078301
+2025-05-31,Billy Ray Goff,Ramiz Brahimaj,Welterweight,MALE,0,0.4844656131890741,False,True,0.5155343868109259
+2025-05-31,Bolaji Oki,Michael Aswell Jr.,Lightweight,MALE,1,0.44051078781288955,False,False,0.5594892121871105
+2025-05-31,Dustin Jacoby,Bruno Lopes,Light Heavyweight,MALE,1,0.3263611427773336,False,False,0.6736388572226664
+2025-05-31,Zach Reese,Dusko Todorovic,Middleweight,MALE,1,0.5627774993328918,True,True,0.5627774993328918
+2025-05-31,Kurt Holobaugh,Jordan Leavitt,Lightweight,MALE,0,0.24227786878523405,False,True,0.757722131214766
+2025-05-31,Ketlen Vieira,Macy Chiasson,Women's Featherweight,FEMALE,1,0.45916015940436256,False,False,0.5408398405956374
+2025-05-31,Mateusz Gamrot,Ludovit Klein,Lightweight,MALE,1,0.3931102556568656,False,False,0.6068897443431345
+2025-06-07,Khaos Williams,Andreas Gustafsson,Welterweight,MALE,0,0.6234288837006435,True,False,0.6234288837006435
+2025-06-07,Ariane da Silva,Wang Cong,Women's Flyweight,FEMALE,0,0.4679354950702084,False,True,0.5320645049297916
+2025-06-07,Azamat Murzakanov,Brendson Ribeiro,Light Heavyweight,MALE,1,0.5846191467412502,True,True,0.5846191467412502
+2025-06-07,Bruno Silva,Joshua Van,Flyweight,MALE,0,0.17964283707992998,False,True,0.82035716292007
+2025-06-07,Jeka Saragih,JooSang Yoo,Featherweight,MALE,0,0.5187564839242274,True,False,0.5187564839242274
+2025-06-07,Kelvin Gastelum,Joe Pyfer,Middleweight,MALE,0,0.24310451482578804,False,True,0.756895485174212
+2025-06-07,Julianna Pena,Kayla Harrison,Women's Bantamweight,FEMALE,0,0.4932310089622728,False,True,0.5067689910377272
+2025-06-07,Vicente Luque,Kevin Holland,Welterweight,MALE,0,0.5754370167381669,True,False,0.5754370167381669
+2025-06-07,Mario Bautista,Patchy Mix,Bantamweight,MALE,1,0.759551845057713,True,True,0.759551845057713
+2025-06-07,MarQuel Mederos,Mark Choinski,Lightweight,MALE,1,0.6283987661404677,True,True,0.6283987661404677
+2025-06-07,Merab Dvalishvili,Sean O'Malley,Bantamweight,MALE,1,0.44037464934207377,False,False,0.5596253506579263
+2025-06-07,Quillan Salkilld,Yanal Ashmouz,Lightweight,MALE,1,0.6578342652790633,True,True,0.6578342652790633
+2025-06-07,Serghei Spivac,Waldo Cortes Acosta,Heavyweight,MALE,0,0.3974270073546367,False,True,0.6025729926453633
+2025-06-14,Alonzo Menifield,Oumar Sy,Light Heavyweight,MALE,1,0.26265322589116813,False,False,0.7373467741088319
+2025-06-14,Edmen Shahbazyan,Andre Petroski,Middleweight,MALE,1,0.4454468226188795,False,False,0.5545531773811205
+2025-06-14,Phil Rowe,Ange Loosa,Welterweight,MALE,1,0.5133370255831552,True,True,0.5133370255831552
+2025-06-14,Ricky Simon,Cameron Smotherman,Bantamweight,MALE,1,0.6429478491102786,True,True,0.6429478491102786
+2025-06-14,Cody Durden,Jose Ochoa,Flyweight,MALE,0,0.5369080680997953,True,False,0.5369080680997953
+2025-06-14,Cody Garbrandt,Raoni Barcelos,Bantamweight,MALE,0,0.4784004429097304,False,True,0.5215995570902696
+2025-06-14,Michael Chiesa,Court McGee,Welterweight,MALE,1,0.7096294306421582,True,True,0.7096294306421582
+2025-06-14,Jamey-Lyn Horth,Vanessa Demopoulos,Women's Flyweight,FEMALE,1,0.5301988381378442,True,True,0.5301988381378442
+2025-06-14,Kamaru Usman,Joaquin Buckley,Welterweight,MALE,1,0.5400611094360434,True,True,0.5400611094360434
+2025-06-14,Malcolm Wellmaker,Kris Moutinho,Bantamweight,MALE,1,0.730998048831871,True,True,0.730998048831871
+2025-06-14,Rose Namajunas,Miranda Maverick,Women's Flyweight,FEMALE,1,0.4030900610902479,False,False,0.5969099389097521
+2025-06-21,Tagir Ulanbekov,Azat Maksum,Flyweight,MALE,1,0.6616241169035001,True,True,0.6616241169035001
+2025-06-21,Muhammad Naimov,Bogdan Grad,Featherweight,MALE,1,0.5223828120797321,True,True,0.5223828120797321
+2025-06-21,Curtis Blaydes,Rizvan Kuniev,Heavyweight,MALE,1,0.507194443061155,True,True,0.507194443061155
+2025-06-21,Daria Zhelezniakova,Melissa Mullins,Women's Bantamweight,FEMALE,1,0.3998332777510295,False,False,0.6001667222489705
+2025-06-21,Hamdy Abdelwahab,Mohammed Usman,Heavyweight,MALE,0,0.5741353943589901,True,False,0.5741353943589901
+2025-06-21,Rafael Fiziev,Ignacio Bahamondes,Lightweight,MALE,1,0.4414565981876406,False,False,0.5585434018123594
+2025-06-21,Irina Alekseeva,Klaudia Sygula,Women's Bantamweight,FEMALE,0,0.38418645351195746,False,True,0.6158135464880425
+2025-06-21,Ismail Naurdiev,JunYong Park,Middleweight,MALE,0,0.4858810237502092,False,True,0.5141189762497909
+2025-06-21,Jamahal Hill,Khalil Rountree Jr.,Light Heavyweight,MALE,0,0.6065265651054459,True,False,0.6065265651054459
+2025-06-21,Tofiq Musayev,Myktybek Orolbai,Catch Weight,MALE,0,0.20759366170673593,False,True,0.792406338293264
+2025-06-21,Nazim Sadykhov,Nikolas Motta,Lightweight,MALE,1,0.6442915819545083,True,True,0.6442915819545083
+2025-06-21,Seokhyeon Ko,Oban Elliott,Welterweight,MALE,1,0.2770737345152837,False,False,0.7229262654847163
+2025-06-28,Alexandre Pantoja,Kai Kara-France,Flyweight,MALE,1,0.6919701899676064,True,True,0.6919701899676064
+2025-06-28,Jhonata Diniz,Alvin Hines,Heavyweight,MALE,1,0.6240838490751832,True,True,0.6240838490751832
+2025-06-28,Beneil Dariush,Renato Moicano,Lightweight,MALE,1,0.6351608813152166,True,True,0.6351608813152166
+2025-06-28,Brandon Royval,Joshua Van,Flyweight,MALE,0,0.4043637834179545,False,True,0.5956362165820455
+2025-06-28,Ilia Topuria,Charles Oliveira,Lightweight,MALE,1,0.8090549560798587,True,True,0.8090549560798587
+2025-06-28,Payton Talbott,Felipe Lima,Bantamweight,MALE,1,0.574895388885733,True,True,0.574895388885733
+2025-06-28,Jack Hermansson,Gregory Rodrigues,Middleweight,MALE,0,0.4405258417481397,False,True,0.5594741582518603
+2025-06-28,Hyder Amil,Jose Delgado,Featherweight,MALE,0,0.5389184028173181,True,False,0.5389184028173181
+2025-06-28,Niko Price,Jacobe Smith,Welterweight,MALE,0,0.3111819614000128,False,True,0.6888180385999871
+2025-06-28,Terrance McKinney,Viacheslav Borshchev,Lightweight,MALE,1,0.7800436954291057,True,True,0.7800436954291057
+2025-06-28,Viviane Araujo,Tracy Cortez,Women's Flyweight,FEMALE,0,0.3544747750498133,False,True,0.6455252249501867
+2025-07-12,Vitor Petrino,Austen Lane,Heavyweight,MALE,1,0.7981637871580125,True,True,0.7981637871580125
+2025-07-12,Calvin Kattar,Steve Garcia,Featherweight,MALE,0,0.1666431363131332,False,True,0.8333568636868668
+2025-07-12,Jake Matthews,Chidi Njokuani,Welterweight,MALE,1,0.6215540206262552,True,True,0.6215540206262552
+2025-07-12,Max Griffin,Chris Curtis,Welterweight,MALE,0,0.5272516559902769,True,False,0.5272516559902769
+2025-07-12,Derrick Lewis,Tallison Teixeira,Heavyweight,MALE,1,0.25378312103212536,False,False,0.7462168789678747
+2025-07-12,Lauren Murphy,Eduarda Moura,Women's Flyweight,FEMALE,0,0.28919274562687963,False,True,0.7108072543731203
+2025-07-12,Fatima Kline,Melissa Martinez,Women's Strawweight,FEMALE,1,0.5787297832071129,True,True,0.5787297832071129
+2025-07-12,Stephen Thompson,Gabriel Bonfim,Welterweight,MALE,0,0.3042989477837697,False,True,0.6957010522162304
+2025-07-12,Junior Tafa,Tuco Tokkos,Light Heavyweight,MALE,0,0.7084918404217944,True,False,0.7084918404217944
+2025-07-12,Kennedy Nzechukwu,Valter Walker,Heavyweight,MALE,0,0.40063989764183466,False,True,0.5993601023581654
+2025-07-12,Mitch Ramirez,Mike Davis,Lightweight,MALE,0,0.2782806800119441,False,True,0.7217193199880558
+2025-07-12,Nate Landwehr,Morgan Charriere,Featherweight,MALE,0,0.4363135812439892,False,True,0.5636864187560108
+2025-07-19,Adam Fugitt,Islam Dulatov,Welterweight,MALE,0,0.3743184685738833,False,True,0.6256815314261167
+2025-07-19,Ateba Gautier,Robert Valentin,Middleweight,MALE,1,0.7604229535645209,True,True,0.7604229535645209
+2025-07-19,Marvin Vettori,Brendan Allen,Middleweight,MALE,0,0.2818828773191922,False,True,0.7181171226808079
+2025-07-19,Brunno Ferreira,Jackson McVey,Middleweight,MALE,1,0.5186554306342802,True,True,0.5186554306342802
+2025-07-19,Carli Judice,Nicolle Caliari,Women's Flyweight,FEMALE,1,0.7367104505899503,True,True,0.7367104505899503
+2025-07-19,Kevin Holland,Daniel Rodriguez,Welterweight,MALE,0,0.48449834332372754,False,True,0.5155016566762725
+2025-07-19,Michael Johnson,Daniel Zellhuber,Lightweight,MALE,1,0.22379745173317947,False,False,0.7762025482668206
+2025-07-19,Dan Ige,Patricio Freire,Featherweight,MALE,0,0.7282773765717977,True,False,0.7282773765717977
+2025-07-19,Max Holloway,Dustin Poirier,Lightweight,MALE,1,0.5799293367252413,True,True,0.5799293367252413
+2025-07-19,Francisco Prado,Nikolay Veretennikov,Welterweight,MALE,0,0.7219839357014489,True,False,0.7219839357014489
+2025-07-19,Jimmy Crute,Marcin Prachnio,Light Heavyweight,MALE,1,0.6531202438818721,True,True,0.6531202438818721
+2025-07-19,Kyler Phillips,Vinicius Oliveira,Bantamweight,MALE,0,0.47606159417094046,False,True,0.5239384058290595
+2025-07-19,Ryan Spann,Lukasz Brzeski,Heavyweight,MALE,1,0.493308761095165,False,False,0.506691238904835
+2025-07-19,Paulo Costa,Roman Kopylov,Middleweight,MALE,1,0.4156640945632124,False,False,0.5843359054367876
+2025-07-26,Amanda Ribas,Tabatha Ricci,Women's Strawweight,FEMALE,0,0.5217567851060719,True,False,0.5217567851060719
+2025-07-26,Asu Almabayev,Jose Ochoa,Flyweight,MALE,1,0.6362698614999538,True,True,0.6362698614999538
+2025-07-26,Ibo Aslan,Billy Elekana,Light Heavyweight,MALE,0,0.590325691224522,True,False,0.590325691224522
+2025-07-26,Nikita Krylov,Bogdan Guskov,Light Heavyweight,MALE,0,0.399443855403058,False,True,0.6005561445969421
+2025-07-26,Bryce Mitchell,Said Nurmagomedov,Bantamweight,MALE,1,0.6595792966431433,True,True,0.6595792966431433
+2025-07-26,Muslim Salikhov,Carlos Leal,Welterweight,MALE,1,0.4913337675563552,False,False,0.5086662324436448
+2025-07-26,Davey Grant,Da'Mon Blackshear,Bantamweight,MALE,1,0.2898035512630491,False,False,0.710196448736951
+2025-07-26,Shara Magomedov,Marc-Andre Barriault,Middleweight,MALE,1,0.6687777946072054,True,True,0.6687777946072054
+2025-07-26,Martin Buday,Marcus Buchecha,Heavyweight,MALE,1,0.7727668847148961,True,True,0.7727668847148961
+2025-07-26,Petr Yan,Marcus McGhee,Bantamweight,MALE,1,0.5398663694371633,True,True,0.5398663694371633
+2025-07-26,Mohammad Yahya,Steven Nguyen,Featherweight,MALE,0,0.4737392423837939,False,True,0.5262607576162062
+2025-07-26,Robert Whittaker,Reinier de Ridder,Middleweight,MALE,0,0.2973110922361116,False,True,0.7026889077638885
+2025-08-02,Nick Klein,Andrey Pulyaev,Middleweight,MALE,0,0.4668294416619179,False,True,0.5331705583380821
+2025-08-02,Austin Bashi,John Yannis,Featherweight,MALE,1,0.631725579218556,True,True,0.631725579218556
+2025-08-02,Mateusz Rebecki,Chris Duncan,Lightweight,MALE,0,0.45809189169426046,False,True,0.5419081083057395
+2025-08-02,Danny Silva,Kevin Vallejos,Featherweight,MALE,0,0.5787186385811451,True,False,0.5787186385811451
+2025-08-02,Neil Magny,Elizeu Zaleski dos Santos,Welterweight,MALE,1,0.5873638872384023,True,True,0.5873638872384023
+2025-08-02,Elves Brener,Esteban Ribovics,Lightweight,MALE,0,0.5774593759816857,True,False,0.5774593759816857
+2025-08-02,Rafael Estevam,Felipe Bunes,Flyweight,MALE,1,0.7264976735001797,True,True,0.7264976735001797
+2025-08-02,Tatsuro Taira,HyunSung Park,Flyweight,MALE,1,0.7315764979804735,True,True,0.7315764979804735
+2025-08-02,Karol Rosa,Nora Cornolle,Women's Bantamweight,FEMALE,1,0.569789178359296,True,True,0.569789178359296
+2025-08-02,Piera Rodriguez,Ketlen Souza,Women's Strawweight,FEMALE,1,0.5791934328132881,True,True,0.5791934328132881
+2025-08-02,Rinya Nakamura,Nathan Fletcher,Bantamweight,MALE,1,0.465482653565572,False,False,0.5345173464344279
+2025-08-02,Rodolfo Vieira,Tresean Gore,Middleweight,MALE,1,0.5512980274557912,True,True,0.5512980274557912
+2025-08-09,Andre Fili,Christian Rodriguez,Featherweight,MALE,1,0.3428918083277904,False,False,0.6571081916722096
+2025-08-09,Iasmin Lucindo,Angela Hill,Women's Strawweight,FEMALE,1,0.7493585444463227,True,True,0.7493585444463227
+2025-08-09,Roman Dolidze,Anthony Hernandez,Middleweight,MALE,0,0.36399757826454116,False,True,0.6360024217354588
+2025-08-09,Eryk Anders,Christian Leroy Duncan,Middleweight,MALE,0,0.22528517380832266,False,True,0.7747148261916773
+2025-08-09,Cody Brundage,Eric McConico,Light Heavyweight,MALE,0,0.747563951581629,True,False,0.747563951581629
+2025-08-09,Elijah Smith,Toshiomi Kazama,Bantamweight,MALE,1,0.6776701912881107,True,True,0.6776701912881107
+2025-08-09,Gabriella Fernandes,Julija Stoliarenko,Women's Flyweight,FEMALE,1,0.6971075674563393,True,True,0.6971075674563393
+2025-08-09,Uros Medic,Gilbert Urbina,Welterweight,MALE,1,0.560588362914808,True,True,0.560588362914808
+2025-08-09,Miles Johns,Jean Matsumoto,Bantamweight,MALE,0,0.5044554057405121,True,False,0.5044554057405121
+2025-08-09,Joselyne Edwards,Priscila Cachoeira,Women's Bantamweight,FEMALE,1,0.6694537774186895,True,True,0.6694537774186895
+2025-08-09,Julius Walker,Rafael Cerqueira,Light Heavyweight,MALE,1,0.7363289156205077,True,True,0.7363289156205077
+2025-08-09,Steve Erceg,Ode Osbourne,Bantamweight,MALE,1,0.5479143245816807,True,True,0.5479143245816807
+2025-08-16,Lerone Murphy,Aaron Pico,Featherweight,MALE,1,0.7767609316153546,True,True,0.7767609316153546
+2025-08-16,Chase Hooper,Alexander Hernandez,Lightweight,MALE,0,0.7535322601279428,True,False,0.7535322601279428
+2025-08-16,Alibi Idiris,Joseph Morales,Flyweight,MALE,0,0.5040280821542682,True,False,0.5040280821542682
+2025-08-16,Baisangur Susurkaev,Eric Nolan,Middleweight,MALE,1,0.7194210611423117,True,True,0.7194210611423117
+2025-08-16,Geoff Neal,Carlos Prates,Welterweight,MALE,0,0.3890492204464255,False,True,0.6109507795535745
+2025-08-16,Karine Silva,Dione Barbosa,Women's Flyweight,FEMALE,1,0.6302772918019907,True,True,0.6302772918019907
+2025-08-16,Edson Barboza,Drakkar Klose,Lightweight,MALE,0,0.37691577306607593,False,True,0.6230842269339241
+2025-08-16,Dricus Du Plessis,Khamzat Chimaev,Middleweight,MALE,0,0.5417080687928341,True,False,0.5417080687928341
+2025-08-16,Gerald Meerschaert,Michal Oleksiejczuk,Middleweight,MALE,0,0.42328418034106946,False,True,0.5767158196589306
+2025-08-16,Jared Cannonier,Michael Page,Middleweight,MALE,0,0.3758018288822909,False,True,0.6241981711177091
+2025-08-16,Jessica Andrade,Loopy Godinez,Women's Strawweight,FEMALE,0,0.4829504644558207,False,True,0.5170495355441793
+2025-08-16,Tim Elliott,Kai Asakura,Flyweight,MALE,1,0.6748241090739358,True,True,0.6748241090739358
+2025-08-23,Brian Ortega,Aljamain Sterling,Catch Weight,MALE,0,0.3967948869324229,False,True,0.6032051130675771
+2025-08-23,Rongzhu,Austin Hubbard,Lightweight,MALE,1,0.6631348012978817,True,True,0.6631348012978817
+2025-08-23,Charles Johnson,Lone'er Kavanagh,Flyweight,MALE,1,0.30656285071057854,False,False,0.6934371492894215
+2025-08-23,Uran Satybaldiev,Diyar Nurgozhay,Light Heavyweight,MALE,1,0.30112671784842826,False,False,0.6988732821515717
+2025-08-23,Maheshate,Gauge Young,Lightweight,MALE,0,0.4983700457740503,False,True,0.5016299542259497
+2025-08-23,Johnny Walker,Zhang Mingyang,Light Heavyweight,MALE,1,0.38473146797471197,False,False,0.615268532025288
+2025-08-23,Sumudaerji,Kevin Borjas,Flyweight,MALE,1,0.6352602685895238,True,True,0.6352602685895238
+2025-08-23,Taiyilake Nueraji,Kiefer Crosbie,Welterweight,MALE,1,0.7068233924385694,True,True,0.7068233924385694
+2025-08-23,Michel Pereira,Kyle Daukaus,Middleweight,MALE,0,0.7439319531142691,True,False,0.7439319531142691
+2025-08-23,Sergei Pavlovich,Waldo Cortes Acosta,Heavyweight,MALE,1,0.4869908890811409,False,False,0.513009110918859
+2025-08-23,Xiao Long,SuYoung You,Bantamweight,MALE,0,0.40296539439419493,False,True,0.5970346056058051
+2025-08-23,Yizha,Westin Wilson,Featherweight,MALE,1,0.5518321697942477,True,True,0.5518321697942477
+2025-09-06,Andreas Gustafsson,Rinat Fakhretdinov,Welterweight,MALE,0,0.32802403102118094,False,True,0.6719759689788191
+2025-09-06,Marcin Tybura,Ante Delija,Heavyweight,MALE,0,0.6759540203754337,True,False,0.6759540203754337
+2025-09-06,Axel Sola,Rhys McKee,Welterweight,MALE,1,0.6918207608512403,True,True,0.6918207608512403
+2025-09-06,Benoit Saint Denis,Mauricio Ruffy,Lightweight,MALE,1,0.4651926849364237,False,False,0.5348073150635764
+2025-09-06,Bolaji Oki,Mason Jones,Lightweight,MALE,0,0.5510041627166639,True,False,0.5510041627166639
+2025-09-06,Brad Tavares,Robert Bryczek,Middleweight,MALE,0,0.6137121834069229,True,False,0.6137121834069229
+2025-09-06,Oumar Sy,Brendson Ribeiro,Light Heavyweight,MALE,1,0.5285670955233562,True,True,0.5285670955233562
+2025-09-06,Nassourdine Imavov,Caio Borralho,Middleweight,MALE,1,0.47270805703750535,False,False,0.5272919429624947
+2025-09-06,Harry Hardwick,Kaue Fernandes,Lightweight,MALE,0,0.24318438875953044,False,True,0.7568156112404696
+2025-09-06,Modestas Bukauskas,Paul Craig,Light Heavyweight,MALE,1,0.6607129148781704,True,True,0.6607129148781704
+2025-09-06,William Gomis,Robert Ruchala,Featherweight,MALE,1,0.6897268926639455,True,True,0.6897268926639455
+2025-09-06,Shauna Bannon,Sam Hughes,Women's Strawweight,FEMALE,0,0.5130853992459851,True,False,0.5130853992459851
+2025-09-06,Sam Patterson,Trey Waters,Welterweight,MALE,1,0.5531992049046762,True,True,0.5531992049046762
+2025-09-13,Alessandro Costa,Alden Coria,Flyweight,MALE,0,0.546153362160403,True,False,0.546153362160403
+2025-09-13,Alexander Hernandez,Diego Ferreira,Lightweight,MALE,1,0.614445539543233,True,True,0.614445539543233
+2025-09-13,Montse Rendon,Alice Pereira,Women's Bantamweight,FEMALE,1,0.28875262616281044,False,False,0.7112473738371896
+2025-09-13,Tatiana Suarez,Amanda Lemos,Women's Strawweight,FEMALE,1,0.6423173280549432,True,True,0.6423173280549432
+2025-09-13,Claudio Puelles,Joaquim Silva,Lightweight,MALE,0,0.6409271866743809,True,False,0.6409271866743809
+2025-09-13,Rodrigo Sezinando,Daniil Donchenko,Welterweight,MALE,0,0.3272803269752358,False,True,0.6727196730247642
+2025-09-13,Rob Font,David Martinez,Bantamweight,MALE,0,0.3629595398477398,False,True,0.6370404601522601
+2025-09-13,Diego Lopes,Jean Silva,Featherweight,MALE,1,0.36297084823917564,False,False,0.6370291517608244
+2025-09-13,Jose Daniel Medina,Dusko Todorovic,Middleweight,MALE,0,0.23159403320051195,False,True,0.768405966799488
+2025-09-13,Kelvin Gastelum,Dustin Stoltzfus,Middleweight,MALE,1,0.6390441846889721,True,True,0.6390441846889721
+2025-09-13,Rafa Garcia,Jared Gordon,Lightweight,MALE,1,0.5036465620932956,True,True,0.5036465620932956
+2025-09-13,Jesus Aguilar,Luis Gurule,Flyweight,MALE,1,0.6886275789132958,True,True,0.6886275789132958
+2025-09-13,Santiago Luna,Quang Le,Bantamweight,MALE,1,0.7620448450237278,True,True,0.7620448450237278
+2025-09-27,Loma Lookboonmee,Alexia Thainara,Women's Strawweight,FEMALE,0,0.6505755242579677,True,False,0.6505755242579677
+2025-09-27,Cam Rowston,Andre Petroski,Middleweight,MALE,1,0.3590491773432522,False,False,0.6409508226567477
+2025-09-27,Brando Pericic,Elisha Ellison,Heavyweight,MALE,1,0.425457193208103,False,False,0.574542806791897
+2025-09-27,Carlos Ulberg,Dominick Reyes,Light Heavyweight,MALE,1,0.7159309140884712,True,True,0.7159309140884712
+2025-09-27,Tom Nolan,Charlie Campbell,Lightweight,MALE,1,0.5442784027228215,True,True,0.5442784027228215
+2025-09-27,Colby Thicknesse,Josias Musasa,Bantamweight,MALE,1,0.431999936522601,False,False,0.568000063477399
+2025-09-27,Jimmy Crute,Ivan Erslan,Light Heavyweight,MALE,1,0.8137536958974232,True,True,0.8137536958974232
+2025-09-27,Jack Jenkins,Ramon Taveras,Featherweight,MALE,1,0.704797301904931,True,True,0.704797301904931
+2025-09-27,Jake Matthews,Neil Magny,Welterweight,MALE,0,0.5333133789881614,True,False,0.5333133789881614
+2025-09-27,Jamie Mullarkey,Rolando Bedoya,Lightweight,MALE,1,0.5984513366698767,True,True,0.5984513366698767
+2025-09-27,Michelle Montague,Luana Carolina,Women's Bantamweight,FEMALE,1,0.3093678755507058,False,False,0.6906321244492942
+2025-09-27,Navajo Stirling,Rodolfo Bellato,Light Heavyweight,MALE,1,0.6447357944896074,True,True,0.6447357944896074
+2025-10-04,Abus Magomedov,Joe Pyfer,Middleweight,MALE,0,0.4076217298232131,False,True,0.5923782701767869
+2025-10-04,Magomed Ankalaev,Alex Pereira,Light Heavyweight,MALE,0,0.6821743933163397,True,False,0.6821743933163397
+2025-10-04,Edmen Shahbazyan,Andre Muniz,Middleweight,MALE,1,0.627151322150736,True,True,0.627151322150736
+2025-10-04,Ateba Gautier,Tre'ston Vines,Middleweight,MALE,1,0.823941431555631,True,True,0.823941431555631
+2025-10-04,Ramiz Brahimaj,Austin Vanderford,Welterweight,MALE,1,0.5323209264952407,True,True,0.5323209264952407
+2025-10-04,Veronica Hardy,Brogan Walker,Women's Flyweight,FEMALE,1,0.8061814085359625,True,True,0.8061814085359625
+2025-10-04,Chris Gutierrez,Farid Basharat,Bantamweight,MALE,0,0.3141406858180608,False,True,0.6858593141819391
+2025-10-04,Merab Dvalishvili,Cory Sandhagen,Bantamweight,MALE,1,0.5888680718375822,True,True,0.5888680718375822
+2025-10-04,Daniel Santos,JooSang Yoo,Catch Weight,MALE,1,0.6098365786808618,True,True,0.6098365786808618
+2025-10-04,Patchy Mix,Jakub Wiklacz,Bantamweight,MALE,0,0.4668696291918669,False,True,0.5331303708081331
+2025-10-04,Jiri Prochazka,Khalil Rountree Jr.,Light Heavyweight,MALE,1,0.6462904504226522,True,True,0.6462904504226522
+2025-10-04,Josh Emmett,Youssef Zalal,Featherweight,MALE,0,0.3108665358797434,False,True,0.6891334641202567
+2025-10-04,Macy Chiasson,Yana Santos,Women's Bantamweight,FEMALE,0,0.554501473609636,True,False,0.554501473609636
+2025-10-04,Punahele Soriano,Nikolay Veretennikov,Welterweight,MALE,1,0.7786319544572504,True,True,0.7786319544572504
+2025-10-11,Bia Mesquita,Irina Alekseeva,Women's Bantamweight,FEMALE,1,0.6097769494829062,True,True,0.6097769494829062
+2025-10-11,Charles Oliveira,Mateusz Gamrot,Lightweight,MALE,1,0.509954514705747,True,True,0.509954514705747
+2025-10-11,Jafel Filho,Clayton Carpenter,Flyweight,MALE,1,0.37261856419755696,False,False,0.627381435802443
+2025-10-11,Deiveson Figueiredo,Montel Jackson,Bantamweight,MALE,1,0.3037751233336085,False,False,0.6962248766663914
+2025-10-11,Jhonata Diniz,Mario Pinto,Heavyweight,MALE,0,0.3589216986544627,False,True,0.6410783013455372
+2025-10-11,Vicente Luque,Joel Alvarez,Welterweight,MALE,0,0.4423874117186553,False,True,0.5576125882813447
+2025-10-11,Julia Polastri,Karolina Kowalkiewicz,Women's Strawweight,FEMALE,1,0.7118062462381707,True,True,0.7118062462381707
+2025-10-11,Ricardo Ramos,Kaan Ofli,Featherweight,MALE,0,0.6275712673741294,True,False,0.6275712673741294
+2025-10-11,Luan Lacerda,Saimon Oliveira,Bantamweight,MALE,1,0.5521247204061118,True,True,0.5521247204061118
+2025-10-11,Lucas Almeida,Michael Aswell Jr.,Featherweight,MALE,0,0.3839050298945193,False,True,0.6160949701054808
+2025-10-11,Lucas Rocha,Stewart Nicoll,Flyweight,MALE,1,0.7057023575759651,True,True,0.7057023575759651
+2025-10-11,Vitor Petrino,Thomas Petersen,Heavyweight,MALE,1,0.5814687360955637,True,True,0.5814687360955637
+2025-10-18,Marlon Vera,Aiemann Zahabi,Bantamweight,MALE,0,0.39406478703579584,False,True,0.6059352129642042
+2025-10-18,Cody Gibson,Aoriqileng,Bantamweight,MALE,0,0.39544136918620004,False,True,0.6045586308138
+2025-10-18,Azamat Bekoev,Yousri Belgaroui,Middleweight,MALE,0,0.6345115637845002,True,False,0.6345115637845002
+2025-10-18,Reinier de Ridder,Brendan Allen,Middleweight,MALE,0,0.571931055153575,True,False,0.571931055153575
+2025-10-18,Bruno Silva,HyunSung Park,Flyweight,MALE,1,0.3144231871022493,False,False,0.6855768128977506
+2025-10-18,Charles Jourdain,Davey Grant,Bantamweight,MALE,1,0.5614879500063187,True,True,0.5614879500063187
+2025-10-18,Danny Barlow,Djorden Santos,Middleweight,MALE,0,0.5386816209477543,True,False,0.5386816209477543
+2025-10-18,Kyle Prepolec,Drew Dober,Lightweight,MALE,0,0.25962417694377277,False,True,0.7403758230562272
+2025-10-18,Manon Fiorot,Jasmine Jasudavicius,Women's Flyweight,FEMALE,1,0.4301846398449139,False,False,0.5698153601550862
+2025-10-18,Kevin Holland,Mike Malott,Welterweight,MALE,0,0.3851588351147074,False,True,0.6148411648852926
+2025-10-18,Kyle Nelson,Matt Frevola,Lightweight,MALE,1,0.44693034197607723,False,False,0.5530696580239227
+2025-10-18,Melissa Croden,Tainara Lisboa,Women's Bantamweight,FEMALE,1,0.41524676513004066,False,False,0.5847532348699593
+2025-10-18,Stephanie Luciano,Ravena Oliveira,Women's Strawweight,FEMALE,1,0.7539312926268823,True,True,0.7539312926268823
+2025-10-25,Aleksandar Rakic,Azamat Murzakanov,Light Heavyweight,MALE,0,0.42356933512406814,False,True,0.5764306648759319
+2025-10-25,Alexander Volkov,Jailton Almeida,Heavyweight,MALE,1,0.47438414457067524,False,False,0.5256158554293248
+2025-10-25,Azat Maksum,Mitch Raposo,Flyweight,MALE,0,0.38381856523988483,False,True,0.6161814347601151
+2025-10-25,Hamdy Abdelwahab,Chris Barnett,Heavyweight,MALE,1,0.6640875581788999,True,True,0.6640875581788999
+2025-10-25,Ikram Aliskerov,JunYong Park,Middleweight,MALE,1,0.484163843444062,False,False,0.515836156555938
+2025-10-25,Jaqueline Amorim,Mizuki,Women's Strawweight,FEMALE,0,0.6250473399013747,True,False,0.6250473399013747
+2025-10-25,Nathaniel Wood,Jose Delgado,Featherweight,MALE,1,0.36334950316031844,False,False,0.6366504968396816
+2025-10-25,Valter Walker,Louie Sutherland,Heavyweight,MALE,1,0.7226971920712298,True,True,0.7226971920712298
+2025-10-25,Ludovit Klein,Mateusz Rebecki,Lightweight,MALE,1,0.6943048647701796,True,True,0.6943048647701796
+2025-10-25,Virna Jandiroba,Mackenzie Dern,Women's Strawweight,FEMALE,0,0.5220270585695755,True,False,0.5220270585695755
+2025-10-25,Umar Nurmagomedov,Mario Bautista,Bantamweight,MALE,1,0.4632838819582679,False,False,0.5367161180417321
+2025-10-25,Nasrat Haqparast,Quillan Salkilld,Lightweight,MALE,0,0.28216447276737866,False,True,0.7178355272326213
+2025-11-01,Alice Ardelean,Montserrat Conejo Ruiz,Women's Strawweight,FEMALE,1,0.5307027651029452,True,True,0.5307027651029452
+2025-11-01,Allan Nascimento,Cody Durden,Catch Weight,MALE,1,0.6182304139769147,True,True,0.6182304139769147
+2025-11-01,Waldo Cortes Acosta,Ante Delija,Heavyweight,MALE,1,0.7577946265564492,True,True,0.7577946265564492
+2025-11-01,Talita Alencar,Ariane Carnelossi,Women's Strawweight,FEMALE,1,0.38248935819783836,False,False,0.6175106418021616
+2025-11-01,Billy Elekana,Kevin Christian,Light Heavyweight,MALE,1,0.5718638776519394,True,True,0.5718638776519394
+2025-11-01,Timmy Cuamba,ChangHo Lee,Bantamweight,MALE,1,0.4458833854727471,False,False,0.5541166145272529
+2025-11-01,Charles Radtke,Daniel Frunza,Welterweight,MALE,1,0.6029265082348904,True,True,0.6029265082348904
+2025-11-01,Steve Garcia,David Onama,Featherweight,MALE,1,0.5507269613523796,True,True,0.5507269613523796
+2025-11-01,Donte Johnson,Sedriques Dumas,Middleweight,MALE,1,0.530012367349746,True,True,0.530012367349746
+2025-11-01,Isaac Dulgarian,Yadier del Valle,Featherweight,MALE,0,0.5329055549165903,True,False,0.5329055549165903
+2025-11-01,Jeremiah Wells,Themba Gorimbo,Welterweight,MALE,1,0.31034348349226437,False,False,0.6896565165077356
+2025-11-01,Ketlen Vieira,Norma Dumont,Women's Bantamweight,FEMALE,0,0.41965293232415074,False,True,0.5803470676758493
+2025-11-01,Phil Rowe,Seokhyeon Ko,Welterweight,MALE,0,0.4511309068129532,False,True,0.5488690931870468
+2025-11-08,Chris Padilla,Ismael Bonfim,Lightweight,MALE,1,0.6058316414767292,True,True,0.6058316414767292
+2025-11-08,Christian Leroy Duncan,Marco Tulio,Middleweight,MALE,1,0.5481484100666082,True,True,0.5481484100666082
+2025-11-08,Miles Johns,Daniel Marcos,Bantamweight,MALE,0,0.41273199481494716,False,True,0.5872680051850528
+2025-11-08,Tecia Pennington,Denise Gomes,Women's Strawweight,FEMALE,0,0.25385968370382933,False,True,0.7461403162961706
+2025-11-08,Gabriel Bonfim,Randy Brown,Welterweight,MALE,1,0.6426159140572767,True,True,0.6426159140572767
+2025-11-08,Hyder Amil,Jamall Emmers,Featherweight,MALE,0,0.5380895097071362,True,False,0.5380895097071362
+2025-11-08,Zach Reese,Jackson McVey,Catch Weight,MALE,1,0.526047805369977,True,True,0.526047805369977
+2025-11-08,Mayra Bueno Silva,Jacqueline Cavalcanti,Women's Bantamweight,FEMALE,0,0.2871582739677474,False,True,0.7128417260322526
+2025-11-08,Matt Schnell,Joseph Morales,Flyweight,MALE,0,0.4527193946196808,False,True,0.5472806053803192
+2025-11-08,Josh Hokit,Max Gimenis,Heavyweight,MALE,1,0.6728546960307924,True,True,0.6728546960307924
+2025-11-08,Muslim Salikhov,Uros Medic,Welterweight,MALE,0,0.5142092695543298,True,False,0.5142092695543298
+2025-11-08,Ricky Simon,Raoni Barcelos,Bantamweight,MALE,0,0.5725334051629035,True,False,0.5725334051629035
+2025-11-15,Angela Hill,Fatima Kline,Women's Strawweight,FEMALE,0,0.22956053586495348,False,True,0.7704394641350465
+2025-11-15,Baisangur Susurkaev,Eric McConico,Middleweight,MALE,1,0.7688501986138332,True,True,0.7688501986138332
+2025-11-15,Beneil Dariush,Benoit Saint Denis,Lightweight,MALE,0,0.38520342892360265,False,True,0.6147965710763974
+2025-11-15,Bo Nickal,Rodolfo Vieira,Middleweight,MALE,1,0.6888916332288203,True,True,0.6888916332288203
+2025-11-15,Leon Edwards,Carlos Prates,Welterweight,MALE,0,0.4291315663749303,False,True,0.5708684336250698
+2025-11-15,Pat Sabatini,Chepe Mariscal,Featherweight,MALE,1,0.4602569204343573,False,False,0.5397430795656427
+2025-11-15,Erin Blanchfield,Tracy Cortez,Women's Flyweight,FEMALE,1,0.6107900320237711,True,True,0.6107900320237711
+2025-11-15,Malcolm Wellmaker,Ethyn Ewing,Featherweight,MALE,0,0.6044174859954381,True,False,0.6044174859954381
+2025-11-15,Kyle Daukaus,Gerald Meerschaert,Middleweight,MALE,1,0.5920075829460106,True,True,0.5920075829460106
+2025-11-15,Roman Kopylov,Gregory Rodrigues,Middleweight,MALE,0,0.41414448387926395,False,True,0.585855516120736
+2025-11-15,Jack Della Maddalena,Islam Makhachev,Welterweight,MALE,0,0.4383632532881053,False,True,0.5616367467118947
+2025-11-15,Viacheslav Borshchev,Matheus Camilo,Lightweight,MALE,0,0.5240884465073846,True,False,0.5240884465073846
+2025-11-15,Sean Brady,Michael Morales,Welterweight,MALE,0,0.334391419932756,False,True,0.665608580067244
+2025-11-15,Valentina Shevchenko,Zhang Weili,Women's Flyweight,FEMALE,1,0.6317637584404484,True,True,0.6317637584404484
+2025-11-22,Abdul Rakhman Yakhyaev,Rafael Cerqueira,Light Heavyweight,MALE,1,0.7946814863903866,True,True,0.7946814863903866
+2025-11-22,Bekzat Almakhan,Aleksandre Topuria,Bantamweight,MALE,0,0.4843779563048122,False,True,0.5156220436951878
+2025-11-22,Alex Perez,Asu Almabayev,Flyweight,MALE,0,0.35180523412603815,False,True,0.6481947658739619
+2025-11-22,Volkan Oezdemir,Alonzo Menifield,Light Heavyweight,MALE,1,0.4012475970887567,False,False,0.5987524029112433
+2025-11-22,Arman Tsarukyan,Dan Hooker,Lightweight,MALE,1,0.6062150699020161,True,True,0.6062150699020161
+2025-11-22,Belal Muhammad,Ian Machado Garry,Welterweight,MALE,0,0.27712898108639783,False,True,0.7228710189136022
+2025-11-22,Bogdan Grad,Luke Riley,Featherweight,MALE,0,0.44648584390005913,False,True,0.5535141560999408
+2025-11-22,Marek Bujlo,Denzel Freeman,Heavyweight,MALE,0,0.49020149822597653,False,True,0.5097985017740234
+2025-11-22,Ismail Naurdiev,Ryan Loder,Middleweight,MALE,1,0.5824785825334103,True,True,0.5824785825334103
+2025-11-22,Jack Hermansson,Myktybek Orolbai,Welterweight,MALE,0,0.32022706933067585,False,True,0.6797729306693241
+2025-11-22,Tagir Ulanbekov,Kyoji Horiguchi,Flyweight,MALE,0,0.5948863607222803,True,False,0.5948863607222803
+2025-11-22,Nicolas Dalby,Saygid Izagakhmaev,Welterweight,MALE,1,0.3627113906368826,False,False,0.6372886093631174
+2025-11-22,Nurullo Aliev,Shem Rock,Lightweight,MALE,1,0.8210100647800574,True,True,0.8210100647800574
+2025-11-22,Waldo Cortes Acosta,Shamil Gaziev,Heavyweight,MALE,1,0.676923329980988,True,True,0.676923329980988
+2025-12-06,Alexandre Pantoja,Joshua Van,Flyweight,MALE,0,0.4125062886647052,False,True,0.5874937113352948
+2025-12-06,Mansur Abdul-Malik,Antonio Trocoli,Middleweight,MALE,1,0.7710756638025209,True,True,0.7710756638025209
+2025-12-06,Brandon Moreno,Tatsuro Taira,Flyweight,MALE,0,0.2770250799048938,False,True,0.7229749200951062
+2025-12-06,Marvin Vettori,Brunno Ferreira,Middleweight,MALE,0,0.4962901061380532,False,True,0.5037098938619469
+2025-12-06,Terrance McKinney,Chris Duncan,Lightweight,MALE,0,0.5367104312914802,True,False,0.5367104312914802
+2025-12-06,Edson Barboza,Jalin Turner,Lightweight,MALE,0,0.3877492144580558,False,True,0.6122507855419441
+2025-12-06,Nazim Sadykhov,Fares Ziam,Lightweight,MALE,0,0.3752225958599222,False,True,0.6247774041400778
+2025-12-06,Grant Dawson,Manuel Torres,Lightweight,MALE,0,0.5657918433762349,True,False,0.5657918433762349
+2025-12-06,Henry Cejudo,Payton Talbott,Bantamweight,MALE,0,0.2702449489091365,False,True,0.7297550510908635
+2025-12-06,Iwo Baraniewski,Ibo Aslan,Light Heavyweight,MALE,1,0.5239611305144802,True,True,0.5239611305144802
+2025-12-06,Maycee Barber,Karine Silva,Women's Flyweight,FEMALE,1,0.7652659236941586,True,True,0.7652659236941586
+2025-12-06,Muhammad Naimov,Mairon Santos,Featherweight,MALE,0,0.4369561519943884,False,True,0.5630438480056116
+2025-12-06,Merab Dvalishvili,Petr Yan,Bantamweight,MALE,0,0.5150205722744835,True,False,0.5150205722744835
+2025-12-13,Allen Frye Jr.,Guilherme Pat,Heavyweight,MALE,0,0.5986400805135556,True,False,0.5986400805135556
+2025-12-13,Brandon Royval,Manel Kape,Flyweight,MALE,0,0.48718126851146243,False,True,0.5128187314885375
+2025-12-13,Cesar Almeida,Cezary Oleksiejczuk,Middleweight,MALE,0,0.4840044691236734,False,True,0.5159955308763267
+2025-12-13,Giga Chikadze,Kevin Vallejos,Featherweight,MALE,0,0.43180923271417115,False,True,0.5681907672858288
+2025-12-13,Joanderson Brito,Isaac Thomson,Featherweight,MALE,1,0.5708375346907042,True,True,0.5708375346907042
+2025-12-13,Jamey-Lyn Horth,Tereza Bleda,Women's Flyweight,FEMALE,1,0.45627778253712914,False,False,0.5437222174628709
+2025-12-13,King Green,Lance Gibson Jr.,Catch Weight,MALE,1,0.39627023833184266,False,False,0.6037297616681574
+2025-12-13,Melissa Croden,Luana Santos,Women's Bantamweight,FEMALE,0,0.2982215546542451,False,True,0.701778445345755
+2025-12-13,Melquizael Costa,Morgan Charriere,Featherweight,MALE,1,0.6014173258528147,True,True,0.6014173258528147
+2025-12-13,Neil Magny,Yaroslav Amosov,Welterweight,MALE,0,0.5485404105083264,True,False,0.5485404105083264
+2025-12-13,Sean Sharaf,Steven Asplund,Heavyweight,MALE,0,0.34263826952094795,False,True,0.657361730479052
+2026-01-24,Adam Fugitt,Ty Miller,Welterweight,MALE,0,0.3353593117886504,False,True,0.6646406882113496
+2026-01-24,Alex Perez,Charles Johnson,Flyweight,MALE,1,0.4935308047689044,False,False,0.5064691952310956
+2026-01-24,Ateba Gautier,Andrey Pulyaev,Middleweight,MALE,1,0.759840526444365,True,True,0.759840526444365
+2026-01-24,Arnold Allen,Jean Silva,Featherweight,MALE,0,0.4828859622911798,False,True,0.5171140377088201
+2026-01-24,Umar Nurmagomedov,Deiveson Figueiredo,Bantamweight,MALE,1,0.6984326480711743,True,True,0.6984326480711743
+2026-01-24,Josh Hokit,Denzel Freeman,Heavyweight,MALE,1,0.628605420692563,True,True,0.628605420692563
+2026-01-24,Waldo Cortes Acosta,Derrick Lewis,Heavyweight,MALE,1,0.7397507421465225,True,True,0.7397507421465225
+2026-01-24,Justin Gaethje,Paddy Pimblett,Lightweight,MALE,1,0.2358903759399332,False,False,0.7641096240600668
+2026-01-24,Nikita Krylov,Modestas Bukauskas,Light Heavyweight,MALE,1,0.3639683870636573,False,False,0.6360316129363427
+2026-01-24,Natalia Silva,Rose Namajunas,Women's Flyweight,FEMALE,1,0.7881763132246468,True,True,0.7881763132246468
+2026-01-24,Sean O'Malley,Song Yadong,Bantamweight,MALE,1,0.4070856205138436,False,False,0.5929143794861564
+2026-01-31,Alexander Volkanovski,Diego Lopes,Featherweight,MALE,1,0.5981253097491758,True,True,0.5981253097491758
+2026-01-31,Dan Hooker,Benoit Saint Denis,Lightweight,MALE,0,0.28531546569108807,False,True,0.7146845343089119
+2026-01-31,Junior Tafa,Billy Elekana,Light Heavyweight,MALE,0,0.408923006107892,False,True,0.591076993892108
+2026-01-31,Cam Rowston,Cody Brundage,Middleweight,MALE,1,0.6437764932660952,True,True,0.6437764932660952
+2026-01-31,Sangwook Kim,Dom Mar Fan,Lightweight,MALE,0,0.33954984158340834,False,True,0.6604501584165916
+2026-01-31,Jacob Malkoun,Torrez Finney,Middleweight,MALE,1,0.42215887885928316,False,False,0.5778411211407168
+2026-01-31,Quillan Salkilld,Jamie Mullarkey,Lightweight,MALE,1,0.787743386653894,True,True,0.787743386653894
+2026-01-31,Jonathan Micallef,Oban Elliott,Welterweight,MALE,1,0.524547559193394,True,True,0.524547559193394
+2026-01-31,Kaan Ofli,Yizha,Featherweight,MALE,1,0.33759248001796704,False,False,0.662407519982033
+2026-01-31,Keiichiro Nakamura,Sebastian Szalay,Featherweight,MALE,1,0.6313951386296524,True,True,0.6313951386296524
+2026-01-31,Sulangrangbo,Lawrence Lui,Bantamweight,MALE,0,0.6182750840983756,True,False,0.6182750840983756
+2026-01-31,Rafael Fiziev,Mauricio Ruffy,Lightweight,MALE,0,0.4650312182182873,False,True,0.5349687817817127
+2026-01-31,Tai Tuivasa,Tallison Teixeira,Heavyweight,MALE,0,0.34682971089653475,False,True,0.6531702891034652
+2026-02-07,Alex Morono,Daniil Donchenko,Welterweight,MALE,0,0.2602272383139844,False,True,0.7397727616860156
+2026-02-07,Amir Albazi,Kyoji Horiguchi,Flyweight,MALE,0,0.30463673665797375,False,True,0.6953632633420262
+2026-02-07,Bruna Brasil,Ketlen Souza,Women's Strawweight,FEMALE,0,0.630188044443066,True,False,0.630188044443066
+2026-02-07,Dustin Jacoby,Julius Walker,Light Heavyweight,MALE,1,0.406151102066191,False,False,0.593848897933809
+2026-02-07,Wang Cong,Eduarda Moura,Catch Weight,MALE,1,0.48221109301785225,False,False,0.5177889069821477
+2026-02-07,Jean Matsumoto,Farid Basharat,Bantamweight,MALE,0,0.3267726028613402,False,True,0.6732273971386598
+2026-02-07,Javid Basharat,Gianni Vazquez,Bantamweight,MALE,1,0.7638598140873922,True,True,0.7638598140873922
+2026-02-07,Jailton Almeida,Rizvan Kuniev,Heavyweight,MALE,0,0.7088144658727696,True,False,0.7088144658727696
+2026-02-07,Muin Gafurov,Jakub Wiklacz,Bantamweight,MALE,0,0.49323222582187815,False,True,0.5067677741781218
+2026-02-07,Klaudia Sygula,Priscila Cachoeira,Women's Bantamweight,FEMALE,1,0.7721785311630027,True,True,0.7721785311630027
+2026-02-07,Michal Oleksiejczuk,Marc-Andre Barriault,Middleweight,MALE,1,0.7531424380753458,True,True,0.7531424380753458
+2026-02-07,Mario Bautista,Vinicius Oliveira,Bantamweight,MALE,1,0.39609539325954235,False,False,0.6039046067404577
+2026-02-07,Nikolay Veretennikov,Niko Price,Welterweight,MALE,1,0.4821880043518376,False,False,0.5178119956481624
+2026-02-21,Alden Coria,Luis Gurule,Flyweight,MALE,1,0.7914366506229574,True,True,0.7914366506229574
+2026-02-21,Serghei Spivac,Ante Delija,Heavyweight,MALE,1,0.785995883870068,True,True,0.785995883870068
+2026-02-21,Sean Strickland,Anthony Hernandez,Middleweight,MALE,1,0.28040722468171325,False,False,0.7195927753182867
+2026-02-21,Juliana Miller,Carli Judice,Women's Flyweight,FEMALE,0,0.3785712232688848,False,True,0.6214287767311152
+2026-02-21,Chidi Njokuani,Carlos Leal,Welterweight,MALE,0,0.5395374196375143,True,False,0.5395374196375143
+2026-02-21,Dan Ige,Melquizael Costa,Featherweight,MALE,0,0.21621084185725903,False,True,0.783789158142741
+2026-02-21,Geoff Neal,Uros Medic,Welterweight,MALE,0,0.4364844928675659,False,True,0.563515507132434
+2026-02-21,Jacobe Smith,Josiah Harrell,Welterweight,MALE,1,0.6902925540355432,True,True,0.6902925540355432
+2026-02-21,Phil Rowe,Jean-Paul Lebosnoyani,Welterweight,MALE,0,0.48643386878606665,False,True,0.5135661312139334
+2026-02-21,Jordan Leavitt,Yadier del Valle,Featherweight,MALE,1,0.4177473240786549,False,False,0.5822526759213451
+2026-02-21,Nora Cornolle,Joselyne Edwards,Women's Bantamweight,FEMALE,0,0.27604851980339595,False,True,0.723951480196604
+2026-02-21,Zach Reese,Michel Pereira,Middleweight,MALE,0,0.5124998735703318,True,False,0.5124998735703318
+2026-02-21,Ramiz Brahimaj,Punahele Soriano,Welterweight,MALE,0,0.45873971620952325,False,True,0.5412602837904767
+2026-02-28,Ailin Perez,Macy Chiasson,Women's Bantamweight,FEMALE,1,0.6956842573370587,True,True,0.6956842573370587
+2026-02-28,Santiago Luna,Angel Pacheco,Bantamweight,MALE,1,0.8126465328384587,True,True,0.8126465328384587
+2026-02-28,Brandon Moreno,Lone'er Kavanagh,Flyweight,MALE,0,0.38938390263809686,False,True,0.6106160973619031
+2026-02-28,Cristian Quinonez,Kris Moutinho,Bantamweight,MALE,1,0.7244653146393452,True,True,0.7244653146393452
+2026-02-28,Damian Pinas,Wes Schultz,Middleweight,MALE,1,0.6433572020091656,True,True,0.6433572020091656
+2026-02-28,Daniel Zellhuber,King Green,Lightweight,MALE,0,0.5244403287609327,True,False,0.5244403287609327
+2026-02-28,Marlon Vera,David Martinez,Bantamweight,MALE,0,0.33506857043824995,False,True,0.6649314295617501
+2026-02-28,Douglas Silva de Andrade,Javier Reyes,Featherweight,MALE,0,0.2967983808496316,False,True,0.7032016191503684
+2026-02-28,Edgar Chairez,Felipe Bunes,Flyweight,MALE,1,0.6307347353543,True,True,0.6307347353543
+2026-02-28,Erik Silva,Francis Marshall,Featherweight,MALE,0,0.28297809898336806,False,True,0.7170219010166319
+2026-02-28,Regina Tarin,Ernesta Kareckaite,Catch Weight,MALE,1,0.5408153142748848,True,True,0.5408153142748848
+2026-02-28,Imanol Rodriguez,Kevin Borjas,Flyweight,MALE,1,0.6754424436180414,True,True,0.6754424436180414
+2026-02-28,Ryan Gandra,Jose Daniel Medina,Middleweight,MALE,1,0.6243305827632903,True,True,0.6243305827632903
+2026-03-07,Ricky Turcios,Alberto Montes,Featherweight,MALE,0,0.44690775062460575,False,True,0.5530922493753943
+2026-03-07,Gregory Rodrigues,Brunno Ferreira,Middleweight,MALE,1,0.6041172918380707,True,True,0.6041172918380707
+2026-03-07,Caio Borralho,Reinier de Ridder,Middleweight,MALE,1,0.717299818825833,True,True,0.717299818825833
+2026-03-07,Max Holloway,Charles Oliveira,Lightweight,MALE,0,0.534501765166526,True,False,0.534501765166526
+2026-03-07,Donte Johnson,Cody Brundage,Middleweight,MALE,1,0.6665637597430115,True,True,0.6665637597430115
+2026-03-07,Cody Durden,Nyamjargal Tumendemberel,Flyweight,MALE,0,0.37376293950201733,False,True,0.6262370604979827
+2026-03-07,Cody Garbrandt,Xiao Long,Bantamweight,MALE,1,0.389683079803412,False,False,0.610316920196588
+2026-03-07,Rafael Tobias,Diyar Nurgozhay,Light Heavyweight,MALE,0,0.583640780277584,True,False,0.583640780277584
+2026-03-07,Drew Dober,Michael Johnson,Lightweight,MALE,1,0.5174979013913551,True,True,0.5174979013913551
+2026-03-07,Sumudaerji,Jesus Aguilar,Flyweight,MALE,1,0.5739453945260709,True,True,0.5739453945260709
+2026-03-07,Luke Fernandez,Rodolfo Bellato,Light Heavyweight,MALE,0,0.43285307799077594,False,True,0.567146922009224
+2026-03-07,Rob Font,Raul Rosas Jr.,Bantamweight,MALE,0,0.24306313193777593,False,True,0.756936868062224
+2026-03-14,Amanda Lemos,Gillian Robertson,Women's Strawweight,FEMALE,0,0.2673107897146667,False,True,0.7326892102853333
+2026-03-14,Andre Fili,Jose Delgado,Featherweight,MALE,0,0.2944921099791462,False,True,0.7055078900208538
+2026-03-14,Bia Mesquita,Montse Rendon,Women's Bantamweight,FEMALE,1,0.575733401981775,True,True,0.575733401981775
+2026-03-14,Bolaji Oki,Manoel Sousa,Lightweight,MALE,0,0.6099665510541431,True,False,0.6099665510541431
+2026-03-14,Brad Tavares,Eryk Anders,Middleweight,MALE,0,0.5991446848070968,True,False,0.5991446848070968
+2026-03-14,Charles Johnson,Bruno Silva,Flyweight,MALE,1,0.5498024427283932,True,True,0.5498024427283932
+2026-03-14,Chris Curtis,Myktybek Orolbai,Welterweight,MALE,0,0.3276681805953907,False,True,0.6723318194046093
+2026-03-14,Elijah Smith,SuYoung You,Bantamweight,MALE,1,0.5081644538925709,True,True,0.5081644538925709
+2026-03-14,Marwan Rahiki,Harry Hardwick,Featherweight,MALE,1,0.6978010011861188,True,True,0.6978010011861188
+2026-03-14,Luan Lacerda,Hecher Sosa,Bantamweight,MALE,0,0.4066416536497806,False,True,0.5933583463502194
+2026-03-14,Ion Cutelaba,Oumar Sy,Light Heavyweight,MALE,1,0.25344407394985297,False,False,0.7465559260501471
+2026-03-14,Josh Emmett,Kevin Vallejos,Featherweight,MALE,0,0.15993292751531743,False,True,0.8400670724846826
+2026-03-14,Piera Rodriguez,Sam Hughes,Women's Strawweight,FEMALE,1,0.5101632400535888,True,True,0.5101632400535888
+2026-03-14,Vitor Petrino,Steven Asplund,Heavyweight,MALE,1,0.532443379470853,True,True,0.532443379470853
+2026-03-21,Shem Rock,Abdul-Kareem Al-Selwady,Lightweight,MALE,0,0.4638297215757139,False,True,0.5361702784242861
+2026-03-21,Mantas Kondratavicius,Antonio Trocoli,Middleweight,MALE,1,0.7322620168291462,True,True,0.7322620168291462
+2026-03-21,Iwo Baraniewski,Austen Lane,Light Heavyweight,MALE,1,0.6629116896093092,True,True,0.6629116896093092
+2026-03-21,Mason Jones,Axel Sola,Lightweight,MALE,1,0.4649528208791595,False,False,0.5350471791208404
+2026-03-21,Louie Sutherland,Brando Pericic,Heavyweight,MALE,0,0.3724207583944158,False,True,0.6275792416055842
+2026-03-21,Roman Dolidze,Christian Leroy Duncan,Middleweight,MALE,0,0.3196899476144276,False,True,0.6803100523855724
+2026-03-21,Kurtis Campbell,Danny Silva,Featherweight,MALE,0,0.4413220659440747,False,True,0.5586779340559254
+2026-03-21,Mario Pinto,Felipe Franco,Heavyweight,MALE,1,0.6484675530522361,True,True,0.6484675530522361
+2026-03-21,Movsar Evloev,Lerone Murphy,Featherweight,MALE,1,0.5360372153332892,True,True,0.5360372153332892
+2026-03-21,Nathaniel Wood,Losene Keita,Featherweight,MALE,1,0.7674133269727191,True,True,0.7674133269727191
+2026-03-21,Luke Riley,Michael Aswell Jr.,Featherweight,MALE,1,0.46558371884614175,False,False,0.5344162811538582
+2026-03-21,Michael Page,Sam Patterson,Welterweight,MALE,1,0.3007542394284568,False,False,0.6992457605715432
+2026-03-21,Shanelle Dyer,Ravena Oliveira,Women's Strawweight,FEMALE,1,0.6593278160618257,True,True,0.6593278160618257
+2026-03-28,Alexa Grasso,Maycee Barber,Women's Flyweight,FEMALE,1,0.17629726853242494,False,False,0.8237027314675751
+2026-03-28,Alexia Thainara,Bruna Brasil,Women's Strawweight,FEMALE,1,0.6599318389665346,True,True,0.6599318389665346
+2026-03-28,Navajo Stirling,Bruno Lopes,Light Heavyweight,MALE,1,0.7611387963190234,True,True,0.7611387963190234
+2026-03-28,Casey O'Neill,Gabriella Fernandes,Women's Flyweight,FEMALE,1,0.7564474549048676,True,True,0.7564474549048676
+2026-03-28,Chase Hooper,Lance Gibson Jr.,Lightweight,MALE,0,0.7388664704506253,True,False,0.7388664704506253
+2026-03-28,Ignacio Bahamondes,Tofiq Musayev,Lightweight,MALE,0,0.7299303479741571,True,False,0.7299303479741571
+2026-03-28,Israel Adesanya,Joe Pyfer,Middleweight,MALE,0,0.35673143584233824,False,True,0.6432685641576618
+2026-03-28,Julian Erosa,Lerryan Douglas,Featherweight,MALE,0,0.48329194821524096,False,True,0.5167080517847591
+2026-03-28,Terrance McKinney,Kyle Nelson,Lightweight,MALE,1,0.7530669049742013,True,True,0.7530669049742013
+2026-03-28,Mansur Abdul-Malik,Yousri Belgaroui,Middleweight,MALE,0,0.576975777399346,True,False,0.576975777399346
+2026-03-28,Marcin Tybura,Tyrell Fortune,Heavyweight,MALE,0,0.4496939448675036,False,True,0.5503060551324964
+2026-03-28,Michael Chiesa,Niko Price,Welterweight,MALE,1,0.6244101913327894,True,True,0.6244101913327894

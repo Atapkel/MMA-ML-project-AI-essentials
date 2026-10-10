@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "browser": "Chromium",
+  "checks": [
+    "Model connected",
+    "Named fighter prediction",
+    "Swap symmetry",
+    "Custom fighter",
+    "Missing statistic",
+    "Invalid age rejected",
+    "Six experiment rows",
+    "390px mobile layout",
+    "768px tablet layout"
+  ],
+  "unexpected_browser_errors": [],
+  "expected_validation_http_errors": 1
+}

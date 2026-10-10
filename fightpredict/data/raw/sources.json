@@ -1,0 +1,26 @@
+[
+  {
+    "file": "ultimate_ufc_dataset.csv",
+    "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-07-07/ultimate_ufc_dataset.csv",
+    "bytes": 3420593,
+    "sha256": "a3d3ef568afb7879ef59070aacd9785276b9e0adab2ecc59f72471a5aba98444"
+  },
+  {
+    "file": "ufc_fights.csv",
+    "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-07-07/ufc_fights.csv",
+    "bytes": 2389450,
+    "sha256": "a878d2cb710478765fcb0b6e5027d37ab126c16ccbe58caaf18d37a7a26f0fc7"
+  },
+  {
+    "file": "ufcstats_data.csv",
+    "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-07-07/ufcstats_data.csv",
+    "bytes": 438268,
+    "sha256": "129e29c5d43d8037904788ddf0cf532ffdf2a360e2635fb996a88722c1f78f6e"
+  },
+  {
+    "file": "readme.md",
+    "url": "https://raw.githubusercontent.com/rfordatascience/tidytuesday/main/data/2026/2026-07-07/readme.md",
+    "bytes": 25741,
+    "sha256": "b6168cdf87d0a79da91c780dfb5d80a05896433e38ae273766a3fb66a861f4b4"
+  }
+]

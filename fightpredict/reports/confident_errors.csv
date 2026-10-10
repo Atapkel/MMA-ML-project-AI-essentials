@@ -1,0 +1,31 @@
+date,fighter_a,fighter_b,weight_class,gender,winner_a,probability_a,predicted_a,correct,confidence
+2025-03-22,Marcin Tybura,Mick Parkin,Heavyweight,MALE,1,0.13483813019404833,False,False,0.8651618698059517
+2026-03-28,Alexa Grasso,Maycee Barber,Women's Flyweight,FEMALE,1,0.17629726853242494,False,False,0.8237027314675751
+2025-02-15,Angela Hill,Ketlen Souza,Women's Strawweight,FEMALE,1,0.213282091026158,False,False,0.786717908973842
+2025-04-26,Michel Pereira,Abus Magomedov,Middleweight,MALE,0,0.7865384580810952,True,False,0.7865384580810952
+2025-07-19,Michael Johnson,Daniel Zellhuber,Lightweight,MALE,1,0.22379745173317947,False,False,0.7762025482668206
+2025-02-15,Jared Cannonier,Gregory Rodrigues,Middleweight,MALE,1,0.22597749327736616,False,False,0.7740225067226338
+2026-01-24,Justin Gaethje,Paddy Pimblett,Lightweight,MALE,1,0.2358903759399332,False,False,0.7641096240600668
+2025-01-18,Payton Talbott,Raoni Barcelos,Bantamweight,MALE,0,0.7587084400064595,True,False,0.7587084400064595
+2025-04-12,Dan Ige,Sean Woodson,Featherweight,MALE,1,0.24617694530337372,False,False,0.7538230546966262
+2025-08-16,Chase Hooper,Alexander Hernandez,Lightweight,MALE,0,0.7535322601279428,True,False,0.7535322601279428
+2025-08-09,Cody Brundage,Eric McConico,Light Heavyweight,MALE,0,0.747563951581629,True,False,0.747563951581629
+2026-03-14,Ion Cutelaba,Oumar Sy,Light Heavyweight,MALE,1,0.25344407394985297,False,False,0.7465559260501471
+2025-07-12,Derrick Lewis,Tallison Teixeira,Heavyweight,MALE,1,0.25378312103212536,False,False,0.7462168789678747
+2025-05-03,Reinier de Ridder,Bo Nickal,Middleweight,MALE,1,0.2560336701003242,False,False,0.7439663298996758
+2025-08-23,Michel Pereira,Kyle Daukaus,Middleweight,MALE,0,0.7439319531142691,True,False,0.7439319531142691
+2025-03-08,Amanda Lemos,Iasmin Lucindo,Women's Strawweight,FEMALE,1,0.2565841210649562,False,False,0.7434158789350438
+2025-02-01,Shara Magomedov,Michael Page,Middleweight,MALE,0,0.7403092876263659,True,False,0.7403092876263659
+2026-03-28,Chase Hooper,Lance Gibson Jr.,Lightweight,MALE,0,0.7388664704506253,True,False,0.7388664704506253
+2025-06-14,Alonzo Menifield,Oumar Sy,Light Heavyweight,MALE,1,0.26265322589116813,False,False,0.7373467741088319
+2025-02-22,Rob Font,Jean Matsumoto,Catch Weight,MALE,1,0.26343282591655504,False,False,0.736567174083445
+2026-03-28,Ignacio Bahamondes,Tofiq Musayev,Lightweight,MALE,0,0.7299303479741571,True,False,0.7299303479741571
+2025-07-19,Dan Ige,Patricio Freire,Featherweight,MALE,0,0.7282773765717977,True,False,0.7282773765717977
+2025-06-21,Seokhyeon Ko,Oban Elliott,Welterweight,MALE,1,0.2770737345152837,False,False,0.7229262654847163
+2025-07-19,Francisco Prado,Nikolay Veretennikov,Welterweight,MALE,0,0.7219839357014489,True,False,0.7219839357014489
+2026-02-21,Sean Strickland,Anthony Hernandez,Middleweight,MALE,1,0.28040722468171325,False,False,0.7195927753182867
+2025-01-11,Jose Johnson,Felipe Bunes,Flyweight,MALE,0,0.7147651541657948,True,False,0.7147651541657948
+2025-09-13,Montse Rendon,Alice Pereira,Women's Bantamweight,FEMALE,1,0.28875262616281044,False,False,0.7112473738371896
+2025-07-26,Davey Grant,Da'Mon Blackshear,Bantamweight,MALE,1,0.2898035512630491,False,False,0.710196448736951
+2026-02-07,Jailton Almeida,Rizvan Kuniev,Heavyweight,MALE,0,0.7088144658727696,True,False,0.7088144658727696
+2025-07-12,Junior Tafa,Tuco Tokkos,Light Heavyweight,MALE,0,0.7084918404217944,True,False,0.7084918404217944
