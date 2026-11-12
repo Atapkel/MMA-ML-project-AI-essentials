@@ -4,6 +4,10 @@ Run locally:  uvicorn arena.app:app --reload        then open http://127.0.0.1:8
 """
 import io
 import os
+
+# Each prediction is tiny; letting scikit-learn start OpenMP thread teams per call made concurrent
+# requests fight over the CPU (seconds of delay). One thread per request is much faster here.
+os.environ.setdefault('OMP_NUM_THREADS', '1')
 import secrets
 from typing import Literal, Optional
 
@@ -21,6 +25,8 @@ from arena.store import Store
 app = FastAPI(title='Fight Arena', docs_url='/api/docs')
 store = Store(os.environ.get('ARENA_DB') or DB_PATH)
 app.mount('/static', StaticFiles(directory=WEB), name='static')
+
+
 
 
 class Profile(BaseModel):
@@ -47,6 +53,18 @@ class HostRequest(BaseModel):
     host_token: str
 
 
+class StateRequest(BaseModel):
+    host_token: str
+    played: list[int] = Field(default_factory=list, max_length=64)  # fights already shown
+    current: int = Field(default=-1, ge=-1, le=64)                   # fight on stage, -1 = none
+    skip: bool = False                                               # host skipped the animation
+
+
+class CursorRequest(BaseModel):
+    host_token: str
+    cursor: int = Field(ge=0, le=10_000)
+
+
 def public_player(p):
     pr = p['profile']
     d = p['derived'] if 'pushups' in p['derived'] else engine.derive(pr)  # saved by an older version
@@ -59,7 +77,7 @@ def public_player(p):
 
 
 def public_room(room):
-    return {'code': room['code'], 'status': room['status'], 'mode': room['mode'], 'top_k': room['top_k'],
+    return {'code': room['code'], 'status': room['status'], 'mode': room['mode'], 'top_k': room['top_k'], 'cursor': room['cursor'], 'state': room['state'],
             'version': room['updated_at'], 'players': [public_player(p) for p in room['players']],
             'results': room['results']}
 
@@ -145,12 +163,53 @@ def start(code: str, request: StartRequest):
     players = room['players']
     if len(players) < 2:
         raise HTTPException(400, 'At least 2 fighters are needed.')
+    store.save_results(room['code'], request.mode, request.top_k, simulate(players, request.mode, request.top_k))
+    return public_room(store.room(room['code']))
+
+
+def simulate(players, mode, top_k):
     seed = secrets.randbits(32)
-    if request.mode == 'ranking':
-        results = engine.rank_players(players, top_k=request.top_k, seed=seed)
+    if mode == 'ranking':
+        results = engine.rank_players(players, top_k=top_k, seed=seed)
     else:
         results = engine.run_tournament(players, seed=seed)
-    store.save_results(room['code'], request.mode, request.top_k, results)
+    results['id'] = seed  # lets every screen tell a new draw from a step forward in the same show
+    return results
+
+
+@app.post('/api/rooms/{code}/cursor')
+def move_cursor(code: str, request: CursorRequest):
+    """The host moves the show forward (next fight, skip fight, skip round); guests' screens follow."""
+    room = get_room_or_404(code)
+    require_host(room, request.host_token)
+    if room['status'] != 'done':
+        raise HTTPException(409, 'The show has not started.')
+    store.set_cursor(room['code'], request.cursor)
+    return {'cursor': request.cursor}
+
+
+@app.post('/api/rooms/{code}/state')
+def move_state(code: str, request: StateRequest):
+    """Tournament bracket: the host plays a fight or skips; every screen follows this state."""
+    room = get_room_or_404(code)
+    require_host(room, request.host_token)
+    if room['status'] != 'done' or room['mode'] != 'tournament':
+        raise HTTPException(409, 'No tournament is running.')
+    state = {'played': sorted(set(request.played)), 'current': request.current, 'skip': request.skip}
+    store.set_state(room['code'], state)
+    return state
+
+
+@app.post('/api/rooms/{code}/shuffle')
+def shuffle(code: str, request: HostRequest):
+    """New random tournament bracket, allowed only before the first fight is shown."""
+    room = get_room_or_404(code)
+    require_host(room, request.host_token)
+    if room['status'] != 'done' or room['mode'] != 'tournament':
+        raise HTTPException(409, 'Shuffling is only for a tournament schedule.')
+    if room['cursor'] > 0 or room['state'].get('played') or room['state'].get('current', -1) >= 0:
+        raise HTTPException(409, 'The fights already started. Open a new round to shuffle.')
+    store.save_results(room['code'], 'tournament', room['top_k'], simulate(room['players'], 'tournament', room['top_k']))
     return public_room(store.room(room['code']))
 
 

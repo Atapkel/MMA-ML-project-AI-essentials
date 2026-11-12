@@ -7,7 +7,8 @@
   const ease = (u) => (u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2);
   const easeOut = (u) => 1 - Math.pow(1 - u, 3);
   const pick = (arr, r) => arr[Math.floor((r === undefined ? Math.random() : r) * arr.length) % arr.length];
-  const sfx = (name, k) => { if (window.Sfx) window.Sfx.play(name, k); };
+  let SILENT = false; // true while fast-forwarding: keep bookkeeping, skip sounds and effects
+  const sfx = (name, k) => { if (window.Sfx && !SILENT) window.Sfx.play(name, k); };
 
   const MEMES = {
     KO: ['EMOTIONAL DAMAGE', 'SENT TO THE SHADOW REALM', 'SKILL ISSUE 💀', "HE'S SLEEPING 😴", 'NOT LIKE THIS...', 'BONK 🔨',
@@ -80,6 +81,17 @@
   };
   Arena.prototype.setSpeed = function (s) { this.speed = s; };
   Arena.prototype.skip = function () { this.skipped = true; this.elapsed = this.total; };
+  // jump to the first segment marked `mark` (e.g. 'final'), quietly running the bookkeeping on the way
+  Arena.prototype.skipTo = function (mark) {
+    const idx = this.segments.findIndex((sg) => sg.mark === mark);
+    if (idx < 0 || idx <= this.current) return;
+    SILENT = true;
+    try { for (let k = this.current + 1; k < idx; k++) if (this.segments[k].start) this.segments[k].start(this); }
+    finally { SILENT = false; }
+    this.current = idx - 1;
+    this.elapsed = this.segments.slice(0, idx).reduce((sum, sg) => sum + sg.dur, 0);
+    this.overlays = []; this.parts = [];
+  };
   Arena.prototype.destroy = function () { this.running = false; window.removeEventListener('resize', this.resize); };
 
   Arena.prototype.frame = function (now) {
@@ -116,36 +128,44 @@
   };
 
   // ------------------------------------------------------------------ effects
-  Arena.prototype.ticker = function (text) { if (this.opts.onTicker) this.opts.onTicker(text); };
+  Arena.prototype.ticker = function (text) { if (this.opts.onTicker && !SILENT) this.opts.onTicker(text); };
   Arena.prototype.meme = function (text, opts) {
+    if (SILENT) return;
     this.overlays.push(Object.assign({ text, born: performance.now(), life: 1900, kind: 'meme', tilt: (Math.random() - 0.5) * 0.16 }, opts || {}));
   };
   Arena.prototype.stamp = function (text, color, life) {
+    if (SILENT) return;
     this.overlays.push({ text, color: color || '#fff', born: performance.now(), life: life || 1400, kind: 'stamp' });
   };
   Arena.prototype.pop = function (text, x, y, color) {
+    if (SILENT) return;
     this.overlays.push({ text, x, y, color: color || '#ffd23f', born: performance.now(), life: 900, kind: 'pop', tilt: (Math.random() - 0.5) * 0.4 });
   };
   Arena.prototype.burst = function (x, y, emojis, n, power) {
+    if (SILENT) return;
     for (let k = 0; k < (n || 10); k++) {
       const a = -Math.PI / 2 + (Math.random() - 0.5) * 2.6, v = (2 + Math.random() * 5) * (power || 1);
       this.parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, emoji: pick(emojis), rot: Math.random() * TAU, vr: (Math.random() - 0.5) * 0.3, size: 16 + Math.random() * 14 });
     }
   };
   Arena.prototype.sparks = function (x, y, n) {
+    if (SILENT) return;
     for (let k = 0; k < (n || 16); k++) {
       const a = Math.random() * TAU, v = 2 + Math.random() * 5;
       this.parts.push({ x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 1, life: 1, spark: true });
     }
   };
   Arena.prototype.confetti = function (n) {
+    if (SILENT) return;
     const colors = ['#ff3d8b', '#ffd23f', '#2de2e6', '#a3e635', '#8b5cf6', '#ff8a3d'];
     for (let k = 0; k < (n || 120); k++) {
       this.parts.push({ x: Math.random() * this.W, y: -20 - Math.random() * this.H * 0.5, vx: (Math.random() - 0.5) * 2, vy: 1.5 + Math.random() * 2.5, life: 3, confetti: pick(colors), rot: Math.random() * TAU, vr: (Math.random() - 0.5) * 0.3, size: 5 + Math.random() * 6 });
     }
   };
-  Arena.prototype.shake = function (power) { this.shakeUntil = performance.now() + 260; this.shakePower = power || 6; };
-  Arena.prototype.flash = function () { this.flashUntil = performance.now() + 120; };
+  Arena.prototype.shake = function (power) {
+    if (SILENT) return; this.shakeUntil = performance.now() + 260; this.shakePower = power || 6; };
+  Arena.prototype.flash = function () {
+    if (SILENT) return; this.flashUntil = performance.now() + 120; };
 
   // ------------------------------------------------------------------ frame render
   Arena.prototype.render = function (seg, u) {
@@ -701,7 +721,7 @@
     if (final) {
       const fa = final.a, fb = final.b;
       segs.push({
-        dur: 1900, hud: countHud,
+        dur: 1900, hud: countHud, mark: 'final',
         start: (ar) => { ar.stamp('FINAL BOSS FIGHT', '#ffd23f', 1800); sfx('horn'); ar.ticker(`The last two standing: ${ar.fighters[fa].name} vs ${ar.fighters[fb].name}`); },
         draw: (ar, u) => {
           const k = ease(u);

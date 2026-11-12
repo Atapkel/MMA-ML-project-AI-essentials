@@ -86,3 +86,32 @@ def test_fill_with_famous_fighters():
     assert again['added'] == 0  # no duplicates
     start = client.post(f"/api/rooms/{room['code']}/start", json={'host_token': room['host_token'], 'mode': 'ranking', 'top_k': 5})
     assert start.status_code == 200
+
+
+def test_host_controls_the_show_and_can_shuffle():
+    room = make_room()
+    code, token = room['code'], room['host_token']
+    client.post(f'/api/rooms/{code}/demo', json={'host_token': token})
+    first = client.post(f'/api/rooms/{code}/start', json={'host_token': token, 'mode': 'tournament'}).json()
+    assert first['cursor'] == 0 and 'id' in first['results']
+    shuffled = client.post(f'/api/rooms/{code}/shuffle', json={'host_token': token}).json()
+    assert shuffled['results']['id'] != first['results']['id']
+    # only the host moves the show
+    assert client.post(f'/api/rooms/{code}/cursor', json={'host_token': 'guest', 'cursor': 2}).status_code == 403
+    assert client.post(f'/api/rooms/{code}/cursor', json={'host_token': token, 'cursor': 2}).status_code == 200
+    assert client.get(f'/api/rooms/{code}').json()['cursor'] == 2
+    # once fights are shown, the bracket is locked
+    assert client.post(f'/api/rooms/{code}/shuffle', json={'host_token': token}).status_code == 409
+
+
+def test_bracket_state_is_shared_and_locks_shuffle():
+    room = make_room()
+    code, token = room['code'], room['host_token']
+    client.post(f'/api/rooms/{code}/demo', json={'host_token': token})
+    client.post(f'/api/rooms/{code}/start', json={'host_token': token, 'mode': 'tournament'})
+    assert client.get(f'/api/rooms/{code}').json()['state'] == {}
+    assert client.post(f'/api/rooms/{code}/state', json={'host_token': 'x', 'current': 0}).status_code == 403
+    r = client.post(f'/api/rooms/{code}/state', json={'host_token': token, 'played': [0, 2, 2], 'current': 1})
+    assert r.json() == {'played': [0, 2], 'current': 1, 'skip': False}
+    assert client.get(f'/api/rooms/{code}').json()['state']['played'] == [0, 2]
+    assert client.post(f'/api/rooms/{code}/shuffle', json={'host_token': token}).status_code == 409

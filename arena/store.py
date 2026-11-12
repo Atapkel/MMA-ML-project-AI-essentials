@@ -18,6 +18,8 @@ CREATE TABLE IF NOT EXISTS rooms (
     status      TEXT NOT NULL DEFAULT 'lobby',      -- lobby | done
     mode        TEXT,                               -- ranking | tournament
     top_k       INTEGER,
+    cursor      INTEGER NOT NULL DEFAULT 0,   -- ranking show position (shared by every screen)
+    state       TEXT,                         -- tournament show state: played fights, fight on stage (JSON)
     results     TEXT,                               -- JSON produced by the engine
     created_at  REAL NOT NULL,
     updated_at  REAL NOT NULL
@@ -39,14 +41,21 @@ class Store:
     def __init__(self, path=DB_PATH):
         self.path = str(path)
         with self.connect() as db:
+            # WAL lets readers and a writer work at the same time. It is stored in the database file,
+            # so it is set once here (setting it on every connection made requests wait for locks).
+            db.execute('PRAGMA journal_mode = WAL')
             db.executescript(SCHEMA)
+            columns = {r['name'] for r in db.execute('PRAGMA table_info(rooms)')}
+            if 'cursor' not in columns:  # database created by an older version
+                db.execute('ALTER TABLE rooms ADD COLUMN cursor INTEGER NOT NULL DEFAULT 0')
+            if 'state' not in columns:
+                db.execute('ALTER TABLE rooms ADD COLUMN state TEXT')
 
     @contextmanager
     def connect(self):
         db = sqlite3.connect(self.path, timeout=10)
         db.row_factory = sqlite3.Row
         db.execute('PRAGMA foreign_keys = ON')
-        db.execute('PRAGMA journal_mode = WAL')
         try:
             yield db
             db.commit()
@@ -78,7 +87,8 @@ class Store:
                                  (code,)).fetchall()
         return {
             'code': row['code'], 'host_token': row['host_token'], 'status': row['status'], 'mode': row['mode'],
-            'top_k': row['top_k'], 'updated_at': row['updated_at'],
+            'top_k': row['top_k'], 'updated_at': row['updated_at'], 'cursor': row['cursor'],
+            'state': json.loads(row['state']) if row['state'] else {},
             'results': json.loads(row['results']) if row['results'] else None,
             'players': [{'id': p['id'], 'name': p['name'], 'profile': json.loads(p['profile']),
                          'derived': json.loads(p['derived'])} for p in players],
@@ -103,10 +113,18 @@ class Store:
 
     def save_results(self, code, mode, top_k, results):
         with self.connect() as db:
-            db.execute("UPDATE rooms SET status = 'done', mode = ?, top_k = ?, results = ?, updated_at = ? "
+            db.execute("UPDATE rooms SET status = 'done', mode = ?, top_k = ?, results = ?, cursor = 0, state = NULL, updated_at = ? "
                        'WHERE code = ?', (mode, top_k, json.dumps(results), time.time(), code))
+
+    def set_state(self, code, state):
+        with self.connect() as db:
+            db.execute('UPDATE rooms SET state = ?, updated_at = ? WHERE code = ?', (json.dumps(state), time.time(), code))
+
+    def set_cursor(self, code, cursor):
+        with self.connect() as db:
+            db.execute('UPDATE rooms SET cursor = ?, updated_at = ? WHERE code = ?', (cursor, time.time(), code))
 
     def reset(self, code):
         with self.connect() as db:
-            db.execute("UPDATE rooms SET status = 'lobby', results = NULL, updated_at = ? WHERE code = ?",
+            db.execute("UPDATE rooms SET status = 'lobby', results = NULL, cursor = 0, state = NULL, updated_at = ? WHERE code = ?",
                        (time.time(), code))

@@ -132,6 +132,7 @@
 
   async function refresh(force) {
     const room = await api(`/api/rooms/${S.code}`);
+    if (!force && S.version && room.version < S.version) return; // a slow, older response: ignore it
     const changed = room.version !== S.version;
     const before = new Set(players().map((p) => p.id));
     S.room = room; S.version = room.version;
@@ -142,7 +143,13 @@
       if (window.Sfx) window.Sfx.play('bell');
     }
     if (!changed && !force) return;
-    if (room.status === 'done') { if (S.view !== 'results' || S.resultsVersion !== room.version) renderResults(); return; }
+    if (room.status === 'done') {
+      if (S.view !== 'results' || S.resultsId !== room.results.id) renderResults();
+      else if (!hostToken(S.code)) {  // guests follow the host; the host drives locally
+        if (room.mode === 'tournament') applyBracket(room.state || {}); else applyCursor(room.cursor);
+      }
+      return;
+    }
     if (S.view === 'form') return;
     if (S.view === 'invite') { renderInvite(); return; }
     if (S.view === 'results') { stopShow(); S.view = null; }
@@ -206,7 +213,9 @@
       try {
         const [room] = await Promise.all([api(`/api/rooms/${S.code}/start`, { method: 'POST', body: { host_token: token, mode: S.mode, top_k: S.topK } }), sleep(1900)]);
         clearInterval(spin);
-        S.room = room; S.version = S.room.version; renderResults();
+        // the background refresh may already have opened (or even shuffled) the show meanwhile
+        const alreadyShown = S.view === 'results' && (S.resultsId === room.results.id || (S.version && room.version < S.version));
+        if (!alreadyShown) { S.room = room; S.version = S.room.version; renderResults(); }
       } catch (err) { clearInterval(spin); toast(err.message); renderLobby(); }
     };
   }
@@ -249,6 +258,7 @@
         <label>Dominant hand</label>${seg('hand', [['right', 'Right'], ['left', 'Left']])}
         ${SKILLS.map(([k, t, ex]) => `<label>${t} <span class="tiny">· ${ex}</span></label>${seg(k, [0, 1, 2, 3, 4, 5].map((i) => [i, i]))}<div class="caption" id="${k}-cap">${LEVELS[0]}</div>`).join('')}
         <label for="push">Max push-ups in a row <span class="tiny">· optional · women: knee push-ups</span></label>
+        <div class="translate">KZ: жерден қатарынан неше рет итеріле аласыз? · RU: сколько раз подряд отжимаетесь?</div>
         <input class="f" type="number" id="push" inputmode="numeric" placeholder="Skip if you don't know">
         <div class="error" id="err" hidden></div>
         <div style="margin-top:28px"><button class="btn" type="submit" id="go">${hostAdding ? 'Add' : 'Join'}</button></div>
@@ -284,14 +294,19 @@
     };
   }
 
-  // ------------------------------------------------------------------ results
+  // ------------------------------------------------------------------ results (host-controlled show)
+  // The host drives the show with a shared cursor; guests' screens follow it.
+  //   ranking:    0 = battle royale playing, 1 = jumped to the final, 2 = results
+  //   tournament: cursor = step * 2 + (1 if the host skipped this fight's animation)
+  //               steps: [schedule round 1, fight, fight, ..., schedule round 2, ..., champion]
   function renderResults() {
     stopShow();
-    S.view = 'results'; S.resultsVersion = S.room.version;
     const res = S.room.results;
-    const seenKey = `arena:seen:${S.code}:${S.room.version}`;
-    app.innerHTML = `<div class="stage"><canvas id="stage" aria-label="Fight animation. Tap to skip."></canvas></div>
+    S.view = 'results'; S.resultsId = res.id; S.step = -1; S.fightDone = false; S.drawn = false; S.cursor = 0;
+    if (res.mode === 'tournament') bracketInit(res);
+    app.innerHTML = `<div class="stage" id="stage-wrap"><canvas id="stage" aria-label="Fight animation"></canvas></div>
       <div class="ticker" id="ticker"></div>
+      <div class="ctl" id="ctl"></div>
       <div class="reacts" id="reacts">${['🔥', '😂', '💀', '👏', '😱'].map((e) => `<button aria-label="React ${e}">${e}</button>`).join('')}</div>
       <div id="board"></div>`;
     document.querySelectorAll('#reacts button').forEach((b) => b.onclick = () => {
@@ -299,35 +314,241 @@
       for (let k = 0; k < 3; k++) setTimeout(() => floaty(r.left + r.width / 2, r.top, b.textContent), k * 120);
       if (window.Sfx) window.Sfx.play('boing');
     });
-    const ticker = (t) => { const el = document.getElementById('ticker'); if (el) el.textContent = t; };
-    const finish = () => {
-      store.set(seenKey, true);
-      ticker('');
-      if (res.mode === 'ranking') drawRanking(res); else drawTournament(res);
-      confetti(180);
+    if (res.mode === 'tournament') applyBracket(S.room.state || {}); else applyCursor(S.room.cursor || 0);
+  }
+
+  const isHostHere = () => !!hostToken(S.code);
+  const ticker = (t) => { const el = document.getElementById('ticker'); if (el) el.textContent = t; };
+  const roster = () => players().map((p) => ({ id: p.id, name: p.name, sex: p.sex, color: colorOf(p.id), height: p.height, weight: p.weight }));
+  function newShow(onDone) {
+    stopShow();
+    S.show = window.ArenaShow.create(document.getElementById('stage'), roster(), { onTicker: ticker, onDone });
+    return S.show;
+  }
+  async function moveCursor(c) {
+    S.cursor = c; applyCursor(c);
+    try { await api(`/api/rooms/${S.code}/cursor`, { method: 'POST', body: { host_token: hostToken(S.code), cursor: c } }); }
+    catch (err) { toast(err.message); }
+  }
+
+  function controls(buttons) {
+    const el = document.getElementById('ctl');
+    if (!el) return;
+    if (!isHostHere()) { el.innerHTML = '<p class="tiny muted center">The host controls the show.</p>'; return; }
+    el.innerHTML = buttons.map(([id, label, primary]) => `<button class="btn ${primary ? '' : 'ghost'} sm" id="${id}">${label}</button>`).join('');
+  }
+  const on = (id, fn) => { const b = document.getElementById(id); if (b) b.onclick = fn; };
+
+  function applyCursor(c) {
+    S.cursor = c;
+    const res = S.room.results;
+    return applyRanking(c, res);
+  }
+
+  // ---------------- ranking: one battle royale, then the explained ranking
+  function applyRanking(c, res) {
+    const showResults = () => {
+      if (S.drawn) return;
+      S.drawn = true; ticker('');
+      controls([]);
+      drawRanking(res); confetti(180);
     };
-    const roster = players().map((p) => ({ id: p.id, name: p.name, sex: p.sex, color: colorOf(p.id), height: p.height, weight: p.weight }));
-    const canvas = document.getElementById('stage');
-    const play = () => {
-      stopShow();
-      document.getElementById('board').innerHTML = '';
-      S.show = window.ArenaShow.create(canvas, roster, { onTicker: ticker, onDone: finish });
-      if (res.mode === 'ranking') {
-        const onStage = new Set(res.table.map((r) => r.id).slice(0, 12));
-        const ids = players().map((p) => p.id).filter((id) => onStage.has(id));
-        const show = Object.assign({}, res.show, { eliminations: res.show.eliminations.filter((e) => onStage.has(e.victim)) });
-        S.show.play(window.ArenaShow.brawl(S.show, ids, show, {}));
-      } else {
-        const segs = [];
-        res.rounds.forEach((r) => r.matches.filter((m) => !m.bye).forEach((m) => {
-          segs.push(...window.ArenaShow.duel(S.show, m, { intro: r.name.toUpperCase(), introTicker: `${r.name}: ${nameOf(m.a)} vs ${nameOf(m.b)}`, upset: m.upset }));
-        }));
-        segs.push(...window.ArenaShow.celebrate(S.show, res.champion, 'CHAMPION'));
-        S.show.play(segs);
-      }
-    };
-    canvas.onclick = () => { if (S.show && S.show.running) S.show.skip(); else play(); };
-    if (store.get(seenKey)) { finish(); ticker('Tap the stage to replay.'); } else { ticker('Tap the stage to skip.'); play(); }
+    if (c >= 2) { if (S.show && S.show.running) S.show.skip(); else showResults(); return; }
+    if (!S.show) {
+      const show = newShow(() => { showResults(); if (isHostHere() && S.cursor < 2) moveCursor(2); });
+      const onStage = new Set(res.table.map((r) => r.id).slice(0, 12));
+      const ids = players().map((p) => p.id).filter((id) => onStage.has(id));
+      show.play(window.ArenaShow.brawl(show, ids, Object.assign({}, res.show, { eliminations: res.show.eliminations.filter((e) => onStage.has(e.victim)) }), {}));
+      document.getElementById('board').innerHTML = '<p class="muted center small" style="margin-top:16px">Results after the show.</p>';
+    }
+    if (c === 1 && S.show) S.show.skipTo('final');
+    controls(c === 0 ? [['to-final', 'Skip to final'], ['to-results', 'Skip to results']] : [['to-results', 'Skip to results']]);
+    on('to-final', () => moveCursor(1));
+    on('to-results', () => moveCursor(2));
+  }
+
+  // ---------------- tournament: a bracket draw; the host presses ▶ on a fight, everyone watches it
+  // Shared state: { played: [fight indices], current: fight on stage or -1, skip: host skipped the animation }
+  function bracketInit(res) {
+    S.fights = []; S.fidx = {};
+    res.rounds.forEach((r, ri) => r.matches.forEach((m, mi) => {
+      if (!m.bye) { S.fidx[`${ri}-${mi}`] = S.fights.length; S.fights.push({ ri, mi, m }); }
+    }));
+    S.bstate = { played: [], current: -1, skip: false };
+    S.playing = -1; S.selected = null; S.lastDone = null; S.champShown = false;
+  }
+  const playedSet = () => new Set(S.bstate.played);
+  // a slot is filled once the fight that feeds it has been shown (round 1 is the draw itself)
+  function slotKnown(ri, mi, side) {
+    if (ri === 0) return true;
+    const feed = S.room.results.rounds[ri - 1].matches[2 * mi + side];
+    return feed.bye || playedSet().has(S.fidx[`${ri - 1}-${2 * mi + side}`]);
+  }
+  function playable(f) {
+    const { ri, mi } = S.fights[f];
+    return !playedSet().has(f) && slotKnown(ri, mi, 0) && slotKnown(ri, mi, 1);
+  }
+  const finalIndex = () => S.fights.length - 1;
+
+  async function pushState(next) {
+    S.bstate = next; applyBracket(next, true);
+    try { await api(`/api/rooms/${S.code}/state`, { method: 'POST', body: Object.assign({ host_token: hostToken(S.code) }, next) }); }
+    catch (err) { toast(err.message); }
+  }
+
+  function applyBracket(state, local) {
+    const st = { played: state.played || [], current: state.current === undefined ? -1 : state.current, skip: !!state.skip };
+    if (!local && isHostHere() && S.playing >= 0) return; // the host's own fight is still running locally
+    S.bstate = st;
+    const res = S.room.results;
+    const stageWrap = document.getElementById('stage-wrap');
+    if (st.current >= 0 && S.playing !== st.current && !playedSet().has(st.current)) {
+      S.selected = null;
+      stageWrap.style.display = '';
+      playBracketFight(st.current);
+    } else if (st.current >= 0 && st.skip && S.playing === st.current && S.show && S.show.running) {
+      S.show.skip();
+    }
+    if (st.current < 0 && S.playing >= 0 && playedSet().has(S.playing) && S.show && S.show.running) S.show.skip();
+    if (S.playing < 0 && !st.played.length) stageWrap.style.display = 'none';
+    const champion = playedSet().has(finalIndex());
+    drawBracket(res);
+    bracketControls();
+    if (champion && !S.champShown && S.playing < 0) {
+      S.champShown = true;
+      stageWrap.style.display = '';
+      const show = newShow(() => {});
+      show.play(window.ArenaShow.celebrate(show, res.champion, 'CHAMPION'));
+      ticker(`🏆 ${res.champion_name} is the champion!`);
+      confetti(220);
+      drawBracket(res);
+    }
+  }
+
+  function playBracketFight(f) {
+    const { m, ri } = S.fights[f];
+    const round = S.room.results.rounds[ri].name;
+    S.playing = f;
+    S.fightLive = true;
+    document.getElementById('stage-wrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const show = newShow(() => {
+      S.fightLive = false;
+      const loser = m.winner === m.a ? m.b : m.a;
+      const pose = newShow(() => {});
+      pose.play([{ dur: 3600000, draw: (ar) => [
+        { f: ar.fighters[loser], x: ar.W * 0.62, y: ar.floorY, facing: -1, pose: { lie: 1, face: 'ko' } },
+        { f: ar.fighters[m.winner], x: ar.W * 0.4, y: ar.floorY, facing: 1, pose: { raise: 1, face: 'win', bob: Math.sin(performance.now() / 200) * 3 } },
+      ] }]);
+      ticker(`🏆 ${nameOf(m.winner)} wins by ${METHOD[m.method]}${m.upset ? ' · UPSET!' : ''}`);
+      if (window.Sfx) window.Sfx.play('crowd', 1);
+      S.lastDone = f; S.playing = -1;
+      const played = Array.from(new Set([...S.bstate.played, f]));
+      if (isHostHere()) pushState({ played, current: -1, skip: false });
+      else { S.bstate = { played, current: -1, skip: false }; drawBracket(S.room.results); bracketControls(); }
+    });
+    show.play(window.ArenaShow.duel(show, m, { intro: round.toUpperCase(), introTicker: `${round}: ${nameOf(m.a)} vs ${nameOf(m.b)}`, upset: m.upset }));
+  }
+
+  function bracketControls() {
+    const anyPlayed = S.bstate.played.length > 0, live = S.playing >= 0;
+    const remaining = S.fights.map((_, f) => f).filter((f) => !playedSet().has(f));
+    if (!remaining.length && !live) { controls([]); return; }
+    controls([
+      ...(live ? [['skip-fight', 'Skip fight']] : []),
+      ...(!anyPlayed && !live ? [['shuffle', 'Shuffle the draw 🔀']] : []),
+      ...(remaining.length ? [['skip-round', 'Skip round']] : []),
+    ]);
+    on('skip-fight', () => pushState(Object.assign({}, S.bstate, { skip: true })));
+    on('skip-round', () => {
+      // finish every fight of the earliest unfinished round at once (results only, no animation)
+      const ri = Math.min(...remaining.map((f) => S.fights[f].ri));
+      const roundFights = remaining.filter((f) => S.fights[f].ri === ri);
+      S.lastDone = roundFights[roundFights.length - 1];
+      if (live && S.show) { S.playing = -1; S.fightLive = false; stopShow(); }
+      pushState({ played: [...S.bstate.played, ...roundFights], current: -1, skip: false });
+    });
+    on('shuffle', async () => {
+      try {
+        S.room = await api(`/api/rooms/${S.code}/shuffle`, { method: 'POST', body: { host_token: hostToken(S.code) } });
+        S.version = S.room.version; if (window.Sfx) window.Sfx.play('whoosh'); renderResults(); toast('New draw 🔀');
+      } catch (err) { toast(err.message); }
+    });
+  }
+
+  function fighterRow(id, known, cls, p) {
+    if (!known) return '<div class="fr tbd"><span class="slot-q">?</span><span class="grow muted small">Waiting for winner</span></div>';
+    return `<div class="fr ${cls}">${av(id, 26, cls === 'win' ? 'win' : cls === 'lose' ? 'ko' : 'normal')}<span class="grow nm">${esc(nameOf(id))}</span>${p !== null ? `<span class="pc">${pct(p)}</span>` : ''}</div>`;
+  }
+
+  function matchCard(ri, mi) {
+    const res = S.room.results, m = res.rounds[ri].matches[mi];
+    if (m.bye) {
+      return `<div class="mcard bye">${fighterRow(m.winner, true, 'win', null)}<span class="bye-tag">BYE</span></div>`;
+    }
+    const f = S.fidx[`${ri}-${mi}`], done = playedSet().has(f), live = S.playing === f || S.bstate.current === f && !done;
+    const ka = slotKnown(ri, mi, 0), kb = slotKnown(ri, mi, 1);
+    const cls = (id) => (done ? (m.winner === id ? 'win' : 'lose') : '');
+    const canPlay = isHostHere() && playable(f) && S.playing < 0 && !live;
+    return `<div class="mcard ${done ? 'done' : ''} ${live ? 'live' : ''} ${ka && kb ? 'tap' : ''}" data-show="${ka && kb ? f : ''}">
+      <div class="rows">${fighterRow(m.a, ka, cls(m.a), ka && kb ? m.p_a : null)}${fighterRow(m.b, kb, cls(m.b), ka && kb ? 1 - m.p_a : null)}</div>
+      ${canPlay ? `<button class="play" data-play="${f}" aria-label="Start fight">▶</button>` : ''}
+      ${live ? '<span class="live-badge">LIVE</span>' : ''}
+      ${done ? `<span class="how">${METHOD[m.method]}${m.upset ? ' · upset' : ''}</span>` : ''}
+    </div>`;
+  }
+
+  function drawBracket(res) {
+    const first = res.rounds[0].matches.length;
+    const cols = res.rounds.map((r, ri) => {
+      const ms = r.matches.map((_, mi) => mi);
+      const pairs = [];
+      for (let k = 0; k < ms.length; k += 2) pairs.push(ms.slice(k, k + 2));
+      return `<div class="bcol ${ri === res.rounds.length - 1 ? 'last' : ''} ${ri === 0 ? 'first' : ''}">
+        <div class="bcol-title">${esc(r.name)}</div>
+        <div class="bcol-body">${pairs.map((p) => `<div class="pair ${p.length === 2 ? 'two' : ''}">${p.map((mi) => `<div class="slot">${matchCard(ri, mi)}</div>`).join('')}</div>`).join('')}</div>
+      </div>`;
+    }).join('');
+    const champ = playedSet().has(finalIndex()) && S.playing < 0;
+    const T = champ ? titles(res) : null;
+    document.getElementById('board').innerHTML = `
+      ${champ ? `<div class="champ-band"><div class="label">🏆 Champion</div>${av(res.champion, 110, 'win')}<h1 style="margin:8px 0 6px">${esc(res.champion_name)}</h1><span class="title" style="font-size:15px">${esc(T[res.champion])}</span>
+        <p class="muted small" style="margin-top:8px">${res.champion_path.map((s) => `beat ${esc(s.opponent)} (${METHOD[s.method]})`).join(' → ')}</p></div>` : ''}
+      <div id="fightinfo"></div>
+      <h2>The draw</h2>
+      <p class="tiny muted">${isHostHere() ? 'Press ▶ to start a fight. Tap any match to see why the AI picks who it picks.' : 'Tap any match to see why the AI picks who it picks.'}</p>
+      <div class="bracket-wrap"><div class="bracket2" style="--rows:${first}">${cols}</div></div>`;
+    document.querySelectorAll('[data-play]').forEach((b) => b.onclick = (e) => {
+      e.stopPropagation(); sound();
+      pushState({ played: S.bstate.played, current: Number(b.dataset.play), skip: false });
+    });
+    document.querySelectorAll('.mcard[data-show]').forEach((c) => c.onclick = () => {
+      if (c.dataset.show === '') return;
+      S.selected = Number(c.dataset.show); drawFightInfo();
+      document.getElementById('fightinfo').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    drawFightInfo();
+    if (champ) newRoundLink();
+  }
+
+  function drawFightInfo() {
+    const el = document.getElementById('fightinfo');
+    if (!el) return;
+    const f = S.selected !== null ? S.selected : S.playing >= 0 ? S.playing : S.lastDone;
+    if (f === null || f === undefined) { el.innerHTML = ''; return; }
+    const { m, ri } = S.fights[f];
+    const round = S.room.results.rounds[ri].name;
+    const done = playedSet().has(f) && !(S.playing === f);
+    if (!done) {
+      el.innerHTML = `<h2>${S.playing === f ? 'Live now' : 'AI prediction'} · ${esc(round)}</h2>
+        <div class="result-card" style="--c:${colorOf(m.p_a >= 0.5 ? m.a : m.b)}">${av(m.a, 48)}<div class="grow center"><div class="winner" style="color:var(--text)">${esc(nameOf(m.a))} <span class="muted">vs</span> ${esc(nameOf(m.b))}</div></div>${av(m.b, 48)}</div>
+        ${predictionBody(m)}`;
+      return;
+    }
+    const loser = m.winner === m.a ? m.b : m.a;
+    el.innerHTML = `<h2>Result · ${esc(round)}</h2>
+      <div class="result-card" style="--c:${colorOf(m.winner)}">${av(m.winner, 60, 'win')}
+        <div class="grow"><div class="winner">${esc(nameOf(m.winner))} wins</div><div class="muted small">beat ${esc(nameOf(loser))} by ${METHOD[m.method]}${m.upset ? ' · UPSET 😱' : ''}</div></div>${av(loser, 42, 'ko')}</div>
+      <h2>Why: the AI breakdown</h2>${fightBody(m)}`;
   }
 
   // ------------------------------------------------------------------ explanations
@@ -337,6 +558,14 @@
       return `<div class="factor"><div class="top"><span>${esc(f.label)}</span><span class="num" style="color:${colorOf(id)}">${Math.round(alone)}% ${esc(nameOf(id))}</span></div>
         <div class="txt">${esc(f.text)}</div><div class="bar"><i style="width:${(alone - 50) * 2}%;background:${colorOf(id)}"></i></div></div>`;
     }).join('');
+  }
+
+  function predictionBody(m) {
+    return `<div class="split"><i style="width:${m.p_a * 100}%;background:${colorOf(m.a)}"></i><i style="width:${(1 - m.p_a) * 100}%;background:${colorOf(m.b)}"></i></div>
+      <div class="legend"><span>${esc(nameOf(m.a))} ${pct(m.p_a)}</span><span>${pct(1 - m.p_a)} ${esc(nameOf(m.b))}</span></div>
+      <p style="margin-top:12px">${esc(m.explain.headline)}</p>
+      <p class="tiny muted">Each factor alone: who would win, and how often, if everything else were equal.</p>
+      ${factors(m.explain.factors.slice(0, 6), m.a, m.b)}`;
   }
 
   function fightBody(m) {
@@ -409,27 +638,6 @@
         ${ids.map((rid, i) => `<tr><th style="text-align:right">${esc(nameOf(rid))}</th>${res.matrix.p[i].map((p) => (p === null ? '<td class="muted">·</td>' : `<td style="background:${p >= 0.5 ? `rgba(34,197,94,${0.15 + (p - 0.5) * 1.2})` : `rgba(244,63,94,${0.15 + (0.5 - p) * 1.2})`};font-weight:700">${Math.round(p * 100)}</td>`)).join('')}</tr>`).join('')}</table></div>
         <p class="tiny muted">Chance that the row player beats the column player.</p></details>
       ${res.show.final ? `<details class="plain"><summary>The final: ${esc(nameOf(res.show.final.a))} vs ${esc(nameOf(res.show.final.b))}</summary>${fightBody(res.show.final)}</details>` : ''}`;
-    newRoundLink();
-  }
-
-  function drawTournament(res) {
-    const T = titles(res);
-    const rounds = res.rounds.map((r) => {
-      const fights = r.matches.filter((m) => !m.bye).map((m) => {
-        const loser = m.winner === m.a ? m.b : m.a;
-        const pw = m.winner === m.a ? m.p_a : 1 - m.p_a;
-        return `<details class="row" style="--c:${colorOf(m.winner)}"><summary>${av(m.winner, 36, 'win')}${av(loser, 28, 'ko')}<span class="grow"><b>${esc(nameOf(m.winner))}</b> <span class="muted">beat ${esc(nameOf(loser))} · ${METHOD[m.method]}${m.upset ? ' · upset' : ''}</span></span><span class="num muted">${pct(pw)}</span></summary>
-          <div class="body">${fightBody(m)}</div></details>`;
-      }).join('');
-      const byes = r.matches.filter((m) => m.bye).map((m) => nameOf(m.winner));
-      return `<h2>${esc(r.name)}</h2><div class="list">${fights}</div>${byes.length ? `<p class="tiny muted" style="margin-top:8px">Bye: ${byes.map(esc).join(', ')}</p>` : ''}`;
-    }).join('');
-    document.getElementById('board').innerHTML = `
-      <div class="champ-band"><div class="label">🏆 Champion</div>${av(res.champion, 120, 'win')}<h1 style="margin:8px 0 6px">${esc(res.champion_name)}</h1><span class="title" style="font-size:15px">${esc(T[res.champion])}</span>
-        <p class="muted small">${res.champion_path.map((s) => `beat ${esc(s.opponent)} (${METHOD[s.method]})`).join(' → ')}</p></div>
-      <div class="list" style="margin-top:16px">${players().filter((p) => p.id !== res.champion).map((p) => `<div class="item" style="--c:${colorOf(p.id)}">${av(p.id, 34)}<span class="grow">${esc(p.name)}</span><span class="title">${esc(T[p.id] || '')}</span></div>`).join('')}</div>
-      <p class="tiny muted">Tap a fight for why. The % is the winner's chance before the fight.</p>
-      ${rounds}`;
     newRoundLink();
   }
 

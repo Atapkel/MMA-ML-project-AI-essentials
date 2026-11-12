@@ -1,5 +1,8 @@
 # Fight Arena 🥊
 
+> **Final project: AI Essentials: Theory and Applications**
+> Group **AAI-2604**: Beibarys, Yedil, Abdurahman
+
 **Who wins in your group?** In this multiplayer party game, everyone joins a room from their phone (link or QR
 code), enters their body, training and a quick strength test, and AI models trained on real combat-sport
 data simulate the fights. The host picks one of two modes:

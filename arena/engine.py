@@ -337,9 +337,10 @@ def simulate_fight(a, b, rng, force_winner=None):
 # ----------------------------------------------------------------------------- game modes
 
 def prepare(players):
-    """Attach model inputs to each player record {'id','name','profile'}. Always recomputed from what the
-    player entered, so players saved by an older app version or before a retrain stay consistent."""
-    return [dict(p, derived=derive(p['profile'])) for p in players]
+    """Attach model inputs to each player record {'id','name','profile'}. Inputs saved at join time are
+    reused; players saved by an older app version (no push-up field) are recomputed from what they entered."""
+    return [dict(p, derived=p['derived'] if 'pushups' in (p.get('derived') or {}) else derive(p['profile']))
+            for p in players]
 
 
 def rank_players(players, top_k=3, seed=None):
