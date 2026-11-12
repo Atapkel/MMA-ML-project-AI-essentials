@@ -8,3 +8,10 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Large / regenerable downloads (rebuild with scripts/fetch_*.py)
+data/raw/openpowerlifting/*.zip
+data/raw/sumo/cache/
+
+# Local game database (rooms/players), created at runtime
+data/arena.db*

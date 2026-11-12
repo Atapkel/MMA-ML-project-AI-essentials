@@ -1,0 +1,353 @@
+{
+  "trained_at": "2026-11-12T21:04:49",
+  "reach": {
+    "data": "UFC fighters",
+    "rows": 2241,
+    "split": "80/20 random by fighter",
+    "metric": "MAE (cm), lower is better",
+    "results": [
+      {
+        "model": "Baseline: height + mean offset",
+        "mae_cm": 4.034,
+        "fit_s": 0.0,
+        "size_bytes": 8
+      },
+      {
+        "model": "Linear regression",
+        "mae_cm": 3.932,
+        "fit_s": 0.001,
+        "size_bytes": 467
+      },
+      {
+        "model": "Gradient boosting",
+        "mae_cm": 3.991,
+        "fit_s": 0.393,
+        "size_bytes": 709357
+      }
+    ],
+    "chosen": "Linear regression"
+  },
+  "strength": {
+    "data": "OpenPowerlifting (best raw total per lifter)",
+    "rows": 330143,
+    "split": "80/20 random by lifter",
+    "metric": "MAE (kg), lower is better",
+    "results": [
+      {
+        "model": "Baseline: median total by sex",
+        "mae_kg": 80.1,
+        "fit_s": 0.0,
+        "size_bytes": 16
+      },
+      {
+        "model": "Polynomial regression (log-log)",
+        "mae_kg": 63.67,
+        "fit_s": 0.436,
+        "size_bytes": 1832
+      },
+      {
+        "model": "Gradient boosting (monotone in bodyweight)",
+        "mae_kg": 62.74,
+        "fit_s": 1.212,
+        "size_bytes": 512869
+      }
+    ],
+    "chosen": "Polynomial regression (log-log)",
+    "polynomial_monotone_40_200kg": true,
+    "choice_rule": "smooth polynomial if monotone and within 2% of best MAE (used as a ratio)"
+  },
+  "fitness": {
+    "data": "Body Performance (Korea Sports Promotion Foundation)",
+    "rows": 13377,
+    "split": "80/20 stratified by class",
+    "grip": {
+      "metric": "MAE (kg)",
+      "full": {
+        "features": [
+          "sex_m",
+          "age",
+          "height",
+          "weight",
+          "situps",
+          "jump"
+        ],
+        "results": [
+          {
+            "model": "Baseline: mean grip by sex",
+            "mae_kg": 4.964,
+            "fit_s": 0.0,
+            "size_bytes": 16
+          },
+          {
+            "model": "Linear regression",
+            "mae_kg": 3.917,
+            "fit_s": 0.001,
+            "size_bytes": 515
+          },
+          {
+            "model": "Gradient boosting",
+            "mae_kg": 3.885,
+            "fit_s": 0.258,
+            "size_bytes": 355026
+          }
+        ],
+        "chosen": "Gradient boosting"
+      },
+      "base": {
+        "features": [
+          "sex_m",
+          "age",
+          "height",
+          "weight"
+        ],
+        "results": [
+          {
+            "model": "Baseline: mean grip by sex",
+            "mae_kg": 4.964,
+            "fit_s": 0.0,
+            "size_bytes": 16
+          },
+          {
+            "model": "Linear regression",
+            "mae_kg": 4.363,
+            "fit_s": 0.001,
+            "size_bytes": 483
+          },
+          {
+            "model": "Gradient boosting",
+            "mae_kg": 4.275,
+            "fit_s": 0.282,
+            "size_bytes": 422552
+          }
+        ],
+        "chosen": "Gradient boosting"
+      }
+    },
+    "class": {
+      "metric": "F1-macro, higher is better",
+      "results": [
+        {
+          "model": "Baseline: most frequent class",
+          "f1_macro": 0.1001,
+          "accuracy": 0.2504,
+          "fit_s": 0.003,
+          "size_bytes": 496
+        },
+        {
+          "model": "Logistic regression",
+          "f1_macro": 0.5315,
+          "accuracy": 0.5366,
+          "fit_s": 0.06,
+          "size_bytes": 1456
+        },
+        {
+          "model": "Gradient boosting",
+          "f1_macro": 0.5841,
+          "accuracy": 0.5886,
+          "fit_s": 1.429,
+          "size_bytes": 1711453
+        }
+      ],
+      "chosen": "Gradient boosting"
+    },
+    "chosen": "grip: Gradient boosting; class: Gradient boosting"
+  },
+  "size": {
+    "data": "Sumo bouts (sumo-api.com), validated on ADCC open-weight matches",
+    "rows": 385729,
+    "split": "by time: train <=2018, validation 2019-2021, test >=2022",
+    "metric": "log loss (lower is better), AUC",
+    "results": [
+      {
+        "model": "Baseline: coin flip",
+        "val_log_loss": 0.6931,
+        "val_auc": 0.5,
+        "val_accuracy": 0.5157,
+        "val_brier": 0.25,
+        "test_log_loss": 0.6931,
+        "test_auc": 0.5,
+        "test_accuracy": 0.5114,
+        "test_brier": 0.25
+      },
+      {
+        "model": "Rank only (skill control)",
+        "fit_s": 0.341,
+        "val_log_loss": 0.6906,
+        "val_auc": 0.528,
+        "val_accuracy": 0.5272,
+        "val_brier": 0.2488,
+        "test_log_loss": 0.692,
+        "test_auc": 0.5316,
+        "test_accuracy": 0.5247,
+        "test_brier": 0.2493,
+        "coefficients": {
+          "rank_gap": 0.806
+        }
+      },
+      {
+        "model": "Rank + weight ratio",
+        "fit_s": 0.296,
+        "val_log_loss": 0.6903,
+        "val_auc": 0.533,
+        "val_accuracy": 0.5241,
+        "val_brier": 0.2486,
+        "test_log_loss": 0.6921,
+        "test_auc": 0.5298,
+        "test_accuracy": 0.5214,
+        "test_brier": 0.2493,
+        "coefficients": {
+          "rank_gap": 0.8,
+          "log_weight_ratio": 0.3265
+        }
+      },
+      {
+        "model": "Rank + strength ratio (powerlifting model)",
+        "fit_s": 0.526,
+        "val_log_loss": 0.6906,
+        "val_auc": 0.5275,
+        "val_accuracy": 0.5197,
+        "val_brier": 0.2487,
+        "test_log_loss": 0.6924,
+        "test_auc": 0.5261,
+        "test_accuracy": 0.5172,
+        "test_brier": 0.2495,
+        "coefficients": {
+          "rank_gap": 0.8025,
+          "log_strength_ratio": 0.7596
+        }
+      },
+      {
+        "model": "Gradient boosting on raw sizes + ranks (not explainable as one size effect)",
+        "fit_s": 3.181,
+        "val_log_loss": 0.686,
+        "val_auc": 0.5583,
+        "val_accuracy": 0.541,
+        "val_brier": 0.2465,
+        "test_log_loss": 0.6884,
+        "test_auc": 0.5596,
+        "test_accuracy": 0.5425,
+        "test_brier": 0.2475
+      }
+    ],
+    "chosen": "Rank + strength ratio (powerlifting model)",
+    "size_feature": "log_strength_ratio",
+    "beta_sumo": 0.7596,
+    "adcc": {
+      "matches_with_weight_gap": 125,
+      "auc_of_sumo_size_score": 0.6499,
+      "auc_weight_ratio_only": 0.5987,
+      "fitted_scale": 4.872,
+      "scale_95ci": [
+        1.626,
+        8.324
+      ],
+      "scale_used": 4.872
+    },
+    "beta_final": 3.7012
+  },
+  "skill": {
+    "data": "UFC bouts (TidyTuesday / Ultimate UFC Dataset)",
+    "rows": 6128,
+    "split": "by time: train <=2021, validation 2022-2023, test >=2024",
+    "metric": "log loss (lower is better), AUC",
+    "results": [
+      {
+        "model": "Baseline: coin flip",
+        "val_log_loss": 0.6931,
+        "val_auc": 0.5,
+        "val_accuracy": 0.5842,
+        "val_brier": 0.25,
+        "test_log_loss": 0.6931,
+        "test_auc": 0.5,
+        "test_accuracy": 0.5495,
+        "test_brier": 0.25
+      },
+      {
+        "model": "Logistic regression (C=0.03)",
+        "fit_s": 0.038,
+        "size_bytes": 1415,
+        "val_log_loss": 0.6416,
+        "val_auc": 0.6927,
+        "val_accuracy": 0.6396,
+        "val_brier": 0.2251,
+        "test_log_loss": 0.6346,
+        "test_auc": 0.7058,
+        "test_accuracy": 0.6512,
+        "test_brier": 0.2218
+      },
+      {
+        "model": "Gradient boosting",
+        "fit_s": 0.422,
+        "size_bytes": 158129,
+        "val_log_loss": 0.6511,
+        "val_auc": 0.6796,
+        "val_accuracy": 0.6347,
+        "val_brier": 0.2294,
+        "test_log_loss": 0.6445,
+        "test_auc": 0.6973,
+        "test_accuracy": 0.6407,
+        "test_brier": 0.2262
+      }
+    ],
+    "chosen": "Logistic regression (C=0.03)",
+    "best_by_validation": "Logistic regression (C=0.03)",
+    "explainability_cost_val_log_loss": 0.0,
+    "coefficients_per_sd": {
+      "str_vol": 0.1827,
+      "str_acc": 0.1698,
+      "td_vol": 0.1774,
+      "td_acc": -0.0132,
+      "sub": 0.0849,
+      "exp": 0.1143,
+      "height": -0.0459,
+      "reach": 0.1238,
+      "age": -0.356,
+      "southpaw": 0.0708
+    }
+  },
+  "method": {
+    "data": "UFC bouts with a KO / submission / decision finish",
+    "rows": 5955,
+    "split": "by time (same as skill model)",
+    "metric": "log loss, F1-macro",
+    "results": [
+      {
+        "model": "Baseline: class frequencies",
+        "fit_s": 0.003,
+        "size_bytes": 481,
+        "val_log_loss": 1.0422,
+        "val_f1_macro": 0.2144,
+        "test_log_loss": 0.9988,
+        "test_f1_macro": 0.2298
+      },
+      {
+        "model": "Multinomial logistic regression",
+        "fit_s": 0.073,
+        "size_bytes": 1694,
+        "val_log_loss": 0.9678,
+        "val_f1_macro": 0.3935,
+        "test_log_loss": 0.8977,
+        "test_f1_macro": 0.4239
+      },
+      {
+        "model": "Gradient boosting",
+        "fit_s": 0.832,
+        "size_bytes": 434518,
+        "val_log_loss": 0.9798,
+        "val_f1_macro": 0.3781,
+        "test_log_loss": 0.9042,
+        "test_f1_macro": 0.4301
+      }
+    ],
+    "chosen": "Multinomial logistic regression"
+  },
+  "model_file_bytes": 1030097,
+  "step_seconds": {
+    "reach": 0.4,
+    "strength": 2.2,
+    "fitness": 2.3,
+    "size": 8.8,
+    "skill": 1.7,
+    "method": 1.2
+  }
+}

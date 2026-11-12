@@ -1,0 +1,13 @@
+{
+  "ufc_bouts": 6128,
+  "ufc_bouts_dropped_missing_stats": 1041,
+  "ufc_fighters": 2241,
+  "sumo_bouts": 255875,
+  "sumo_bouts_dropped_missing": 132622,
+  "adcc_absolute_matches": 189,
+  "adcc_absolute_usable": 160,
+  "body_performance": 13377,
+  "body_performance_dropped": 16,
+  "powerlifting_results": 1143475,
+  "powerlifting_lifters": 330143
+}

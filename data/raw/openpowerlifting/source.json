@@ -1,0 +1,13 @@
+{
+  "url": "https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip",
+  "license": "Public domain (OpenPowerlifting data); attribution encouraged: https://www.openpowerlifting.org",
+  "downloaded": "2026-11-12",
+  "archive_bytes": 171090560,
+  "archive_sha256": "becf379e7806ea873f76186e532c14a5e0913624fd39aefb42751901553a4503",
+  "archive_member": "openpowerlifting-2026-11-07/openpowerlifting-2026-11-07-f93a530c.csv",
+  "rows_in_archive": 4063068,
+  "filter": "Event=SBD, Equipment=Raw, Sex in M/F, bodyweight present, TotalKg>0, not DQ/DD/NS/G; Name -> salted hash",
+  "table": "opl_raw_sbd.csv.gz",
+  "table_rows": 1143475,
+  "table_sha256": "86b264c38d5cbd898a9898dd1bbcda8371e0620d7b8df310bc7d6136accd5bde"
+}

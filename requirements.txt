@@ -1,0 +1,10 @@
+# Runtime (the web app). Model files were trained with these exact versions.
+fastapi==0.115.6
+uvicorn==0.34.0
+pydantic==2.14.3
+numpy==2.3.5
+scipy==1.17.0
+scikit-learn==1.8.0
+joblib==1.5.3
+threadpoolctl==3.6.0
+segno==1.6.1

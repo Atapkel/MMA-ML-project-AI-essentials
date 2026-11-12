@@ -1,0 +1,7 @@
+# One-click deploy on Render (free plan): New + > Blueprint > pick this repository.
+services:
+  - type: web
+    name: fight-arena
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
