@@ -3,7 +3,7 @@
   const app = document.getElementById('app');
   const badge = document.getElementById('room-badge');
   const toastEl = document.getElementById('toast');
-  const COLORS = ['#e11d48', '#2563eb', '#f59e0b', '#16a34a', '#7c3aed', '#0891b2', '#db2777', '#65a30d', '#ea580c', '#4f46e5', '#0d9488', '#9333ea'];
+  const COLORS = ['#d20a0a', '#1d4ed8', '#d4af37', '#16a34a', '#7c3aed', '#0891b2', '#db2777', '#65a30d', '#ea580c', '#4f46e5', '#0d9488', '#9ca3af'];
   const LEVELS = ['Never trained', 'Tried it', 'Train regularly', '2+ years, spar hard', 'Competitor', 'Pro level'];
   const SKILLS = [['striking', 'Striking', 'boxing, kickboxing'], ['wrestling', 'Wrestling', 'takedowns, judo'], ['grappling', 'Grappling', 'BJJ, submissions']];
   const METHOD = { KO: 'KO', SUB: 'submission', DEC: 'decision' };
@@ -95,8 +95,8 @@
   function route() {
     stopPolling(); stopShow();
     const m = location.pathname.match(/^\/r\/([A-Za-z0-9]{4,8})/);
-    if (m) { S.code = m[1].toUpperCase(); badge.textContent = S.code; badge.hidden = false; openRoom(); }
-    else { S.code = null; badge.hidden = true; renderHome(); }
+    if (m) { S.code = m[1].toUpperCase(); badge.textContent = S.code; badge.hidden = false; document.title = "You've been called to fight 🥊 · Fight Arena"; openRoom(); }
+    else { S.code = null; badge.hidden = true; document.title = 'Fight Arena'; renderHome(); }
   }
   function stopShow() { if (S.show) { S.show.destroy(); S.show = null; } }
 
@@ -144,6 +144,7 @@
     if (!changed && !force) return;
     if (room.status === 'done') { if (S.view !== 'results' || S.resultsVersion !== room.version) renderResults(); return; }
     if (S.view === 'form') return;
+    if (S.view === 'invite') { renderInvite(); return; }
     if (S.view === 'results') { stopShow(); S.view = null; }
     renderLobby();
   }
@@ -159,7 +160,7 @@
     const isHost = !!hostToken(S.code);
     const me = myPlayer(S.code);
     const joined = me && players().some((p) => p.id === me.id);
-    if (!isHost && !joined) { renderForm(false); return; }
+    if (!isHost && !joined) { if (S.accepted === S.code) renderForm(false); else renderInvite(); return; }
     S.view = 'lobby';
     const n = players().length;
     if (!isHost) {
@@ -174,7 +175,8 @@
     }
     const url = `${location.origin}/r/${S.code}`;
     app.innerHTML = `
-      <div class="qr"><img src="/api/rooms/${S.code}/qr.svg" alt="QR code to join"></div>
+      <div class="scan-label">Scan to fight</div>
+      <div class="qr"><img src="/api/rooms/${S.code}/qr.svg" alt="QR code to join the fight"></div>
       <div class="bigcode">${esc(S.code)}</div>
       <p class="muted small center">${esc(url)}</p>
       <h2>Players · ${n}</h2>
@@ -209,13 +211,33 @@
     };
   }
 
+  // ------------------------------------------------------------------ invite (what a phone sees after scanning)
+  function renderInvite() {
+    S.view = 'invite';
+    const list = players();
+    const faces = list.slice(0, 6).map((p) => av(p.id, 46)).join('');
+    app.innerHTML = `
+      <div class="invite">
+        <div class="invite-kicker">Fight night · Room ${esc(S.code)}</div>
+        <h1>You've been<br><span class="pop">called to fight</span></h1>
+        <p class="muted">${list.length ? `${list.length} fighter${list.length > 1 ? 's are' : ' is'} already in the cage. Step in, tell the AI what you've got, and find out who wins.` : 'Be the first one in the cage. Tell the AI what you\'ve got and find out who wins.'}</p>
+        ${faces ? `<div class="invite-faces">${faces}${list.length > 6 ? `<span class="more">+${list.length - 6}</span>` : ''}</div>` : ''}
+        <div style="margin-top:28px"><button class="btn" id="accept">Accept the fight</button></div>
+        <p class="tiny muted center" style="margin-top:10px">Takes 30 seconds. No account needed.</p>
+      </div>`;
+    document.getElementById('accept').onclick = () => {
+      sound(); if (window.Sfx) window.Sfx.play('bell');
+      S.accepted = S.code; renderForm(false);
+    };
+  }
+
   // ------------------------------------------------------------------ join form (one page)
   function renderForm(hostAdding) {
     S.view = 'form';
     const d = { sex: 'M', hand: 'right', striking: 0, wrestling: 0, grappling: 0 };
     const seg = (field, options) => `<div class="seg" data-field="${field}">${options.map(([v, t]) => `<button type="button" data-v="${v}" class="${String(d[field]) === String(v) ? 'on' : ''}">${t}</button>`).join('')}</div>`;
     app.innerHTML = `
-      <h2>${hostAdding ? 'Add a player' : 'Join'}</h2>
+      <h2>${hostAdding ? 'Add a fighter' : 'Fighter registration'}</h2>
       <form id="pf" novalidate>
         <label for="name">Name</label><input class="f" id="name" maxlength="24" autocomplete="nickname">
         <label>Gender</label>${seg('sex', [['M', 'Male'], ['F', 'Female']])}
@@ -370,7 +392,7 @@
         <div class="txt">${esc(x.text)}</div><div class="bar"><i style="width:${(Math.abs(x.points) / max) * 100}%;background:${x.points > 0 ? 'var(--good)' : 'var(--bad)'}"></i></div></div>`).join('');
       const top = r.place <= res.top_k;
       const mood = r.place === 1 ? 'win' : r.place === res.table.length ? 'sad' : 'normal';
-      return `<details class="row" style="--c:${colorOf(r.id)}" ${r.place === 1 ? 'open' : ''}><summary><span class="place">${r.place}</span>${av(r.id, 40, mood)}<span class="grow"><b>${esc(r.name)}</b><br><span class="title" style="--c:${colorOf(r.id)}">${esc(T[r.id] || '')}</span></span><span class="num">${pct(r.win_rate)}</span></summary>
+      return `<details class="row" style="--c:${colorOf(r.id)}" ${r.place === 1 ? 'open' : ''}><summary><span class="place">${r.place}</span>${av(r.id, 40, mood)}<span class="grow"><b>${esc(r.name)}</b><br><span class="title">${esc(T[r.id] || '')}</span></span><span class="num">${pct(r.win_rate)}</span></summary>
         <div class="body"><p class="small">${esc(r.why)}</p>
           <p class="tiny muted">Each factor alone: average edge over a 50/50 fight against the group.</p>${reasons}
           <p class="small muted" style="margin-top:8px">Best: ${pct(r.easiest.p)} vs ${esc(r.easiest.name)} · Toughest: ${pct(r.hardest.p)} vs ${esc(r.hardest.name)}</p></div></details>`;
@@ -379,7 +401,7 @@
     const ids = res.matrix.ids;
     const champ = res.table[0];
     document.getElementById('board').innerHTML = `
-      <div class="center" style="margin-top:16px">${av(champ.id, 120, 'win')}<h1 style="margin:6px 0 4px">${esc(champ.name)}</h1><span class="title" style="--c:${colorOf(champ.id)};font-size:15px">${esc(T[champ.id])}</span></div>
+      <div class="champ-band"><div class="label">🏆 Number one</div>${av(champ.id, 120, 'win')}<h1 style="margin:8px 0 6px">${esc(champ.name)}</h1><span class="title" style="font-size:15px">${esc(T[champ.id])}</span></div>
       <h2>Top ${res.top_k}</h2><p class="tiny muted">Expected win rate against everyone else. Tap a name for why.</p>
       <div class="list">${top}</div>
       ${rest ? `<details class="plain"><summary>Everyone else</summary><div class="list">${rest}</div></details>` : ''}
@@ -403,9 +425,9 @@
       return `<h2>${esc(r.name)}</h2><div class="list">${fights}</div>${byes.length ? `<p class="tiny muted" style="margin-top:8px">Bye: ${byes.map(esc).join(', ')}</p>` : ''}`;
     }).join('');
     document.getElementById('board').innerHTML = `
-      <div class="center" style="margin-top:16px">${av(res.champion, 120, 'win')}<h1 style="margin:6px 0 4px">${esc(res.champion_name)}</h1><span class="title" style="--c:${colorOf(res.champion)};font-size:15px">${esc(T[res.champion])}</span>
+      <div class="champ-band"><div class="label">🏆 Champion</div>${av(res.champion, 120, 'win')}<h1 style="margin:8px 0 6px">${esc(res.champion_name)}</h1><span class="title" style="font-size:15px">${esc(T[res.champion])}</span>
         <p class="muted small">${res.champion_path.map((s) => `beat ${esc(s.opponent)} (${METHOD[s.method]})`).join(' → ')}</p></div>
-      <div class="list" style="margin-top:16px">${players().filter((p) => p.id !== res.champion).map((p) => `<div class="item" style="--c:${colorOf(p.id)}">${av(p.id, 34)}<span class="grow">${esc(p.name)}</span><span class="title" style="--c:${colorOf(p.id)}">${esc(T[p.id] || '')}</span></div>`).join('')}</div>
+      <div class="list" style="margin-top:16px">${players().filter((p) => p.id !== res.champion).map((p) => `<div class="item" style="--c:${colorOf(p.id)}">${av(p.id, 34)}<span class="grow">${esc(p.name)}</span><span class="title">${esc(T[p.id] || '')}</span></div>`).join('')}</div>
       <p class="tiny muted">Tap a fight for why. The % is the winner's chance before the fight.</p>
       ${rounds}`;
     newRoundLink();
