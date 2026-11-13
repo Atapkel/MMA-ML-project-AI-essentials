@@ -214,3 +214,41 @@ details.row summary .av + .av { margin-left: -14px; opacity: .85; }
 @media (hover: hover) { .mcard.tap:hover { border-color: #4a4a52; } .mcard .play:hover { filter: brightness(1.1); } }
 .mcard.bye { min-height: 52px; }
 .mcard .bye-tag { flex: none; font-family: var(--head); font-size: 12px; letter-spacing: 1.5px; color: var(--muted); border: 1px solid var(--line); padding: 1px 7px; margin-right: 4px; }
+
+/* fighter stats (open any time during or after the show) */
+details.stats { margin-top: 24px; }
+details.stats > summary { font-size: 17px; color: var(--text); }
+.seg.sorter { margin: 4px 0 10px; }
+.seg.sorter button { font-size: 14px; letter-spacing: .5px; min-height: 38px; }
+.fcard { padding: 12px 14px; border-left: 4px solid var(--c, transparent); }
+.fcard + .fcard { border-top: 1px solid var(--line); }
+.fcard-head { display: flex; align-items: center; gap: 12px; }
+.fcard-head .grow { flex: 1; min-width: 0; }
+.fcard-head b { display: block; font-family: var(--head); font-size: 19px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { flex: none; font-family: var(--head); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 1px 8px; border: 1px solid var(--line); color: var(--muted); }
+.badge.gold { background: var(--gold); border-color: var(--gold); color: #111; }
+.badge.in { color: var(--good); border-color: rgba(34, 197, 94, .45); }
+.badge.out { color: var(--bad); border-color: rgba(239, 68, 68, .4); }
+.badge.live { color: #fff; background: var(--red); border-color: var(--red); }
+.fstats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 10px; }
+.fstats > div { background: var(--panel-2); padding: 6px 8px; min-width: 0; }
+.fstats .v { display: block; font-family: var(--head); font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fstats .k { display: block; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; }
+.fstats .hi { box-shadow: inset 0 -2px 0 var(--gold); }
+.fstats .hi .v { color: var(--gold); }
+.flevels { margin-top: 8px; }
+.flevel { display: grid; grid-template-columns: 78px auto minmax(0, 1fr); align-items: center; gap: 10px; font-size: 13px; padding: 2px 0; }
+.flevel .lv { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pips { display: flex; gap: 3px; }
+.pips i { width: 14px; height: 6px; background: #2a2a2e; }
+.pips i.on { background: var(--c, var(--red)); }
+.flevels.hi .pips i.on { background: var(--gold); }
+
+/* tale of the tape: one matchup side by side */
+table.tape { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; font-variant-numeric: tabular-nums; }
+table.tape th { font-family: var(--head); font-size: 16px; font-weight: 600; letter-spacing: .5px; text-transform: uppercase; padding: 4px; }
+table.tape th:first-child, table.tape td:first-child { text-align: left; }
+table.tape th:last-child, table.tape td:last-child { text-align: right; }
+table.tape td { padding: 5px 4px; border-top: 1px solid var(--line); color: var(--muted); }
+table.tape td.k { text-align: center; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+table.tape td.up { color: var(--text); font-weight: 700; }

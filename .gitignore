@@ -15,3 +15,6 @@ data/raw/sumo/cache/
 
 # Local game database (rooms/players), created at runtime
 data/arena.db*
+
+# Server settings (DOMAIN=...)
+.env

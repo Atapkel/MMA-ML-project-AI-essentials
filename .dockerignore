@@ -6,3 +6,6 @@ tests/
 scripts/
 **/__pycache__
 *.docx
+docker-compose.yml
+Caddyfile
+.env

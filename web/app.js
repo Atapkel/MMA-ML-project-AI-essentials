@@ -131,7 +131,8 @@
   function stopPolling() { if (S.poll) clearInterval(S.poll); S.poll = null; }
 
   async function refresh(force) {
-    const room = await api(`/api/rooms/${S.code}`);
+    const room = await api(`/api/rooms/${S.code}${!force && S.version ? `?since=${S.version}` : ''}`);
+    if (room.unchanged && !force) return;                          // nothing new since the last poll
     if (!force && S.version && room.version < S.version) return; // a slow, older response: ignore it
     const changed = room.version !== S.version;
     const before = new Set(players().map((p) => p.id));
@@ -359,7 +360,8 @@
       const onStage = new Set(res.table.map((r) => r.id).slice(0, 12));
       const ids = players().map((p) => p.id).filter((id) => onStage.has(id));
       show.play(window.ArenaShow.brawl(show, ids, Object.assign({}, res.show, { eliminations: res.show.eliminations.filter((e) => onStage.has(e.victim)) }), {}));
-      document.getElementById('board').innerHTML = '<p class="muted center small" style="margin-top:16px">Results after the show.</p>';
+      document.getElementById('board').innerHTML = `<p class="muted center small" style="margin-top:16px">Results after the show.</p>${statsSection()}`;
+      bindStats();
     }
     if (c === 1 && S.show) S.show.skipTo('final');
     controls(c === 0 ? [['to-final', 'Skip to final'], ['to-results', 'Skip to results']] : [['to-results', 'Skip to results']]);
@@ -516,7 +518,9 @@
       <div id="fightinfo"></div>
       <h2>The draw</h2>
       <p class="tiny muted">${isHostHere() ? 'Press ▶ to start a fight. Tap any match to see why the AI picks who it picks.' : 'Tap any match to see why the AI picks who it picks.'}</p>
-      <div class="bracket-wrap"><div class="bracket2" style="--rows:${first}">${cols}</div></div>`;
+      <div class="bracket-wrap"><div class="bracket2" style="--rows:${first}">${cols}</div></div>
+      ${statsSection()}`;
+    bindStats();
     document.querySelectorAll('[data-play]').forEach((b) => b.onclick = (e) => {
       e.stopPropagation(); sound();
       pushState({ played: S.bstate.played, current: Number(b.dataset.play), skip: false });
@@ -563,14 +567,101 @@
   function predictionBody(m) {
     return `<div class="split"><i style="width:${m.p_a * 100}%;background:${colorOf(m.a)}"></i><i style="width:${(1 - m.p_a) * 100}%;background:${colorOf(m.b)}"></i></div>
       <div class="legend"><span>${esc(nameOf(m.a))} ${pct(m.p_a)}</span><span>${pct(1 - m.p_a)} ${esc(nameOf(m.b))}</span></div>
+      ${tape(m.a, m.b)}
       <p style="margin-top:12px">${esc(m.explain.headline)}</p>
       <p class="tiny muted">Each factor alone: who would win, and how often, if everything else were equal.</p>
       ${factors(m.explain.factors.slice(0, 6), m.a, m.b)}`;
   }
 
+  // ------------------------------------------------------------------ fighter stats (open at any point of the show)
+  const SKILL_KEYS = ['striking', 'wrestling', 'grappling'];
+  const skillSum = (p) => SKILL_KEYS.reduce((s, k) => s + p.levels[k], 0);
+  const STAT_SORTS = [['weight', 'Weight', (p) => p.weight], ['height', 'Height', (p) => p.height],
+    ['strength', 'Strength', (p) => p.strength_index], ['skill', 'Skill', skillSum], ['age', 'Age', (p) => p.age]];
+  const round1 = (x) => (x === null || x === undefined ? '—' : String(Math.round(x * 10) / 10));
+  const handOf = (p) => (p.hand === 'left' ? 'Left' : 'Right');
+
+  // Side-by-side "tale of the tape" for one matchup; the bigger number in each row is highlighted.
+  function tape(aId, bId) {
+    const a = playerById(aId), b = playerById(bId);
+    if (!a || !b) return '';
+    const rows = [['Age', (p) => p.age, '', false], ['Height', (p) => p.height, ' cm', true], ['Weight', (p) => p.weight, ' kg', true],
+      ['Reach', (p) => p.reach, ' cm', true], ['Hand', handOf, '', false],
+      ...SKILL_KEYS.map((k) => [k[0].toUpperCase() + k.slice(1), (p) => p.levels[k], '/5', true]),
+      ['Push-ups', (p) => p.pushups?.count ?? null, '', true], ['Strength', (p) => p.strength_index, ' kg', true]];
+    const cell = (v, unit, up) => `<td class="${up ? 'up' : ''}">${typeof v === 'number' ? round1(v) + unit : esc(v ?? '—')}</td>`;
+    return `<table class="tape"><tr><th style="color:${colorOf(aId)}">${esc(a.name)}</th><th></th><th style="color:${colorOf(bId)}">${esc(b.name)}</th></tr>
+      ${rows.map(([k, get, unit, cmp]) => {
+        const va = get(a), vb = get(b), num = cmp && typeof va === 'number' && typeof vb === 'number';
+        return `<tr>${cell(va, unit, num && va > vb)}<td class="k">${k}</td>${cell(vb, unit, num && vb > va)}</tr>`;
+      }).join('')}</table>`;
+  }
+
+  // Where each fighter stands right now, without spoiling anything the show has not revealed yet.
+  function standing(id) {
+    const res = S.room?.results;
+    if (!res) return null;
+    if (res.mode === 'ranking') {
+      if (!S.drawn) return null;
+      const row = res.table.find((r) => r.id === id);
+      return row ? { text: `#${row.place}`, cls: row.place === 1 ? 'gold' : '' } : null;
+    }
+    if (!S.fights || !S.bstate) return null;
+    const played = playedSet();
+    if (played.has(finalIndex()) && S.playing < 0 && id === res.champion) return { text: 'Champion', cls: 'gold' };
+    const lost = S.fights.find(({ m }, f) => played.has(f) && S.playing !== f && m.winner !== id && (m.a === id || m.b === id));
+    if (lost) return { text: 'Out', cls: 'out' };
+    return S.fights.some(({ m }, f) => S.playing === f && (m.a === id || m.b === id)) ? { text: 'Fighting', cls: 'live' } : { text: 'Still in', cls: 'in' };
+  }
+
+  function fighterCard(p, sortKey) {
+    const st = standing(p.id);
+    const stat = (key, label, value) => `<div class="${key === sortKey ? 'hi' : ''}"><span class="v">${value}</span><span class="k">${label}</span></div>`;
+    const fit = p.fitness_class ? `Class ${esc(p.fitness_class)}` : '—';
+    return `<div class="fcard" style="--c:${colorOf(p.id)}">
+      <div class="fcard-head">${av(p.id, 44, st?.cls === 'gold' ? 'win' : st?.cls === 'out' ? 'ko' : 'normal')}
+        <div class="grow"><b>${esc(p.name)}</b><span class="muted small">${esc(p.style)} · ${p.sex === 'F' ? 'Female' : 'Male'}</span></div>
+        ${st ? `<span class="badge ${st.cls}">${esc(st.text)}</span>` : ''}</div>
+      <div class="fstats">
+        ${stat('age', 'Age', p.age)}${stat('height', 'Height', `${round1(p.height)} cm`)}${stat('weight', 'Weight', `${round1(p.weight)} kg`)}${stat('reach', 'Reach', `${Math.round(p.reach)} cm`)}
+        ${stat('hand', 'Hand', handOf(p))}${stat('pushups', 'Push-ups', p.pushups ? p.pushups.count : '—')}${stat('fitness', 'Fitness', fit)}${stat('strength', 'Strength', `${Math.round(p.strength_index)} kg`)}
+      </div>
+      <div class="flevels ${sortKey === 'skill' ? 'hi' : ''}">${SKILLS.map(([k, t]) => `<div class="flevel"><span>${t}</span>
+        <span class="pips" aria-label="${p.levels[k]} of 5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= p.levels[k] ? 'on' : ''}"></i>`).join('')}</span>
+        <span class="lv">${esc(LEVELS[p.levels[k]])}</span></div>`).join('')}</div>
+    </div>`;
+  }
+
+  function statsBody() {
+    const key = S.statSort || 'weight';
+    const get = (STAT_SORTS.find((s) => s[0] === key) || STAT_SORTS[0])[2];
+    const list = players().slice().sort((x, y) => get(y) - get(x) || x.name.localeCompare(y.name));
+    return `<div class="seg sorter">${STAT_SORTS.map(([k, t]) => `<button type="button" data-sort="${k}" class="${k === key ? 'on' : ''}">${t}</button>`).join('')}</div>
+      <div class="list">${list.map((p) => fighterCard(p, key)).join('')}</div>
+      <p class="tiny muted">Height, weight, age, hand, levels and push-ups are what each fighter entered. Reach, fitness class and strength
+        (estimated powerlifting total) come from the AI models.</p>`;
+  }
+
+  function statsSection() {
+    return `<details class="plain stats" id="stats" ${S.statsOpen ? 'open' : ''}><summary>📋 Fighter stats · ${players().length}</summary>
+      <div id="stats-body">${statsBody()}</div></details>`;
+  }
+
+  function bindStats() {
+    const el = document.getElementById('stats');
+    if (!el) return;
+    el.ontoggle = () => { S.statsOpen = el.open; };
+    el.querySelectorAll('[data-sort]').forEach((b) => b.onclick = () => {
+      S.statSort = b.dataset.sort;
+      document.getElementById('stats-body').innerHTML = statsBody();
+      bindStats();
+    });
+  }
+
   function fightBody(m) {
     return `<div class="split"><i style="width:${m.p_a * 100}%;background:${colorOf(m.a)}"></i><i style="width:${(1 - m.p_a) * 100}%;background:${colorOf(m.b)}"></i></div>
       <div class="legend"><span>${esc(nameOf(m.a))} ${pct(m.p_a)}</span><span>${pct(1 - m.p_a)} ${esc(nameOf(m.b))}</span></div>
+      ${tape(m.a, m.b)}
       <p style="margin-top:12px">${esc(m.explain.headline)}</p>
       <p class="tiny muted">Each factor alone: who would win, and how often, if everything else were equal.</p>
       ${factors(m.explain.factors.slice(0, 6), m.a, m.b)}
@@ -637,7 +728,9 @@
       <details class="plain"><summary>Who beats whom</summary><div class="scroll"><table class="mx"><tr><th></th>${ids.map((id) => `<th>${esc(nameOf(id).slice(0, 6))}</th>`).join('')}</tr>
         ${ids.map((rid, i) => `<tr><th style="text-align:right">${esc(nameOf(rid))}</th>${res.matrix.p[i].map((p) => (p === null ? '<td class="muted">·</td>' : `<td style="background:${p >= 0.5 ? `rgba(34,197,94,${0.15 + (p - 0.5) * 1.2})` : `rgba(244,63,94,${0.15 + (0.5 - p) * 1.2})`};font-weight:700">${Math.round(p * 100)}</td>`)).join('')}</tr>`).join('')}</table></div>
         <p class="tiny muted">Chance that the row player beats the column player.</p></details>
-      ${res.show.final ? `<details class="plain"><summary>The final: ${esc(nameOf(res.show.final.a))} vs ${esc(nameOf(res.show.final.b))}</summary>${fightBody(res.show.final)}</details>` : ''}`;
+      ${res.show.final ? `<details class="plain"><summary>The final: ${esc(nameOf(res.show.final.a))} vs ${esc(nameOf(res.show.final.b))}</summary>${fightBody(res.show.final)}</details>` : ''}
+      ${statsSection()}`;
+    bindStats();
     newRoundLink();
   }
 

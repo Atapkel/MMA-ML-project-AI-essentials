@@ -78,6 +78,12 @@ class Store:
                        (code, token, now, now))
         return code, token
 
+    def version(self, code):
+        """Last change time of a room (None if it does not exist); a cheap check for polling."""
+        with self.connect() as db:
+            row = db.execute('SELECT updated_at FROM rooms WHERE code = ?', (code,)).fetchone()
+        return row['updated_at'] if row else None
+
     def room(self, code):
         with self.connect() as db:
             row = db.execute('SELECT * FROM rooms WHERE code = ?', (code,)).fetchone()

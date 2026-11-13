@@ -1,0 +1,34 @@
+# Production on one server (e.g. a DigitalOcean Droplet):  docker compose up -d --build
+# Caddy gets and renews the HTTPS certificate for $DOMAIN automatically.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      PUBLIC_URL: https://${DOMAIN:-onlinecatalog.live}   # QR codes always point here
+    volumes:
+      - arena-data:/app/data                               # rooms survive restarts and redeploys
+    expose:
+      - "8000"                                             # reachable only through Caddy
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    depends_on: [app]
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      DOMAIN: ${DOMAIN:-onlinecatalog.live}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+
+volumes:
+  arena-data:
+  caddy-data:
+  caddy-config:

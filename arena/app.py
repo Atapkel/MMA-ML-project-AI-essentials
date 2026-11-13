@@ -130,7 +130,14 @@ def create_room():
 
 
 @app.get('/api/rooms/{code}')
-def room_state(code: str):
+def room_state(code: str, since: Optional[float] = None):
+    """Every screen polls this. With `since` (the version it already has) an unchanged room costs a few bytes."""
+    if since is not None:
+        version = store.version(code.upper())
+        if version is None:
+            raise HTTPException(404, 'Room not found. Check the code or create a new fight night.')
+        if version == since:
+            return {'unchanged': True, 'version': version}
     return public_room(get_room_or_404(code))
 
 
