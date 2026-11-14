@@ -1,15 +1,33 @@
-# Run on a server:  docker compose up -d --build
+# Production on one server (e.g. a DigitalOcean Droplet):  docker compose up -d --build
+# Caddy gets and renews the HTTPS certificate for $DOMAIN automatically.
 services:
   app:
     build: .
     restart: unless-stopped
-    ports:
-      - "80:8000"                 # open http://SERVER_IP in a browser; QR codes use that address
     environment:
-      ARENA_DB: /app/data/arena.db
-      # PUBLIC_URL: https://fight.example.com   # optional: force the address used in QR codes
+      PUBLIC_URL: https://${DOMAIN:-onlinecatalog.live}   # QR codes always point here
     volumes:
-      - arena-data:/app/data      # rooms survive container rebuilds
+      - arena-data:/app/data                               # rooms survive restarts and redeploys
+    expose:
+      - "8000"                                             # reachable only through Caddy
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
+
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    depends_on: [app]
+    ports:
+      - "80:80"
+      - "443:443"                                          # HTTPS over TCP (HTTP/3 is off in the Caddyfile)
+    environment:
+      DOMAIN: ${DOMAIN:-onlinecatalog.live}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    logging: { driver: json-file, options: { max-size: "10m", max-file: "3" } }
 
 volumes:
   arena-data:
+  caddy-data:
+  caddy-config:

@@ -1,4 +1,12 @@
 # HTTPS for the game; the certificate is issued by Let's Encrypt on first start.
+{
+	servers {
+		# HTTP/1.1 + HTTP/2 only. HTTP/3 (QUIC, over UDP) fails with ERR_QUIC_PROTOCOL_ERROR
+		# when UDP 443 is blocked anywhere on the way, so it is switched off.
+		protocols h1 h2
+	}
+}
+
 {$DOMAIN} {
 	encode zstd gzip
 	header {
