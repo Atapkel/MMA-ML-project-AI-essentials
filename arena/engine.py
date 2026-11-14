@@ -14,6 +14,7 @@ equivalent sit-ups and broad jump from the Body Performance data -> the trained 
 
 Each factor is explained on its own: the win chance if two fighters were equal in everything else.
 """
+import json
 import math
 import random
 from functools import lru_cache
@@ -21,7 +22,7 @@ from functools import lru_cache
 import joblib
 import numpy as np
 
-from arena.paths import MODEL_FILE
+from arena.paths import MODEL_FILE, MODELS
 
 # Self-rated level (0-5) -> percentile among UFC fighters for that skill. Assumption, documented
 # in the report: a level describes how someone ranks, so it maps onto the pro distribution's ranks.
@@ -323,6 +324,7 @@ def simulate_fight(a, b, rng, force_winner=None):
     upset = p_winner < 0.5
     return {
         'a': a['id'], 'b': b['id'], 'p_a': round(result['p'], 4), 'winner': winner['id'],
+        'contrib': {g: round(v, 4) for g, v in result['contrib'].items()},  # exact log-odds parts, for the waterfall
         'method': method, 'method_proba': {k: round(v, 3) for k, v in methods.items()},
         'upset': upset,
         'upset_note': (f"Upset! {winner['name']} had only a {p_winner:.0%} chance: at these odds the underdog "
@@ -493,3 +495,53 @@ def run_tournament(players, seed=None):
 
 def round_name(entrants):
     return {2: 'Final', 4: 'Semi-finals', 8: 'Quarter-finals'}.get(entrants, f'Round of {entrants}')
+
+
+# ----------------------------------------------------------------------------- explainable AI extras
+
+WHAT_IF_FIELDS = ('age', 'weight', 'pushups', 'striking', 'wrestling', 'grappling')
+
+
+def what_if(a, b, changes):
+    """Counterfactual: the same matchup after changing some of A's answers. No retraining; the same
+    trained models are simply re-run on the edited profile, so the change in chance is the model's own."""
+    a, b = prepare([a, b])
+    profile = dict(a['profile'], **{k: v for k, v in changes.items() if k in WHAT_IF_FIELDS})
+    edited = dict(a, profile=profile, derived=derive(profile))
+    before, after = matchup(a, b), matchup(edited, b)
+    pack = lambda r: {'p': round(r['p'], 4), 'contrib': {g: round(v, 4) for g, v in r['contrib'].items()}}  # noqa: E731
+    return {'before': pack(before), 'after': pack(after), 'profile': {k: profile.get(k) for k in WHAT_IF_FIELDS},
+            'strength_index': edited['derived']['strength_index'], 'fitness': edited['derived']['fitness']}
+
+
+@lru_cache(maxsize=1)
+def load_fighters():
+    """Latest style profile of every UFC fighter (built by arena/lab.py from the raw UFC data)."""
+    data = json.loads((MODELS / 'ufc_fighters_knn.json').read_text())
+    X = np.array([f['x'] for f in data['fighters']], float)
+    sex = np.array([f['sex'] for f in data['fighters']])
+    return data, (X - np.array(data['mean'])) / np.array(data['sd']), sex
+
+
+@lru_cache(maxsize=512)
+def _twins(sex, x, k):
+    data, Z, sexes = load_fighters()
+    z = (np.array(x) - np.array(data['mean'])) / np.array(data['sd'])
+    dist = np.sqrt(((Z - z) ** 2).sum(1))
+    dist[sexes != sex] = np.inf
+    nearest = np.argsort(dist)[:k]
+    return tuple((int(i), float(dist[i])) for i in nearest)
+
+
+def ufc_twins(profile, derived, k=3):
+    """k-nearest neighbours: the UFC fighters whose style and body are closest to this player.
+    Features are standardised (z-scores) so a percentile point and a kilogram count on the same scale."""
+    data, _, _ = load_fighters()
+    s = derived['skill']
+    x = (s['str_vol'], s['str_acc'], s['td_vol'], s['td_acc'], s['sub'], float(profile['height']), float(profile['weight']))
+    out = []
+    for i, d in _twins(profile['sex'], tuple(round(v, 4) for v in x), k):
+        f = data['fighters'][i]
+        out.append({'name': f['name'], 'weight_class': f['wc'], 'record': f['record'], 'year': f['year'],
+                    'distance': round(d, 3), 'match': round(100 / (1 + d)), 'x': f['x']})
+    return out

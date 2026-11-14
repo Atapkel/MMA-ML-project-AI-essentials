@@ -94,6 +94,7 @@
   document.addEventListener('click', (e) => { if (e.target.closest('[data-nav="home"]')) { e.preventDefault(); go('/'); } });
   function route() {
     stopPolling(); stopShow();
+    if (location.pathname === '/lab') { S.code = null; badge.hidden = true; renderLab(); return; }
     const m = location.pathname.match(/^\/r\/([A-Za-z0-9]{4,8})/);
     if (m) { S.code = m[1].toUpperCase(); badge.textContent = S.code; badge.hidden = false; document.title = "You've been called to fight 🥊 · Fight Arena"; openRoom(); }
     else { S.code = null; badge.hidden = true; document.title = 'Fight Arena'; renderHome(); }
@@ -108,7 +109,8 @@
       <p class="muted">Everyone joins from their phone. An AI trained on real fights decides, and explains why.</p>
       <div class="faces">${['normal', 'hit', 'win', 'ko', 'normal'].map((mood, i) => `<span class="av" style="width:56px;height:56px">${window.Avatar.svg(Math.floor(Math.random() * 1e9), { color: COLORS[i * 2], sex: i === 2 ? 'F' : 'M', mood })}</span>`).join('')}</div>
       <div style="margin-top:32px"><button class="btn" id="create">Create room</button></div>
-      <form class="join-row" id="join"><input class="f" id="code" maxlength="5" placeholder="Room code" autocomplete="off" aria-label="Room code"><button class="btn" type="submit">Join</button></form>`;
+      <form class="join-row" id="join"><input class="f" id="code" maxlength="5" placeholder="Room code" autocomplete="off" aria-label="Room code"><button class="btn" type="submit">Join</button></form>
+      ${labLink('')}`;
     document.getElementById('create').onclick = async (e) => {
       e.currentTarget.disabled = true; sound();
       try { const r = await api('/api/rooms', { method: 'POST' }); store.set(`arena:host:${r.code}`, r.host_token); go(`/r/${r.code}`); }
@@ -175,7 +177,7 @@
       const mine = playerById(me.id);
       app.innerHTML = `<div class="center" style="margin-top:24px">${av(me.id, 140)}<h2 style="margin:8px 0 4px">${esc(mine.name)}</h2>
           <p class="muted small">You're in. Waiting for the host to start.</p><p class="small fact" id="fact">${FACTS[Math.floor(Math.random() * FACTS.length)]}</p></div>
-        <h2>Players · ${n}</h2><div class="list">${playerRows(false)}</div>`;
+        <h2>Players · ${n}</h2><div class="list">${playerRows(false)}</div>${labLink(S.code)}`;
       clearInterval(S.factTimer);
       let k = 0;
       S.factTimer = setInterval(() => { const el = document.getElementById('fact'); if (!el) { clearInterval(S.factTimer); return; } el.textContent = FACTS[(k += 1) % FACTS.length]; }, 4500);
@@ -193,7 +195,8 @@
       <h2>Mode</h2>
       <div class="seg" id="mode"><button data-v="ranking" class="${S.mode === 'ranking' ? 'on' : ''}">Ranking</button><button data-v="tournament" class="${S.mode === 'tournament' ? 'on' : ''}">Tournament</button></div>
       ${S.mode === 'ranking' ? `<div class="seg" id="topk" style="margin-top:8px">${[3, 5, 10].map((k) => `<button data-v="${k}" class="${S.topK === k ? 'on' : ''}">Top ${k}</button>`).join('')}</div>` : ''}
-      <div style="margin-top:28px"><button class="btn go" id="start" ${n < 2 ? 'disabled' : ''}>${n < 2 ? 'Need at least 2 players' : 'Start'}</button></div>`;
+      <div style="margin-top:28px"><button class="btn go" id="start" ${n < 2 ? 'disabled' : ''}>${n < 2 ? 'Need at least 2 players' : 'Start'}</button></div>
+      ${labLink(S.code)}`;
     const token = hostToken(S.code);
     document.getElementById('add').onclick = () => renderForm(true);
     document.getElementById('demo').onclick = async () => {
@@ -569,8 +572,10 @@
       <div class="legend"><span>${esc(nameOf(m.a))} ${pct(m.p_a)}</span><span>${pct(1 - m.p_a)} ${esc(nameOf(m.b))}</span></div>
       ${tape(m.a, m.b)}
       <p style="margin-top:12px">${esc(m.explain.headline)}</p>
+      ${xai(m)}
       <p class="tiny muted">Each factor alone: who would win, and how often, if everything else were equal.</p>
-      ${factors(m.explain.factors.slice(0, 6), m.a, m.b)}`;
+      ${factors(m.explain.factors.slice(0, 6), m.a, m.b)}
+      ${whatIfBlock(m)}`;
   }
 
   // ------------------------------------------------------------------ fighter stats (open at any point of the show)
@@ -629,6 +634,7 @@
       <div class="flevels ${sortKey === 'skill' ? 'hi' : ''}">${SKILLS.map(([k, t]) => `<div class="flevel"><span>${t}</span>
         <span class="pips" aria-label="${p.levels[k]} of 5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= p.levels[k] ? 'on' : ''}"></i>`).join('')}</span>
         <span class="lv">${esc(LEVELS[p.levels[k]])}</span></div>`).join('')}</div>
+      ${p.twins && p.twins[0] ? `<div class="ftwin">🧬 UFC twin (k-NN): <b>${esc(p.twins[0].name)}</b> · ${esc(p.twins[0].weight_class)} · ${p.twins[0].match}% match</div>` : ''}
     </div>`;
   }
 
@@ -644,7 +650,7 @@
 
   function statsSection() {
     return `<details class="plain stats" id="stats" ${S.statsOpen ? 'open' : ''}><summary>📋 Fighter stats · ${players().length}</summary>
-      <div id="stats-body">${statsBody()}</div></details>`;
+      <div id="stats-body">${statsBody()}</div></details>${labLink(S.code)}`;
   }
 
   function bindStats() {
@@ -663,10 +669,110 @@
       <div class="legend"><span>${esc(nameOf(m.a))} ${pct(m.p_a)}</span><span>${pct(1 - m.p_a)} ${esc(nameOf(m.b))}</span></div>
       ${tape(m.a, m.b)}
       <p style="margin-top:12px">${esc(m.explain.headline)}</p>
+      ${xai(m)}
       <p class="tiny muted">Each factor alone: who would win, and how often, if everything else were equal.</p>
       ${factors(m.explain.factors.slice(0, 6), m.a, m.b)}
       <p class="small muted" style="margin-top:10px">${esc(m.finish_reason)}</p>
-      ${m.upset_note ? `<p class="small" style="color:var(--bad)">${esc(m.upset_note)}</p>` : ''}`;
+      ${m.upset_note ? `<p class="small" style="color:var(--bad)">${esc(m.upset_note)}</p>` : ''}
+      ${whatIfBlock(m)}`;
+  }
+
+  // ------------------------------------------------------------------ explainable AI: SHAP waterfall + what-if
+  function xai(m) {
+    if (!m.contrib) return '';
+    return `<div class="xai-h">🧠 How the AI got to ${pct(m.p_a)}</div>${window.Viz.waterfall(m.contrib, nameOf(m.a), nameOf(m.b), colorOf(m.a), colorOf(m.b))}`;
+  }
+
+  // Counterfactual explanation: change some of one fighter's answers, the same trained models re-run.
+  const WI_STEPS = [['weight', 'Weight', 5, ' kg', 35, 200], ['age', 'Age', 2, '', 14, 80], ['pushups', 'Push-ups', 5, '', 0, 200]];
+  function wiCurrent(k) {
+    const w = S.wi, t = playerById(w.target);
+    if (k in w.changes) return w.changes[k];
+    if (k === 'pushups') return t.pushups ? t.pushups.count : null;
+    return SKILL_KEYS.includes(k) ? t.levels[k] : t[k];
+  }
+  function whatIfBlock(m) {
+    const key = `${m.a}-${m.b}`, open = S.wi && S.wi.key === key && S.wi.open;
+    return `<details class="plain wi" data-wi="${key}" ${open ? 'open' : ''}><summary>🔮 What if…? Change an answer, see the new chance</summary>
+      <div class="wi-body">${open ? wiBody() : ''}</div></details>`;
+  }
+  function wiBody() {
+    const w = S.wi, t = playerById(w.target), other = w.target === w.a ? w.b : w.a, o = playerById(other);
+    if (!t || !o) return '';
+    const steppers = WI_STEPS.map(([k, label, , unit]) => {
+      const v = wiCurrent(k);
+      return `<div><label>${label}</label><div class="step ${k in w.changes ? 'changed' : ''}"><button type="button" data-wi-act="step" data-k="${k}" data-d="-1" aria-label="Less ${label}">−</button>
+        <span class="val">${v === null || v === undefined ? '—' : `${Math.round(v * 10) / 10}${unit}`}</span><button type="button" data-wi-act="step" data-k="${k}" data-d="1" aria-label="More ${label}">+</button></div></div>`;
+    }).join('');
+    const levels = SKILLS.map(([k, label]) => `<div class="wi-lv"><label>${label} · ${esc(LEVELS[wiCurrent(k)])}</label><div class="seg ${k in w.changes ? 'changed' : ''}">${[0, 1, 2, 3, 4, 5].map((i) => `<button type="button" data-wi-act="level" data-k="${k}" data-v="${i}" class="${wiCurrent(k) === i ? 'on' : ''}">${i}</button>`).join('')}</div></div>`).join('');
+    const r = w.res;
+    const out = !r ? '<p class="muted small" style="margin-top:12px">Calculating…</p>' : (() => {
+      const d = Math.round((r.after.p - r.before.p) * 100);
+      return `<div class="wi-res">${esc(t.name)} vs ${esc(o.name)}: <span class="num">${pct(r.before.p)}</span> → <span class="num" style="color:${d >= 0 ? 'var(--good)' : 'var(--bad)'}">${pct(r.after.p)}</span>
+          <span class="muted small">(${d >= 0 ? '+' : '−'}${Math.abs(d)} pts)</span></div>
+        <p class="tiny muted">Strength after the change: ${Math.round(r.strength_index)} kg${r.fitness ? ` · fitness class ${esc(r.fitness.class)}` : ''}. Same trained models, edited answers.</p>
+        ${window.Viz.waterfall(r.after.contrib, t.name, o.name, colorOf(t.id), colorOf(o.id))}`;
+    })();
+    return `<p class="tiny muted" style="margin-top:6px">A counterfactual explanation: what would have to change for the result to change?</p>
+      <div class="seg" style="margin-top:8px">${[w.a, w.b].map((id) => `<button type="button" data-wi-act="target" data-id="${id}" class="${w.target === id ? 'on' : ''}">${esc(nameOf(id))}</button>`).join('')}</div>
+      <div class="wi-grid">${steppers}</div>${levels}${out}
+      ${Object.keys(w.changes).length ? '<p style="margin-top:8px"><button type="button" class="link" data-wi-act="reset">Reset changes</button></p>' : ''}`;
+  }
+  function paintWi() {
+    if (!S.wi) return;
+    document.querySelectorAll(`.wi[data-wi="${S.wi.key}"] .wi-body`).forEach((el) => { el.innerHTML = wiBody(); });
+  }
+  function runWi() {
+    const w = S.wi;
+    clearTimeout(runWi.t);
+    runWi.t = setTimeout(async () => {
+      const seq = (runWi.seq = (runWi.seq || 0) + 1);
+      const other = w.target === w.a ? w.b : w.a;
+      try {
+        const res = await api(`/api/rooms/${S.code}/whatif`, { method: 'POST', body: { a: w.target, b: other, changes: w.changes } });
+        if (seq !== runWi.seq || S.wi !== w) return; // a newer request is on its way
+        w.res = res; paintWi();
+      } catch (err) { toast(err.message); }
+    }, 180);
+  }
+  document.addEventListener('toggle', (e) => {
+    const d = e.target;
+    if (!d.classList || !d.classList.contains('wi')) return;
+    const key = d.dataset.wi, [a, b] = key.split('-').map(Number);
+    if (!d.open) { if (S.wi && S.wi.key === key) S.wi.open = false; return; }
+    if (!S.wi || S.wi.key !== key) S.wi = { key, a, b, target: a, changes: {}, res: null };
+    S.wi.open = true;
+    paintWi();
+    if (!S.wi.res) runWi();
+  }, true);
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-wi-act]');
+    if (!b || !S.wi) return;
+    const w = S.wi, k = b.dataset.k;
+    if (b.dataset.wiAct === 'target') { w.target = Number(b.dataset.id); w.changes = {}; w.res = null; }
+    if (b.dataset.wiAct === 'reset') w.changes = {};
+    if (b.dataset.wiAct === 'level') w.changes[k] = Number(b.dataset.v);
+    if (b.dataset.wiAct === 'step') {
+      const [, , step, , lo, hi] = WI_STEPS.find((x) => x[0] === k), d = Number(b.dataset.d), v = wiCurrent(k);
+      if (k === 'pushups' && v === null) { if (d > 0) w.changes[k] = 10; } else w.changes[k] = Math.min(hi, Math.max(lo, v + d * step));
+    }
+    paintWi(); runWi();
+  });
+
+  // ------------------------------------------------------------------ AI Lab
+  function labLink(code) {
+    return `<a class="lab-link" href="/lab${code ? `?room=${encodeURIComponent(code)}` : ''}"><b>🧪 AI Lab</b><br><span class="muted small">${code ? 'ROC curve, calibration, feature importance, where each player stands in the data and their UFC twin.' : 'How the models work: ROC curve, calibration, feature importance, explainable AI.'}</span></a>`;
+  }
+  async function renderLab() {
+    S.view = 'lab'; document.title = 'AI Lab · Fight Arena';
+    const code = (new URLSearchParams(location.search).get('room') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+    app.innerHTML = '<p class="muted" style="margin-top:48px">Loading the models…</p>';
+    try {
+      const [data, room] = await Promise.all([api('/api/lab'), code ? api(`/api/rooms/${code}`).catch(() => null) : null]);
+      S.room = room;
+      window.Lab.render(app, data, room ? room.players : [], { colorOf, av, code });
+      if (location.hash) { const el = document.getElementById(location.hash.slice(1)); if (el) el.scrollIntoView(); }
+    } catch (err) { app.innerHTML = `<h2>AI Lab unavailable</h2><p class="muted">${esc(err.message)}</p>`; }
   }
 
   // one fun title per player, from their stats and the result

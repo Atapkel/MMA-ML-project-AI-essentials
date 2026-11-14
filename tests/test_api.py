@@ -1,4 +1,5 @@
 """End-to-end API flow with a temporary database."""
+import math
 import os
 import tempfile
 
@@ -115,3 +116,29 @@ def test_bracket_state_is_shared_and_locks_shuffle():
     assert r.json() == {'played': [0, 2], 'current': 1, 'skip': False}
     assert client.get(f'/api/rooms/{code}').json()['state']['played'] == [0, 2]
     assert client.post(f'/api/rooms/{code}/shuffle', json={'host_token': token}).status_code == 409
+
+
+def test_explainable_ai_endpoints():
+    room = make_room()
+    code, token = room['code'], room['host_token']
+    ids = [client.post(f'/api/rooms/{code}/players', json={**PROFILE, 'name': n, 'weight': w}).json()['player_id']
+           for n, w in (('Aida', 62), ('Bek', 95))]
+    players = client.get(f'/api/rooms/{code}').json()['players']
+    assert all(len(p['twins']) == 3 and p['twins'][0]['match'] > 0 for p in players)  # k-NN UFC twin
+
+    # counterfactual: more weight for the lighter fighter raises her chance; nothing changed = same chance
+    same = client.post(f'/api/rooms/{code}/whatif', json={'a': ids[0], 'b': ids[1], 'changes': {}}).json()
+    assert same['before']['p'] == same['after']['p']
+    heavier = client.post(f'/api/rooms/{code}/whatif', json={'a': ids[0], 'b': ids[1], 'changes': {'weight': 90}}).json()
+    assert heavier['after']['p'] > heavier['before']['p']
+    assert client.post(f'/api/rooms/{code}/whatif', json={'a': ids[0], 'b': 999, 'changes': {}}).status_code == 404
+    assert client.post(f'/api/rooms/{code}/whatif', json={'a': ids[0], 'b': ids[1], 'changes': {'weight': 999}}).status_code == 422
+
+    # waterfall parts are exact: they add up to the fight's log-odds
+    fight = client.post(f'/api/rooms/{code}/start', json={'host_token': token, 'mode': 'tournament'}).json()['results']['rounds'][0]['matches'][0]
+    logit = sum(fight['contrib'].values())
+    assert abs(1 / (1 + math.exp(-logit)) - fight['p_a']) < 1e-3
+
+    lab = client.get('/api/lab').json()
+    assert 0.6 < lab['skill']['auc'] < 0.8 and len(lab['skill']['roc']) > 10
+    assert client.get('/lab').status_code == 200

@@ -42,6 +42,20 @@ with the real numbers behind it ("Bek is 16 kg heavier"). Ranking mode averages 
 who-beats-whom grid. Tournament mode shows a breakdown after every fight: factors, a side-by-side comparison, why the
 finish model expected that finish, and what an upset means.
 
+## Explainable AI and the AI Lab
+
+- **SHAP waterfall in every fight.** The win formula is additive in log-odds, so each factor's part (coefficient × difference)
+  is its exact SHAP value relative to an equal opponent. Each fight shows the chance built up from 50%, one factor at a time.
+- **What if…? (counterfactual).** Change a fighter's weight, age, push-ups or skill levels and the same trained models re-run
+  (`POST /api/rooms/{code}/whatif`). It answers "what would have to change for the result to change?".
+- **UFC twin (k-nearest neighbours).** Each player is matched to the 3 closest UFC fighters on 5 style percentiles + height +
+  weight (z-scored, Euclidean). k-NN needs no training.
+- **AI Lab page (`/lab`, or `/lab?room=CODE` for a room's players).** Baseline-vs-model scores for every task, ROC curve and
+  calibration of the deployed skill model on unseen 2024+ fights, permutation feature importance for five models, coefficients,
+  confusion matrices, the strength/age/size curves, where each player stands among 330K lifters and 2,241 UFC fighters, and their
+  UFC twins. The data comes from `python -m arena.lab`, which only evaluates the saved models (`models/ai_lab.json`,
+  `models/ufc_fighters_knn.json`).
+
 ## Results (from `reports/metrics.json`)
 
 Every task compares a baseline with at least two models on a leakage-free split (by time for fights, by person for
@@ -59,7 +73,7 @@ physical data). Figures are in `reports/figures/`.
 | Finish method (UFC, 2024+ test) | F1-macro / log loss | 0.2298 / 0.9988 | Multinomial logistic regression | **0.4239 / 0.8977** |
 
 Size-effect strength: sumo coefficient 0.7596 × ADCC scale 4.872 (95% CI 1.626–8.324) = **β = 3.7012**.
-Within professional sumo, size adds little beyond rank (heavier wrestlers climb the ranks), so the strength of the effect comes mostly from the open-weight ADCC matches.
+Within professional sumo, size adds little beyond rank: everyone already weighs about 130 kg, and the heavier wrestler wins only 51% of bouts (53% with a 50+ kg gap). So the strength of the effect comes mostly from the open-weight ADCC matches.
 
 
 **One documented design assumption:** the skill model learned from UFC professionals, who are all trained, so it
@@ -88,6 +102,7 @@ python scripts/fetch_sumo.py                 # sumo bouts + measurements (cached
 python scripts/fetch_openpowerlifting.py     # 171 MB download → compact strength table
 python -m arena.prep                         # clean all datasets → data/processed/
 python -m arena.train                        # train + compare models → models/, reports/metrics.json, reports/figures/
+python -m arena.lab                          # evaluate the saved models for the AI Lab page (no training, ~6 s)
 python -m pytest                             # engine and API tests
 ```
 
@@ -111,6 +126,7 @@ they're deleted after 2 days and also reset when the server restarts. Any Docker
 ```
 arena/prep.py      clean the 6 raw datasets → data/processed/
 arena/train.py     train and compare models (baseline + ≥2 approaches each), write metrics + figures
+arena/lab.py       evaluate the saved models for the AI Lab (ROC, calibration, importance, confusion) + k-NN fighter table
 arena/engine.py    player profile → model inputs; matchup probability + explanation; ranking; tournament; fight script
 arena/store.py     SQLite storage for rooms and players
 arena/app.py       FastAPI: rooms, join, QR code, start, results

@@ -18,3 +18,5 @@ data/arena.db*
 
 # Server settings (DOMAIN=...)
 .env
+*.md
+*.pdf

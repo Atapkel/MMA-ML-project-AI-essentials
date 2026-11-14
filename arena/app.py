@@ -19,7 +19,7 @@ from pydantic import BaseModel, Field
 
 from arena import engine
 from arena.demo import FAMOUS_FIGHTERS
-from arena.paths import DB_PATH, WEB
+from arena.paths import DB_PATH, MODELS, WEB
 from arena.store import Store
 
 app = FastAPI(title='Fight Arena', docs_url='/api/docs')
@@ -65,6 +65,21 @@ class CursorRequest(BaseModel):
     cursor: int = Field(ge=0, le=10_000)
 
 
+class WhatIfChanges(BaseModel):
+    age: Optional[int] = Field(default=None, ge=14, le=80)
+    weight: Optional[float] = Field(default=None, ge=35, le=200)
+    pushups: Optional[int] = Field(default=None, ge=0, le=200)
+    striking: Optional[int] = Field(default=None, ge=0, le=5)
+    wrestling: Optional[int] = Field(default=None, ge=0, le=5)
+    grappling: Optional[int] = Field(default=None, ge=0, le=5)
+
+
+class WhatIfRequest(BaseModel):
+    a: int  # the fighter whose answers change
+    b: int  # the opponent, unchanged
+    changes: WhatIfChanges = Field(default_factory=WhatIfChanges)
+
+
 def public_player(p):
     pr = p['profile']
     d = p['derived'] if 'pushups' in p['derived'] else engine.derive(pr)  # saved by an older version
@@ -73,7 +88,9 @@ def public_player(p):
             'levels': {k: pr[k] for k in ('striking', 'wrestling', 'grappling')},
             'pushups': d.get('pushups'), 'fitness_class': (d['fitness'] or {}).get('class'),
             'strength_rel': round(d['strength_index'] / d['size_strength_ref'], 3),
-            'strength_index': d['strength_index']}
+            'strength_index': d['strength_index'],
+            'skill_pct': {k: round(d['skill'][k], 3) for k in ('str_vol', 'str_acc', 'td_vol', 'td_acc', 'sub')},
+            'twins': engine.ufc_twins(pr, d)}
 
 
 def public_room(room):
@@ -101,6 +118,7 @@ def summary(derived):
 
 
 @app.get('/')
+@app.get('/lab')
 @app.get('/r/{code}')
 def index(code: str = ''):
     return FileResponse(WEB / 'index.html')
@@ -110,6 +128,13 @@ def index(code: str = ''):
 def health():
     models = engine.load_models()
     return {'ok': True, 'models_trained_at': models['trained_at']}
+
+
+@app.get('/api/lab')
+def lab():
+    """Evaluation data for the AI Lab page (built from the saved models by arena/lab.py)."""
+    return Response((MODELS / 'ai_lab.json').read_bytes(), media_type='application/json',
+                    headers={'Cache-Control': 'public, max-age=3600'})
 
 
 @app.get('/api/options')
@@ -153,6 +178,18 @@ def join(code: str, profile: Profile):
     except ValueError as error:
         raise HTTPException(409, str(error))
     return {'player_id': player_id, 'player_token': token, 'summary': summary(derived)}
+
+
+@app.post('/api/rooms/{code}/whatif')
+def what_if(code: str, request: WhatIfRequest):
+    """Counterfactual explanation: how A's chance against B changes if some of A's answers change."""
+    room = get_room_or_404(code)
+    by_id = {p['id']: p for p in room['players']}
+    if request.a not in by_id or request.b not in by_id or request.a == request.b:
+        raise HTTPException(404, 'Pick two fighters from this room.')
+    # push-ups may be set to null ("doesn't know"); every other field must be a value when given
+    changes = {k: v for k, v in request.changes.model_dump(exclude_unset=True).items() if v is not None or k == 'pushups'}
+    return engine.what_if(by_id[request.a], by_id[request.b], changes)
 
 
 @app.delete('/api/rooms/{code}/players/{player_id}')
